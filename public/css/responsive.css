@@ -6,14 +6,14 @@
 .buy-this { margin:20px 0 20px  0; float:right}
 .price-2 { border:none; width:292px}
 .price-2 li { border:solid 1px #ccc;}
-.price-2 li:last-child {border:solid 1px #ccc!important; border-left:none!important; width:150px;}
+.price-2 li:last-child {border:solid 1px #ccc!important; border-left:none!important; width:170px;}
 
 .tab1 {padding: 0 2% !important;}
 .price-2 a { padding:0 5%}
 .price-2 { font-size:12px!important;}
 .read-full { width:205px}
 .socialmedia { margin:-2px 0 0 3px}
-.share-icon { width:62px}
+.share-icon { width:74px}
 .read-full li { font-size:12px; width:auto; padding:0 10px}
 .read-full { float:left}
 .title-form h2 { font-size:14px}

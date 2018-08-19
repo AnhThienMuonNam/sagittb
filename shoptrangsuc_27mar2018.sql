@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 12, 2018 at 12:19 PM
+-- Generation Time: Aug 05, 2018 at 04:57 PM
 -- Server version: 10.1.28-MariaDB
 -- PHP Version: 5.6.32
 
@@ -512,6 +512,15 @@ CREATE TABLE `order` (
 -- Dumping data for table `order`
 --
 
+INSERT INTO `order` (`id`, `customer_name`, `customer_address`, `customer_district`, `customer_city`, `customer_phone`, `customer_email`, `customer_note`, `order_status_id`, `customer_id`, `admin_note`, `created_at`, `updated_at`, `temp_price`, `original_price`, `total_items`, `payment_method_id`, `customer_city_id`, `is_paid`, `estimated_delivery_id`, `random_code`) VALUES
+(64, 'TXT 8899444', 'ok 123', '312', 'Bắc Kạn', '1672304204', 'bccthien@gmail.com', NULL, 1, 3, NULL, '2018-07-30 10:03:38', '2018-07-30 10:03:38', NULL, '7150000', NULL, 2, 4, 0, NULL, NULL),
+(65, 'TXT 8899444', '111 Thong nhat, phuong 11', 'Go Vap', 'Bà Rịa - Vũng Tàu', '1672304204', 'bccthien@gmail.com', NULL, 1, 3, NULL, '2018-07-30 10:31:26', '2018-07-30 10:31:26', NULL, '7300000', NULL, 2, 2, 0, NULL, NULL),
+(66, 'TXT 8899444', '89 Quang trung, phuong 9', 'go vap', 'Tp. Hồ Chí Minh', '1672304204', 'bccthien@gmail.com', NULL, 1, 3, NULL, '2018-07-30 10:36:19', '2018-07-30 10:36:19', NULL, '7300000', NULL, 2, 63, 0, NULL, NULL),
+(67, 'TXT 8899444', '90 Quang trung, Phuong 8', 'Go Vap', 'Tp. Hồ Chí Minh', '1672304204', 'bccthien@gmail.com', NULL, 2, 3, NULL, '2018-07-30 10:37:49', '2018-08-04 17:32:31', NULL, '21150000', NULL, 2, 63, 0, 1, NULL),
+(68, 'TXT 8899444', 'quang trung', 'go vap', 'Tp. Hồ Chí Minh', '1672304204', 'bccthien@gmail.com', NULL, 2, 3, NULL, '2018-07-30 14:59:01', '2018-07-30 15:04:45', NULL, '7000000', NULL, 2, 63, 0, 1, NULL),
+(69, 'Trieu xuan thien', 'Quang trung, phuong 11', 'Go Vap', 'Tp. Hồ Chí Minh', '02i13923293', 'bccthien@gmail.com', NULL, 4, NULL, NULL, '2018-08-05 02:41:20', '2018-08-05 02:45:20', NULL, '672000', NULL, 2, 63, 0, 1, NULL),
+(70, 'TXT 8899444', '90 QUang trung, Phường 12', 'Gò vấp', 'Tp. Hồ Chí Minh', '1672304204', 'bccthien@gmail.com', NULL, 1, 3, NULL, '2018-08-05 03:10:08', '2018-08-05 03:10:08', NULL, '140000', NULL, 2, 63, 0, NULL, NULL),
+(71, 'TXT 8899444', '90 QUang trung, Phường 12', 'Gò vấp', 'Tp. Hồ Chí Minh', '1672304204', 'bccthien@gmail.com', NULL, 1, 3, NULL, '2018-08-05 03:20:39', '2018-08-05 03:20:39', NULL, '1260000', NULL, 2, 63, 0, NULL, 'ShabY9ClcovWvlaQ2AYy47ZNGaTLGahutn6jQ7SwsUZM1HFkbXQ168FbbyYnfrmLcsKhW0jAKMmmwR3WEyMzkIFFAt');
 
 -- --------------------------------------------------------
 
@@ -523,17 +532,18 @@ CREATE TABLE `order_detail` (
   `id` int(10) UNSIGNED NOT NULL,
   `product_name` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
   `product_size` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
- 
+  `product_material` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `product_kieuday` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
- 
+  `product_color` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `category_name` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `discount` double(8,2) DEFAULT NULL,
   `quanlity` int(11) NOT NULL,
   `order_id` int(10) UNSIGNED NOT NULL,
   `product_id` int(10) UNSIGNED DEFAULT NULL,
+  `product_material_id` int(10) UNSIGNED DEFAULT NULL,
   `product_size_id` int(10) UNSIGNED DEFAULT NULL,
   `product_kieuday_id` int(10) UNSIGNED DEFAULT NULL,
- 
+  `product_color_id` int(10) UNSIGNED DEFAULT NULL,
   `category_id` int(10) UNSIGNED DEFAULT NULL,
   `temp_price` decimal(9,0) DEFAULT NULL,
   `original_price` decimal(9,0) NOT NULL,
@@ -550,6 +560,23 @@ CREATE TABLE `order_detail` (
 --
 -- Dumping data for table `order_detail`
 --
+
+INSERT INTO `order_detail` (`id`, `product_name`, `product_size`, `product_material`, `product_kieuday`, `product_color`, `category_name`, `discount`, `quanlity`, `order_id`, `product_id`, `product_material_id`, `product_size_id`, `product_kieuday_id`, `product_color_id`, `category_id`, `temp_price`, `original_price`, `created_at`, `updated_at`, `product_charm`, `product_charm_id`, `product_image`, `product_alias`, `product_size_co_tay_name`, `product_size_co_tay_id`) VALUES
+(167, 'Thiết kế bởiTXT 8899444', NULL, NULL, NULL, NULL, NULL, NULL, 1, 64, NULL, NULL, NULL, 1, NULL, NULL, NULL, '150000', '2018-07-30 10:03:38', '2018-07-30 10:03:38', NULL, NULL, NULL, NULL, NULL, 3),
+(168, 'jav', NULL, NULL, NULL, NULL, 'Vòng tay', NULL, 1, 64, 17, NULL, 1, 1, NULL, 1, NULL, '7000000', '2018-07-30 10:03:38', '2018-07-30 10:03:38', NULL, NULL, '1525012970.jpg', 'jav', NULL, 1),
+(169, 'jav', NULL, NULL, NULL, NULL, 'Vòng tay', NULL, 1, 65, 17, NULL, 1, 1, NULL, 1, NULL, '7000000', '2018-07-30 10:31:26', '2018-07-30 10:31:26', NULL, NULL, '1525012970.jpg', 'jav', NULL, 1),
+(170, 'Thiết kế bởiTXT 8899444', NULL, NULL, NULL, NULL, NULL, NULL, 2, 65, NULL, NULL, NULL, 1, NULL, NULL, NULL, '300000', '2018-07-30 10:31:26', '2018-07-30 10:31:26', NULL, NULL, NULL, NULL, NULL, 3),
+(171, 'Thiết kế bởiTXT 8899444', NULL, NULL, NULL, NULL, NULL, NULL, 2, 66, NULL, NULL, NULL, 1, NULL, NULL, NULL, '300000', '2018-07-30 10:36:19', '2018-07-30 10:36:19', NULL, NULL, NULL, NULL, NULL, 3),
+(172, 'jav', NULL, NULL, NULL, NULL, 'Vòng tay', NULL, 1, 66, 17, NULL, 1, 1, NULL, 1, NULL, '7000000', '2018-07-30 10:36:19', '2018-07-30 10:36:19', NULL, NULL, '1525012970.jpg', 'jav', NULL, 1),
+(173, 'jav', NULL, NULL, NULL, NULL, 'Vòng tay', NULL, 1, 67, 17, NULL, 1, 1, NULL, 1, NULL, '7000000', '2018-07-30 10:37:49', '2018-07-30 10:37:49', NULL, NULL, '1525012970.jpg', 'jav', NULL, 1),
+(174, 'Thiết kế bởiTXT 8899444', NULL, NULL, NULL, NULL, NULL, NULL, 1, 67, NULL, NULL, NULL, 1, NULL, NULL, NULL, '150000', '2018-07-30 10:37:49', '2018-07-30 10:37:49', NULL, NULL, NULL, NULL, NULL, 3),
+(175, 'jav', NULL, NULL, NULL, NULL, 'Vòng tay', NULL, 1, 67, 17, NULL, 1, 1, NULL, 1, NULL, '7000000', '2018-07-30 10:37:49', '2018-07-30 10:37:49', NULL, NULL, '1525012970.jpg', 'jav', NULL, 4),
+(176, 'jav', NULL, NULL, NULL, NULL, 'Vòng tay', NULL, 1, 67, 17, NULL, 1, 2, NULL, 1, NULL, '7000000', '2018-07-30 10:37:49', '2018-07-30 10:37:49', NULL, NULL, '1525012970.jpg', 'jav', NULL, 4),
+(177, 'jav', NULL, NULL, NULL, NULL, 'Vòng tay', NULL, 1, 68, 17, NULL, 1, 1, NULL, 1, NULL, '7000000', '2018-07-30 14:59:01', '2018-07-30 14:59:01', NULL, NULL, '1525012970.jpg', 'jav', NULL, 4),
+(178, 'jav', NULL, NULL, NULL, NULL, 'Vòng tay', NULL, 4, 69, 17, NULL, 2, 1, NULL, 1, NULL, '672000', '2018-08-05 02:41:20', '2018-08-05 02:41:20', NULL, NULL, '1525012970.jpg', 'jav', NULL, 1),
+(179, 'jav', NULL, NULL, NULL, NULL, 'Vòng tay', NULL, 1, 70, 17, NULL, 1, 1, NULL, 1, NULL, '140000', '2018-08-05 03:10:08', '2018-08-05 03:10:08', NULL, NULL, '1525012970.jpg', 'jav', NULL, 1),
+(180, 'jav', NULL, NULL, NULL, NULL, 'Vòng tay', NULL, 9, 71, 17, NULL, 1, 1, NULL, 1, NULL, '1260000', '2018-08-05 03:20:39', '2018-08-05 03:20:39', NULL, NULL, '1525012970.jpg', 'jav', NULL, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -793,6 +820,23 @@ CREATE TABLE `sub_order_detail` (
 -- Dumping data for table `sub_order_detail`
 --
 
+INSERT INTO `sub_order_detail` (`id`, `piece_name`, `order_detail_id`, `piece_id`, `created_at`, `updated_at`, `piece_size`) VALUES
+(1334, 'Đá ba', 167, 3, '2018-07-30 10:03:38', '2018-07-30 10:03:38', 'S'),
+(1335, 'Đá ba', 167, 3, '2018-07-30 10:03:38', '2018-07-30 10:03:38', 'S'),
+(1336, 'charm 6', 167, 6, '2018-07-30 10:03:38', '2018-07-30 10:03:38', '-1'),
+(1337, 'charm 6', 167, 6, '2018-07-30 10:03:38', '2018-07-30 10:03:38', '-1'),
+(1338, 'Đá ba', 170, 3, '2018-07-30 10:31:26', '2018-07-30 10:31:26', 'S'),
+(1339, 'Đá ba', 170, 3, '2018-07-30 10:31:26', '2018-07-30 10:31:26', 'S'),
+(1340, 'charm 6', 170, 6, '2018-07-30 10:31:26', '2018-07-30 10:31:26', '-1'),
+(1341, 'charm 6', 170, 6, '2018-07-30 10:31:26', '2018-07-30 10:31:26', '-1'),
+(1342, 'Đá ba', 171, 3, '2018-07-30 10:36:19', '2018-07-30 10:36:19', 'S'),
+(1343, 'Đá ba', 171, 3, '2018-07-30 10:36:19', '2018-07-30 10:36:19', 'S'),
+(1344, 'charm 6', 171, 6, '2018-07-30 10:36:19', '2018-07-30 10:36:19', '-1'),
+(1345, 'charm 6', 171, 6, '2018-07-30 10:36:19', '2018-07-30 10:36:19', '-1'),
+(1346, 'Đá ba', 174, 3, '2018-07-30 10:37:49', '2018-07-30 10:37:49', 'S'),
+(1347, 'Đá ba', 174, 3, '2018-07-30 10:37:49', '2018-07-30 10:37:49', 'S'),
+(1348, 'charm 6', 174, 6, '2018-07-30 10:37:49', '2018-07-30 10:37:49', '-1'),
+(1349, 'charm 6', 174, 6, '2018-07-30 10:37:49', '2018-07-30 10:37:49', '-1');
 
 -- --------------------------------------------------------
 
@@ -960,9 +1004,10 @@ ALTER TABLE `order_detail`
   ADD PRIMARY KEY (`id`),
   ADD KEY `order_detail_order_id_foreign` (`order_id`),
   ADD KEY `order_detail_product_id_foreign` (`product_id`),
+  ADD KEY `order_detail_product_material_id_foreign` (`product_material_id`),
   ADD KEY `order_detail_product_size_id_foreign` (`product_size_id`),
   ADD KEY `order_detail_product_kieuday_id_foreign` (`product_kieuday_id`),
- 
+  ADD KEY `order_detail_product_color_id_foreign` (`product_color_id`),
   ADD KEY `order_detail_category_id_foreign` (`category_id`),
   ADD KEY `order_detail_product_charm_id_foreign` (`product_charm_id`),
   ADD KEY `order_detail_product_size_co_tay_id_foreign` (`product_size_co_tay_id`);
@@ -1204,9 +1249,10 @@ ALTER TABLE `order_detail`
   ADD CONSTRAINT `order_detail_category_id_foreign` FOREIGN KEY (`category_id`) REFERENCES `category` (`id`),
   ADD CONSTRAINT `order_detail_order_id_foreign` FOREIGN KEY (`order_id`) REFERENCES `order` (`id`),
   ADD CONSTRAINT `order_detail_product_charm_id_foreign` FOREIGN KEY (`product_charm_id`) REFERENCES `charm` (`id`),
- 
+  ADD CONSTRAINT `order_detail_product_color_id_foreign` FOREIGN KEY (`product_color_id`) REFERENCES `color` (`id`),
   ADD CONSTRAINT `order_detail_product_id_foreign` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`),
   ADD CONSTRAINT `order_detail_product_kieuday_id_foreign` FOREIGN KEY (`product_kieuday_id`) REFERENCES `kieuday` (`id`),
+  ADD CONSTRAINT `order_detail_product_material_id_foreign` FOREIGN KEY (`product_material_id`) REFERENCES `material` (`id`),
   ADD CONSTRAINT `order_detail_product_size_co_tay_id_foreign` FOREIGN KEY (`product_size_co_tay_id`) REFERENCES `size_co_tay` (`id`),
   ADD CONSTRAINT `order_detail_product_size_id_foreign` FOREIGN KEY (`product_size_id`) REFERENCES `size` (`id`);
 

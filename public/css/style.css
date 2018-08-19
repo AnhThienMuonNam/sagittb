@@ -16264,7 +16264,7 @@ padding:0;
 .read-full {
 	float:right;
 	width:224px;
-	height:84px;
+	height:80px;
 	border:solid 1px #d5d5d5;
 	text-align:center
 }
@@ -16278,7 +16278,7 @@ padding:0;
 .read-full li a {}
 
 .read-full li:last-child {
-	width:65px!important;
+	width:25px!important;
 	border-left:solid 1px #d3d3d3;
 }
 .read-full li span {

@@ -23,10 +23,7 @@
 }
 
 
-.share-icon {
-  float: right;
-  margin: 5px 5px 5px 5px;;
-}
+
 
 
 
@@ -71,12 +68,12 @@
         <p>Xem màu sắc hợp phong thủy, hợp tuổi</p>
       </div>
 
-      <div class="col-md-8 col-sm-8 col-xs-4">
+      <div class="col-md-12 col-sm-12">
         <div class="form-group">
           <input type="number" placeholder="Năm sinh" class="form-control input-sm" data-bind="value: Nam">
         </div>
       </div>
-      <div class="col-md-4 col-sm-4 col-xs-4 icon-div">
+      <div class="col-md-12 col-sm-12">
         <div class="form-group">
           <div class="secure">
             <a href="#" data-bind="click: getPhongThuy" style="height:35px; line-height: 35px;">XEM</a>
@@ -220,55 +217,38 @@
 <!-- /ko -->
 
 <div class="clearfix">&nbsp;</div>
+<div class="price-2">
+         <ul>
+           <li class="tab1" style="background-color: #1e1c1c"> <span style="color: #DDCA22;" data-bind="text: formatMoney(Price())"></span></li>
+           <li><a href="#" data-bind="click: addToCart"> <i class="fa fa-shopping-cart" aria-hidden="true"></i> THÊM GIỎ HÀNG </a></li>
+         </ul>
+       </div>
+       <div class="share-icon" >
+        <a href="#" data-toggle="modal" data-target="#modalDesignProduct">  <i class="fa fa-puzzle-piece" aria-hidden="true"></i> <br>TỰ THIẾT KẾ</a>
+        </div>
+       <div class="socialmedia">
+         <ul>
+           <li><a href="#" data-bind="click: addToWishList"> <!-- ko if: IsInWishList() == true -->
+                <i class="fa fa-heart" aria-hidden="true" style="color: #9D0808; "></i>
+                <!-- /ko -->
+                <!-- ko if: IsInWishList() == false -->
+                <i class="fa fa-heart-o" aria-hidden="true"></i>
+                <!-- /ko --></a>
+            </li>
+           <li><a href="#" title="Hồ điều ước">  <i class="fa fa-gift" aria-hidden="true"></i></a> </li>
+           <li style="width: 80px;"><a href="#"><i class="fa fa-question" aria-hidden="true"></i>&nbsp;TƯ VẤN</a> </li>
 
-<div class="row">
+         </ul>
+       </div>
+       <div class="read-full">
+         <ul>
+           <li><a data-toggle="collapse" data-target="#demo"> <span>XEM MÔ TẢ</span> </a></li>
+           <li><a data-toggle="collapse" data-target="#demo"><img src="{{asset('images/products/arrow.jpg')}}" alt="" title=""></a> </li>
+         </ul>
+       </div>
+       <div class="clearfix"></div>
+<!-- //old button here -->
 
-  <div class="share-icon" style="width: 160px; float: left; background-color: #1e1c1c">
-    <i class="" aria-hidden="true"></i><br>
-    <span style="color: #DDCA22; font-size: 20px; font-weight: bold;" data-bind="text: formatMoney(Price())"></span>
-  </div>
-
-  <div class="share-icon" style="width: 120px; float: left; cursor: pointer;" data-bind="click: addToCart">
-    <i class="fa fa-shopping-cart" aria-hidden="true"></i><br>
-    <a href="#">THÊM GIỎ HÀNG</a>
-  </div>
-
-
-  <div class="share-icon" style="width: 90px; cursor: pointer;" data-toggle="modal" data-target="#modalDesignProduct">
-    <a href="#" >
-      <i class="fa fa-puzzle-piece" aria-hidden="true"></i> <br>TỰ THIẾT KẾ
-    </a>
-  </div>
-
-  <div class="share-icon" style="width: 150px;">
-    <i class="fa fa-question" aria-hidden="true"></i><br>
-    Cần tư vấn về sản phẩm
-  </div>
-
-  <div class="share-icon" style="cursor: pointer; width: 120px;" data-toggle="collapse" data-target="#demo">
-    <a href="#">
-      <i class="fa fa-angle-double-down" aria-hidden="true"></i> <br>XEM MÔ TẢ
-    </a>
-  </div>
-
-  <div class="share-icon" style="width: 90px;">
-    <a style="cursor: pointer;" href="#">
-      <i class="fa fa-gift" aria-hidden="true"></i> <br>HỒ ĐIỀU ƯỚC
-    </a>
-  </div>
-
-
-  <div class="share-icon" style="width: 120px; cursor: pointer;" data-bind="click: addToWishList">
-    <!-- ko if: IsInWishList() == true -->
-    <i class="fa fa-heart" aria-hidden="true" style="color: #9D0808; "></i>
-    <!-- /ko -->
-    <!-- ko if: IsInWishList() == false -->
-    <i class="fa fa-heart-o" aria-hidden="true"></i>
-    <!-- /ko -->
-    <br><span>THÍCH</span>
-  </div>
-
-</div>
 <div class="clearfix"></div>
 
 <div id="demo" class="collapse">
