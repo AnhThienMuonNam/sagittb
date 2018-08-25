@@ -2,12 +2,6 @@
 
 @section('css')
 <style type="text/css">
-.price-2_custom {
-  /*line-height: 80px;*/
-  width: 50%;
-  text-align: center;
-  float: left;
-}
 
 .delete{
   display: none;
@@ -21,12 +15,6 @@
 .removeItem:hover .delete1 {
  display:none
 }
-
-
-
-
-
-
 
 </style>
 @endsection
@@ -164,27 +152,18 @@
 
     <div class="clearfix"></div>
 
-    <div style="display:block;position:relative;max-width:1015px;padding-left:0px; margin:0;">
-      <div id="slider" class="flexslider" style="margin: 0 0 1px !important;">
+    <div style="display:block; position:relative; max-width:1015px; padding-left:0px; margin:0;">
+      <div class="flexslider" style="margin: 0 0 1px !important;">
         <ul class="slides">
           @foreach( $Images as $item )
-          <li>
+          <li data-thumb="{{asset('images/'.$item)}}" >
             <img style="width: auto; height: 500px; margin: 0 auto;" src="{{asset('images/'.$item)}}" />
           </li>
           @endforeach
           <!-- items mirrored twice, total of 12 -->
         </ul>
       </div>
-      <div id="carousel" class="flexslider" style="display: table;margin-right: auto;margin-left: auto;margin-bottom: 1px !important;">
-        <ul class="slides">
-         @foreach( $Images as $item )
-         <li style="display:table !important;">
-          <img style="height: 100px; width: auto; margin: 0 auto; border-radius: 5px;" src="{{asset('images/'.$item)}}" />
-        </li>
-        @endforeach
-        <!-- items mirrored twice, total of 12 -->
-      </ul>
-    </div>
+
     <div class="clearfix">&nbsp;</div>
   </div>
   <!-- ko if: categoryIsCustom() == true -->
@@ -626,22 +605,12 @@
     ko.applyBindings(SingleViewModel(data), document.getElementById("page-single"));
 
 
-    $('#carousel').flexslider({
+    $('.flexslider').flexslider({
       animation: "slide",
-      controlNav: false,
-      animationLoop: false,
-      slideshow: false,
-      itemWidth: 103,
-      itemMargin: 30,
-      asNavFor: '#slider'
-    });
-
-    $('#slider').flexslider({
-      animation: "slide",
-      controlNav: false,
+      controlNav: "thumbnails",
       animationLoop: true,
       slideshow: false,
-      // sync: "#carousel"
+      rtl: true
     });
   });
 

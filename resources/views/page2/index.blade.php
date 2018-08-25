@@ -1,5 +1,17 @@
  @extends('page2.layout.master')
 
+ @section('css')
+ <style>
+ .category-in_cusom_h4 {
+     margin: 0;
+     padding: 10px 0;
+     font-size: 20px;
+     text-align: center;
+     background: #dfb859;
+     text-transform: capitalize;
+ }
+ </style>
+ @endsection
 
 @section('content')
  <!--slider-->
@@ -105,43 +117,30 @@
     <div class="clearfix"></div>
   </section>
   <!--shop by category-->
-  <section  class="content-section category">
-    <div class="category-in">
-      <h1 class="text-center wow fadeInUp"  style="text-transform: none;">Danh mục sản phẩm</h1>
-      <div id="myCarousel" class="carousel slide wow fadeIn">
-        <!-- Carousel items -->
-        <div class="carousel-inner">
-          <div class="item active">
-            <ul>
-              @foreach($MenuCategories as $item)
-              <li>
-                <div class="grid" style="padding-top: 10px;">
-                  <figure class="effect-moses" >
-                    <div class="zoom-hover"> <a href="{{url('danh-muc/'.$item->alias.'/'.$item->id)}}"><span class="glyphicon glyphicon-search"></span></a> </div>
-                    <img src="{{asset('images/'.$item->image)}}" alt="" title="" class="img-responsive" style="max-height: 200px; width: 400px;"> </figure>
-                </div>
-                <h2><a style="color: white;" href="{{url('danh-muc/'.$item->alias.'/'.$item->id)}}">{{$item->name}}</a></h2>
-              </li>
-              @endforeach
+
+  <section class="content-section category">
+      <div class="category-in">
+          <h1 class="text-center wow fadeInUp"  style="text-transform: none;">Danh mục sản phẩm</h1>
+      <div class="popular-brands footer-logos content-section" style="background: #f4f4f4;">
+        <div id="owl-demo" class="owl-carousel owl-carousel-2 wow fadeInDown">
+            @foreach($MenuCategories as $item)
 
 
-
-            </ul>
-            <!--/row-->
-            <!--/row-->
+          <div class="item">
+              <figure class="effect-moses" >
+            <a href="{{url('danh-muc/'.$item->alias.'/'.$item->id)}}">
+              <img src="{{asset('images/'.$item->image)}}" alt="" title=""/>
+            </a>
+              </figure>
+              <h4 class="category-in_cusom_h4"><a style="color: #fff;" href="{{url('danh-muc/'.$item->alias.'/'.$item->id)}}">{{$item->name}}</a></h4>
           </div>
-          <!--/item-->
 
-          <!--/row-->
-          <!--/item-->
-          <!--/item-->
+            @endforeach
         </div>
-        <!--/carousel-inner-->
-       <!--  <a class="left carousel-control" href="#myCarousel" data-slide="prev"><i class="fa fa-chevron-left fa-4"></i></a> <a class="right carousel-control" href="#myCarousel" data-slide="next"><i class="fa fa-chevron-right fa-4"></i></a>  -->
       </div>
     </div>
-    <div class="clearfix"></div>
   </section>
+
   <!--latest jewellery collection-->
   @if(Auth::check())
   <section class="bg-2 content-section ">
@@ -170,7 +169,7 @@
       </div>
     </div>
   </section>
-
+  @endif
   <div class="clearfix"></div>
   <div class="tetpbg">
     <div class="container">
@@ -218,7 +217,7 @@
   </div>
   <div class="clearfix"></div>
 
-  @endif
+
   <!--Popular Brands-->
 
 

@@ -435,13 +435,13 @@ transition:all .5s ease;
 	overflow:hidden
 }
 .our-store:hover {
-	opacity:1;
+	opacity:0.9;
 	background:rgba(223, 184, 89, .9);
 	-webkit-transform:rotateZ(0);
 	transform:rotateZ(0)
 }
 .our-store a {
-	padding:44% 0 44% 0;
+	padding:34% 0 44% 0;
 	display:block;
 }
 .img-title h4 {
