@@ -85,7 +85,7 @@ var FormViewModel = function(data) {
                         self.NotifySuccess(msg);
                         self.Carts([]);
                         $("html, body").animate({ scrollTop: 0 }, "slow");
-                        // window.location.replace(data.API_URLs.ThankYou);
+                        window.location.replace(data.API_URLs.ThankYou);
                     }
                 },
                 error: function(xhr, error){

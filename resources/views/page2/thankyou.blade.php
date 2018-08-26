@@ -25,7 +25,7 @@
       </div>
       <div class="clearfix"> </div>
       <div class="thanks-bg">
-        <div class="thanks-img wow fadeIn"><img src="images/products/thanks.png" alt="" title="" class="img-responsive"></div>
+        <div class="thanks-img wow fadeIn"><img src="{{asset('images/products/thanks.png')}}" alt="" title="" class="img-responsive"></div>
         <div class="thanks-text">
           <h2 class="wow fadeIn">Cảm ơn bạn đã mua hàng tại cửa hàng chúng tôi</h2>
           <h3 class="wow fadeIn">Nội dung đơn hàng đã được gửi vào email của bạn</h3>

@@ -337,6 +337,8 @@
   options.MinusItem = <?php echo json_encode(url('minusItem')); ?>;
   options.RemoveItem = <?php echo json_encode(url('removeItem')); ?>;
   options.Checkout = <?php echo json_encode(url('checkoutPost')); ?>;
+  options.ThankYou = <?php echo json_encode(url('thank-you')); ?>;
+  
   data.API_URLs = options;
 
   ko.applyBindings(FormViewModel(data), document.getElementById("page-cart"));

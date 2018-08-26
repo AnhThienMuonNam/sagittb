@@ -577,5 +577,9 @@ class HomeController extends Controller
       return response()->json(['PhongThuy'=>$PhongThuy, 'IsSuccess'=>true]);
     }
 
+  public function thankYouPage()
+    {
+        return view('page2.thankyou');
+    }
 
 }

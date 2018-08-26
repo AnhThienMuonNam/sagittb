@@ -7,7 +7,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
   <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
-  <title>Jewellery Shoppe</title>
+  <title>SagittB</title>
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 <!--[if lt IE 9]>
@@ -221,9 +221,6 @@
   <div id="preloader"></div>
   <!--modal popup-->
 
-
-
-
 <!--modal popup-->
 <!--sidebar-->
 <div id="page-master">
@@ -234,7 +231,7 @@
         <!-- Modal Header -->
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-          <h4 class="modal-title">Đăng nhập</h4>
+          <h4 class="modal-title">ĐĂNG NHẬP</h4>
         </div>
         <!-- Modal Body -->
         <div class="modal-body">
@@ -258,13 +255,13 @@
             </div>
             <div class="form-group">
               <div class="col-sm-12">
-                <button type="button" class="btn btn-default button-1" style=" font-weight: bold;" data-bind="click: login_master">Đăng nhập</button>
+                <button type="button" class="btn btn-default button-1" style=" font-weight: bold;" data-bind="click: login_master">ĐĂNG NHẬP</button>
               </div>
             </div>
             <div class="form-group">
               <div class="col-sm-12">
                 <div class="boder3"></div>
-                <p><a href="" data-toggle="modal" data-dismiss="modal" data-target="#myModalHorizontal2">Đăng ký tài khoản</a>&nbsp; |&nbsp;<a href="#" data-toggle="modal" data-dismiss="modal" data-target="#myModalHorizontal4">Quên mật khẩu</a></p>
+                <p><a href="" data-toggle="modal" data-dismiss="modal" data-target="#myModalHorizontal2">ĐĂNG KÝ TÀI KHOẢN</a>&nbsp; |&nbsp;<a href="#" data-toggle="modal" data-dismiss="modal" data-target="#myModalHorizontal4">QUÊN MẬT KHẨU</a></p>
                 <div class="boder3"></div>
               </div>
             </div>
@@ -283,7 +280,7 @@
         <div class="modal-header">
           <button type="button" class="close"
           data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-          <h4 class="modal-title">Đăng ký tài khoản</h4>
+          <h4 class="modal-title">ĐĂNG KÝ TÀI KHOẢN</h4>
         </div>
         <!-- Modal Body -->
         <div class="modal-body">
@@ -302,32 +299,32 @@
             <!-- /ko -->
            <div class="form-group">
             <div class="col-sm-12">
-              <input type="email" class="form-control"  placeholder="Họ tên*" data-bind="value: Name_master"/>
+              <input type="email" class="form-control"  placeholder="Họ và tên" data-bind="value: Name_master"/>
             </div>
           </div>
           <div class="form-group">
             <div class="col-sm-12">
-              <input type="email" class="form-control"  placeholder="Email*" data-bind="value: Email_master"/>
+              <input type="email" class="form-control"  placeholder="Email" data-bind="value: Email_master"/>
             </div>
           </div>
           <div class="form-group">
             <div class="col-sm-12">
-              <input type="email" class="form-control"  placeholder="Số điện thoại*" data-bind="value: Phone_master"/>
+              <input type="email" class="form-control"  placeholder="Số điện thoại" data-bind="value: Phone_master"/>
             </div>
           </div>
           <div class="form-group">
             <div class="col-sm-12">
-              <input type="password" class="form-control"  placeholder="Mật khẩu*" data-bind="value: Password_master"/>
+              <input type="password" class="form-control"  placeholder="Mật khẩu" data-bind="value: Password_master"/>
             </div>
           </div>
           <div class="form-group">
             <div class="col-sm-12">
-              <input type="password" class="form-control"  placeholder="Mật khẩu x 2*" data-bind="value: Passwordx2_master"/>
+              <input type="password" class="form-control"  placeholder="Nhập lại mật khẩu" data-bind="value: Passwordx2_master"/>
             </div>
           </div>
           <div class="form-group">
             <div class="col-sm-12">
-              <button type="submit" class="btn btn-default button-1" style=" font-weight: bold;" data-bind="click: createUser_master">Tạo tài khoản</button>
+              <button type="submit" class="btn btn-default button-1" style=" font-weight: bold;" data-bind="click: createUser_master">TẠO TÀI KHOẢN</button>
             </div>
           </div>
         </form>
@@ -345,7 +342,7 @@
       <div class="modal-header">
         <button type="button" class="close"
         data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-        <h4 class="modal-title">Quên mật khẩu</h4>
+        <h4 class="modal-title">QUÊN MẬT KHẨU</h4>
       </div>
       <!-- Modal Body -->
       <div class="modal-body">
@@ -367,7 +364,7 @@
           </div>
           <div class="form-group">
             <div class="col-sm-12">
-              <button type="submit" class="btn btn-default button-1" style=" font-weight: bold;" data-bind="click: sendEmailResetPassword">Xác nhận</button>
+              <button type="submit" class="btn btn-default button-1" style=" font-weight: bold;" data-bind="click: sendEmailResetPassword">XÁC NHẬN</button>
             </div>
           </div>
         </form>
@@ -383,29 +380,29 @@
     <div class="right-logo"><a href="{{url('')}}"><img src="{{asset('images/logo-right.png')}}" class="img-responsive" alt="jewellery" title="jewellery"></a></div>
     <ul class="list-unstyled">
       <!-- <li class="active"><a href="{{url('')}}">TRANG CHỦ</a></li> -->
-      <li><a href="{{url('about-us')}}" style="text-transform: lowercase !important;">về chúng tôi</a></li>
-      <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="text-transform: lowercase !important;">sản phẩm</a>
+      <li><a href="{{url('about-us')}}" style="text-transform;">VỀ CHÚNG TÔI</a></li>
+      <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="text-transform;">SẢN PHẨM</a>
         <ul class="dropdown-menu">
           @foreach($MenuCategories as $item)
-          <li><a href="{{url('danh-muc/'.$item->alias.'/'.$item->id)}}" style="text-transform: lowercase !important;">{{$item->name}}</a></li>
+          <li><a href="{{url('danh-muc/'.$item->alias.'/'.$item->id)}}" style="">{{$item->name}}</a></li>
           @endforeach
         </ul>
       </li>
-      <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="text-transform: lowercase !important;">CHÍNH SÁCH</a>
+      <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="text-transform;">CHÍNH SÁCH</a>
         <ul class="dropdown-menu">
           <li><a href="{{url('guarantee-policy')}}" style="text-transform: lowercase !important;">bảo hành</a></li>
           <li><a href="{{url('shipping-policy')}}" style="text-transform: lowercase !important;">giao hàng</a></li>
 
         </ul>
       </li>
-        <li><a href="#" style="text-transform: lowercase !important;">hướng dẫn</a></li>
-      <li><a href="#" style="text-transform: lowercase !important;">blog</a></li>
+        <li><a href="#" style="text-transform;">HƯỚNG DẪN</a></li>
+      <li><a href="#" style="text-transform;">BLOG</a></li>
       <!-- <li><a href="contact-us.html">LIÊN HỆ</a></li> -->
       @if(!Auth::check())
       <li class="sign-in">
-        <input type="button" value="đăng nhập" data-toggle="modal" data-target="#myModalHorizontal" style="text-transform: lowercase !important;">
+        <input type="button" value="ĐĂNG NHẬP" data-toggle="modal" data-target="#myModalHorizontal" style="text-transform: lowercase !important;">
         \
-        <input  value="đăng ký"  type="button" data-toggle="modal" data-target="#myModalHorizontal2" style="text-transform: lowercase !important;">
+        <input  value="ĐĂNG KÝ"  type="button" data-toggle="modal" data-target="#myModalHorizontal2" style="text-transform: lowercase !important;">
       </li>
       @endif
       @if(Auth::check())
@@ -440,9 +437,9 @@
         {{Auth::user()->name}} <i class="fa fa-angle-down" aria-hidden="true"></i>
         </span>
         <div class="dropdown-content_header">
-          <a href="{{url('user/profile')}}">Tài khoản</a>
-          <a href="{{url('user/orders')}}">Đơn hàng</a>
-          <a href="{{url('user/wish-list')}}">Yêu thích</a>
+          <a href="{{url('user/profile')}}">TÀI KHOẢN</a>
+          <a href="{{url('user/orders')}}">ĐƠN HÀNG</a>
+          <a href="{{url('user/wish-list')}}">YÊU THÍCH</a>
         </div>
       </div>
     </li>
@@ -561,19 +558,12 @@
       <div class="logo-f"><img src="{{asset('images/logo-2.png')}}" alt="" title="" ></div>
       <div class="about-b">
         <div class="footer-text">
-          <p>Khi màn hình tắt
-Đóng ngắt hết tâm can
-Lạnh vắng nơi nhân gian
-Lại nghẹn đắng trong lầm than
-Khi màn hình tắt
-Ánh sáng cũng theo chân
-Chìm đắm bao nhiêu năm
-Đề giờ ngắm thân ta điêu tàn</p> </div>
+          <p>Shop trang sức đá quý </p> </div>
       </div>
 
       <div class="clearfix"></div>
       <ul class="social2">
-        <li style="text-transform: lowercase;"> Follow us on : </li>
+        <li style="text-transform: lowercase;"> Follow Us on : </li>
         <li><a href="#" class="icoFacebook" title="facebook"><i class="fa fa-facebook"></i></a></li>
         <li><a href="#" class="icoTwitter" title="instagram"><i class="fa fa-instagram"></i></a></li>
       </ul>
@@ -581,27 +571,27 @@ Chìm đắm bao nhiêu năm
       <br>
     </div>
     <div class="col-md-3 col-sm-3 link-footer  wow fadeIn" data-wow-delay=".2s">
-      <h2 style="text-transform: lowercase !important;">giới thiệu</h2>
+      <h2 style="text-transform;">GIỚI THIỆU</h2>
       <ul class="pull-left">
-        <li><a href="{{url('about-us')}}"> <i class="fa fa-stop" aria-hidden="true"></i> về chúng tôi</a></li>
-        <li><a href="{{url('shipping-policy')}}"><i class="fa fa-stop" aria-hidden="true"></i> chính sách giao hàng</a></li>
-        <li><a href="{{url('guarantee-policy')}}"><i class="fa fa-stop" aria-hidden="true"></i> chính sách bảo hành</a></li>
-        <li><a href="{{url('guarantee-policy')}}"><i class="fa fa-stop" aria-hidden="true"></i> hướng dẫn</a></li>
-        <li><a href="#"><i class="fa fa-stop" aria-hidden="true"></i> blog</a></li>
+        <li><a href="{{url('about-us')}}"> <i class="fa fa-stop" aria-hidden="true"></i> VỀ CHÚNG TÔI</a></li>
+        <li><a href="{{url('shipping-policy')}}"><i class="fa fa-stop" aria-hidden="true"></i> CHÍNH SÁCH GIAO HÀNG</a></li>
+        <li><a href="{{url('guarantee-policy')}}"><i class="fa fa-stop" aria-hidden="true"></i> CHÍNH SÁCH BẢO HÀNH</a></li>
+        <li><a href="{{url('guarantee-policy')}}"><i class="fa fa-stop" aria-hidden="true"></i> HƯỚNG DẪN</a></li>
+        <li><a href="#"><i class="fa fa-stop" aria-hidden="true"></i> BLOG</a></li>
         <!-- <li><a href="privacy.html"><i class="fa fa-stop" aria-hidden="true"></i> Liên hệ</a></li> -->
-        <li><a href="{{url('admin')}}" target="_blank"><i class="fa fa-stop" aria-hidden="true"></i> admin</a></li>
+        <li><a href="{{url('admin')}}" target="_blank"><i class="fa fa-stop" aria-hidden="true"></i> ADMIN</a></li>
         <!-- <li><a href="contact-us.html"><i class="fa fa-stop" aria-hidden="true"></i> Contact Us</a></li> -->
       </ul>
       <div class="clearfix"></div>
     </div>
       <div class="col-md-3 col-sm-3 wow fadeIn footer-address" data-wow-delay=".3s">
-        <h2 style="text-transform: lowercase !important;">THANH TOÁN</h2>
+        <h2 style="text-transform;">THANH TOÁN</h2>
         <ul>
 
-          <li><i class="fa fa-money" aria-hidden="true"></i> ngân hàng: ACB </li>
-          <li><i class="fa fa-circle" aria-hidden="true"></i> chi nhánh: Tân Bình</li>
-          <li><i class="fa fa-credit-card" aria-hidden="true"></i> số tài khoản: 0761-4031437</li>
-          <li><i class="fa fa-user" aria-hidden="true"></i> ctk: Triệu Xuân Thiện</li>
+          <li><i class="fa fa-money" aria-hidden="true"></i> Ngân Hàng: ACB </li>
+          <li><i class="fa fa-circle" aria-hidden="true"></i> Chi Nhánh: Tân Bình</li>
+          <li><i class="fa fa-credit-card" aria-hidden="true"></i> Số Tài Khoản: 0761-4031437</li>
+          <li><i class="fa fa-user" aria-hidden="true"></i> CTK: Triệu Xuân Thiện</li>
 
 
         </ul>
@@ -610,11 +600,11 @@ Chìm đắm bao nhiêu năm
 
       </div>
       <div class="col-md-3 col-sm-3 footer-address wow fadeIn" data-wow-delay=".4s">
-        <h2 style="text-transform: lowercase !important;">CỬA HÀNG</h2>
+        <h2 style="text-transform;">CỬA HÀNG</h2>
         <ul>
-          <li><i class="fa fa-map-marker" aria-hidden="true"></i> 79/51/8 Thống nhất, phường 11, quận Gò vấp, tp. Hồ Chí Minh </li>
-          <li><i class="fa fa-phone" aria-hidden="true"></i> 0761-4031437</li>
-          <li><i class="fa fa-envelope-o" aria-hidden="true"></i> <a href="mailto:jewellery@gmail.com">jewellery@gmail.com</a></li>
+          <li><i class="fa fa-map-marker" aria-hidden="true"></i> 127/2/77  Bình Lợi, Phường 13, Bình Thạnh, HCM </li>
+          <li><i class="fa fa-phone" aria-hidden="true"></i> 0935060818</li>
+          <li><i class="fa fa-envelope-o" aria-hidden="true"></i> <a href="instagram.com/sagittarius_bijou">instagram.com/sagittarius_bijou</a></li>
           <li><i class="fa fa-clock-o" aria-hidden="true"></i> 9:00pm - 5:00pm<br>
           Sunday Closed </li>
         </ul>
@@ -631,7 +621,7 @@ Chìm đắm bao nhiêu năm
     <div class="copyright">
       <div class="footer-in">
         <div class="pull-left">
-          ©  2018. <a href="{{url('')}}">Jewellery Shoppe</a>
+          ©  2018. <a href="{{url('')}}">Design By Triệu Xuân Thiện</a>
         </div>
         <div class="pull-right">
           <!-- Lovingly Crafted By <a href="http://srgit.com/" target="_blank">SRGIT</a>  -->
