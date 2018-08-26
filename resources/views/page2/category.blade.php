@@ -24,38 +24,9 @@
         </div>
       </div>
       <div class="clearfix"> </div>
-      <!--left-side-->
-      <div class="col-md-3">
-        <button data-toggle="collapse" data-target="#div-open" class="menu-icon"></button>
-        <div class="clearfix"></div>
-        <div id="div-open" class="collapse  wow fadeIn">
-          <div class="row">
-            <div class="col-md-12 col-sm-6">
-              <div class="cat-div  wow fadeIn">
-                <h2>HẠT</h2>
-                <div class="Category">
-                  <ul>
-                    <!-- ko foreach: Pieces -->
-                    <li>
-                      <label>
-                        <input  type="checkbox" checked data-bind="value: $data.id,attr:{id: 'checkboxPiece-'+$data.id}, event:{ change: filterPieces }">
-                        <span data-bind="text: $data.name"></span>
-                      </label>
-                    </li>
-                    <!-- /ko -->
-                  </ul>
-                </div>
-                <div class="clearfix"> </div>
-              </div>
-            </div>
 
-          </div>
-          <div class="clearfix"> </div>
-        </div>
-        <div class="clearfix"> </div>
-      </div>
       <!--right-side-->
-      <div class="col-md-9">
+      <div class="col-md-12">
          <!-- ko if: products().length > 0 -->
         <div class="row">
           <div class="col-md-6 col-sm-6 col-xs-6 select-p" style="padding-bottom: 10px;">
