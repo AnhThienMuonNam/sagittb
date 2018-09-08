@@ -30,9 +30,9 @@
     <!--breadcrumbs -->
     <div class="bread2">
       <ul>
-        <li><a href="{{url('')}}">TRANG CHỦ</a>
+        <li><a href="{{url('')}}">Trang Chủ</a>
           <li>/</li>
-          <li>giỏ hàng</li>
+          <li>Giỏ hàng</li>
         </ul>
     </div>
     <!--breadcrumbs -->
@@ -45,15 +45,19 @@
       </div>
       <!-- /ko -->
        <!-- ko if: Carts().length == 0 && !NotifySuccess() -->
-      <h3 style="text-align: center;">GIỎ HÀNG CỦA BẠN KHÔNG CÓ SẢN PHẨM NÀO</h3>
+      <h3 style="text-align: center;">Giỏ hàng của bạn hiện không có sản phẩm nào!</h3>
        <!-- /ko -->
       <!-- ko if: Carts().length > 0 -->
       <div class="table-responsive table-none wow fadeIn">
         <table class="table checkout-table">
           <tr class="table-h">
-            <td colspan="2">SẢN PHẨM</td>
-            <td>CHI TIẾT</td>
-            <td>ĐƠN GIÁ x SỐ LƯỢNG</td>
+            <td colspan="2">Sản Phẩm</td>
+            <td>Chi Tiết</td>
+            <td>
+                <div>ĐƠN GIÁ</div> 
+                <hr> 
+                <div>SL</div> 
+            </td>
             <td>XÓA</td>
             <td>TỔNG CỘNG</td>
           </tr>
@@ -68,7 +72,9 @@
               <span style="font-size: 14px;" data-bind="html: detailItem($data)"></span>
             </td>
 
-            <td><div class="cost2"><span data-bind="text: formatMoney($data.price()/$data.quanlity())"></span></div>
+            <td><div class="cost2"><span data-bind="text: formatMoney($data.price()/$data.quanlity())">
+              
+            </span></div>
               <hr>
               <div class="inc-dre">
               <div class="input-group"><span class="input-group-btn">
@@ -150,8 +156,9 @@
           <div class="row">
             <div class="col-md-2 col-sm-2 col-xs-12 text-center"><img src="{{asset('images/products/icon.png')}}" alt="" title="" class="img-responsive"></div>
             <div class="col-md-10 shipping col-sm-10 col-xs-12">
-              <h3>Giao hàng toàn quốc</h3>
-              <h4>Lưu ý: Shop chỉ áp dụng ship COD tại Tp. Hồ Chí Minh</h4>
+              <h3><b><i>Giao hàng toàn quốc</i></b></h3>
+              <h4><i>Shop chỉ áp dụng ship COD tại Tp. Hồ Chí Minh</i></h4>
+              <h4><i>Free ship khi mua trên 300.000 đ</i></h4>
             </div>
           </div>
         </div>
@@ -163,7 +170,7 @@
         <hr>
         <div class="clearfix"> </div>
         <div class="pull-left text-color">PHÍ VẬN CHUYỂN (nếu có)</div>
-        <div class="pull-right"><strong>Thanh toán khi nhận hàng (Free ship khi mua trên 300 ngàn)</strong></div>
+
         <div class="clearfix"> </div>
         <hr>
         <div class="clearfix"> </div>
@@ -243,13 +250,13 @@
               <div class="clearfix"></div>
               <div class="col-md-3 col-sm-4 col-xs-12">
                 <div class="form-group">
-                  <select id="checkout-country" class="js-countries"  data-bind="options: PaymentMethods, optionsText: 'name', optionsValue: 'id', value: CustomerPaymentMethodId, optionsCaption: '-- Hình thức thanh toán --',attr: { disabled: IsShipCod(), class: IsShipCod() ? 'gray-out': '', title: IsShipCod() ? 'Hiện tại cửa hàng chỉ áp dụng Thanh toán khi nhận hàng với khách hàng ở Tp. Hồ Chí Minh' : ''}">
+                  <select id="checkout-country" class="js-countries"  data-bind="options: PaymentMethods, optionsText: 'name', optionsValue: 'id', value: CustomerPaymentMethodId, optionsCaption: 'Hình thức thanh toán',attr: { disabled: IsShipCod(), class: IsShipCod() ? 'gray-out': '', title: IsShipCod() ? 'Hiện tại cửa hàng chỉ áp dụng Thanh toán khi nhận hàng với khách hàng ở Tp. Hồ Chí Minh' : ''}" title style="width: 104%">
                   </select>
                 </div>
               </div>
               <div class="col-md-9 col-sm-8 col-xs-12">
                 <div class="form-group">
-                  <input type="text" placeholder="Ghi chú" data-bind="value: CustomerNote">
+                  <input type="text" placeholder="Ghi Chú" data-bind="value: CustomerNote">
                 </div>
               </div>
               <div class="clearfix"></div>

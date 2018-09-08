@@ -230,8 +230,8 @@
       <div class="modal-content" style="height: auto;">
         <!-- Modal Header -->
         <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-          <h4 class="modal-title">ĐĂNG NHẬP</h4>
+          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Đóng</span></button>
+          <h4 class="modal-title">Đăng Nhập</h4>
         </div>
         <!-- Modal Body -->
         <div class="modal-body">
@@ -255,13 +255,14 @@
             </div>
             <div class="form-group">
               <div class="col-sm-12">
-                <button type="button" class="btn btn-default button-1" style=" font-weight: bold;" data-bind="click: login_master">ĐĂNG NHẬP</button>
+                <button type="button" class="btn btn-default button-1" style=" font-weight: bold; border-radius: 6px;" data-bind="click: login_master">Đăng Nhập</button>
               </div>
             </div>
             <div class="form-group">
               <div class="col-sm-12">
                 <div class="boder3"></div>
-                <p><a href="" data-toggle="modal" data-dismiss="modal" data-target="#myModalHorizontal2">ĐĂNG KÝ TÀI KHOẢN</a>&nbsp; |&nbsp;<a href="#" data-toggle="modal" data-dismiss="modal" data-target="#myModalHorizontal4">QUÊN MẬT KHẨU</a></p>
+                <p><a href="" data-toggle="modal" data-dismiss="modal" data-target="#myModalHorizontal2">
+                Đăng Ký Tài Khoản</a>&nbsp; |&nbsp;<a href="#" data-toggle="modal" data-dismiss="modal" data-target="#myModalHorizontal4">Quên Mật Khẩu</a></p>
                 <div class="boder3"></div>
               </div>
             </div>
@@ -279,8 +280,8 @@
         <!-- Modal Header -->
         <div class="modal-header">
           <button type="button" class="close"
-          data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-          <h4 class="modal-title">ĐĂNG KÝ TÀI KHOẢN</h4>
+          data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Đóng</span></button>
+          <h4 class="modal-title">Đăng Ký Tài Khoản</h4>
         </div>
         <!-- Modal Body -->
         <div class="modal-body">
@@ -324,7 +325,8 @@
           </div>
           <div class="form-group">
             <div class="col-sm-12">
-              <button type="submit" class="btn btn-default button-1" style=" font-weight: bold;" data-bind="click: createUser_master">TẠO TÀI KHOẢN</button>
+              <button type="submit" class="btn btn-default button-1" style=" font-weight: bold;
+               border-radius: 6px; " data-bind="click: createUser_master">Tạo Tài Khoản</button>
             </div>
           </div>
         </form>
@@ -341,8 +343,8 @@
       <!-- Modal Header -->
       <div class="modal-header">
         <button type="button" class="close"
-        data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-        <h4 class="modal-title">QUÊN MẬT KHẨU</h4>
+        data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Đóng</span></button>
+        <h4 class="modal-title">Quên Mật Khẩu</h4>
       </div>
       <!-- Modal Body -->
       <div class="modal-body">
@@ -364,7 +366,8 @@
           </div>
           <div class="form-group">
             <div class="col-sm-12">
-              <button type="submit" class="btn btn-default button-1" style=" font-weight: bold;" data-bind="click: sendEmailResetPassword">XÁC NHẬN</button>
+              <button type="submit" class="btn btn-default button-1" style=" font-weight: bold;
+              border-radius: 6px" data-bind="click: sendEmailResetPassword">Xác Nhận</button>
             </div>
           </div>
         </form>
@@ -380,34 +383,34 @@
     <div class="right-logo"><a href="{{url('')}}"><img src="{{asset('images/logo-right.png')}}" class="img-responsive" alt="jewellery" title="jewellery"></a></div>
     <ul class="list-unstyled">
       <!-- <li class="active"><a href="{{url('')}}">TRANG CHỦ</a></li> -->
-      <li><a href="{{url('about-us')}}" style="text-transform;">VỀ CHÚNG TÔI</a></li>
-      <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="text-transform;">SẢN PHẨM</a>
+      <li><a href="{{url('about-us')}}" style="text-transform;">Về Chúng Tôi</a></li>
+      <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="text-transform;">Sản Phẩm</a>
         <ul class="dropdown-menu">
           @foreach($MenuCategories as $item)
           <li><a href="{{url('danh-muc/'.$item->alias.'/'.$item->id)}}" style="">{{$item->name}}</a></li>
           @endforeach
         </ul>
       </li>
-      <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="text-transform;">CHÍNH SÁCH</a>
+      <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="text-transform;">Chính Sách</a>
         <ul class="dropdown-menu">
-          <li><a href="{{url('guarantee-policy')}}" style="text-transform: lowercase !important;">bảo hành</a></li>
-          <li><a href="{{url('shipping-policy')}}" style="text-transform: lowercase !important;">giao hàng</a></li>
+          <li><a href="{{url('guarantee-policy')}}">Bảo hành</a></li>
+          <li><a href="{{url('shipping-policy')}}">Giao hàng</a></li>
 
         </ul>
       </li>
-        <li><a href="#" style="text-transform;">HƯỚNG DẪN</a></li>
-      <li><a href="#" style="text-transform;">BLOG</a></li>
+        <li><a href="#" >Hướng Dẫn</a></li>
+      <li><a href="#" >Blog</a></li>
       <!-- <li><a href="contact-us.html">LIÊN HỆ</a></li> -->
       @if(!Auth::check())
       <li class="sign-in">
-        <input type="button" value="ĐĂNG NHẬP" data-toggle="modal" data-target="#myModalHorizontal" style="text-transform: lowercase !important;">
-        \
-        <input  value="ĐĂNG KÝ"  type="button" data-toggle="modal" data-target="#myModalHorizontal2" style="text-transform: lowercase !important;">
+        <input type="button" value="Đăng Nhập" data-toggle="modal" data-target="#myModalHorizontal" >
+        
+        <input  value="Đăng Ký"  type="button" data-toggle="modal" data-target="#myModalHorizontal2" >
       </li>
       @endif
       @if(Auth::check())
       <li class="sign-in">
-        <input type="button" value="đăng xuất" data-bind="click: logout_master" style="text-transform: lowercase !important;">
+        <input type="button" value="Đăng xuất" data-bind="click: logout_master" >
       </li>
       @endif
     </ul>
@@ -571,21 +574,21 @@
       <br>
     </div>
     <div class="col-md-3 col-sm-3 link-footer  wow fadeIn" data-wow-delay=".2s">
-      <h2 style="text-transform;">GIỚI THIỆU</h2>
+      <h2 style="text-transform;">Giới Thiệu</h2>
       <ul class="pull-left">
-        <li><a href="{{url('about-us')}}"> <i class="fa fa-stop" aria-hidden="true"></i> VỀ CHÚNG TÔI</a></li>
-        <li><a href="{{url('shipping-policy')}}"><i class="fa fa-stop" aria-hidden="true"></i> CHÍNH SÁCH GIAO HÀNG</a></li>
-        <li><a href="{{url('guarantee-policy')}}"><i class="fa fa-stop" aria-hidden="true"></i> CHÍNH SÁCH BẢO HÀNH</a></li>
-        <li><a href="{{url('guarantee-policy')}}"><i class="fa fa-stop" aria-hidden="true"></i> HƯỚNG DẪN</a></li>
-        <li><a href="#"><i class="fa fa-stop" aria-hidden="true"></i> BLOG</a></li>
+        <li><a href="{{url('about-us')}}"> <i class="fa fa-stop" aria-hidden="true"></i> Về Chúng Tôi</a></li>
+        <li><a href="{{url('shipping-policy')}}"><i class="fa fa-stop" aria-hidden="true"></i> Chính Sách Giao Hàng</a></li>
+        <li><a href="{{url('guarantee-policy')}}"><i class="fa fa-stop" aria-hidden="true"></i> Chính Sách Bảo Hành</a></li>
+        <li><a href="{{url('guarantee-policy')}}"><i class="fa fa-stop" aria-hidden="true"></i> Hướng Dẫn</a></li>
+        <li><a href="#"><i class="fa fa-stop" aria-hidden="true"></i> Blog</a></li>
         <!-- <li><a href="privacy.html"><i class="fa fa-stop" aria-hidden="true"></i> Liên hệ</a></li> -->
-        <li><a href="{{url('admin')}}" target="_blank"><i class="fa fa-stop" aria-hidden="true"></i> ADMIN</a></li>
+        <li><a href="{{url('admin')}}" target="_blank"><i class="fa fa-stop" aria-hidden="true"></i> Admin</a></li>
         <!-- <li><a href="contact-us.html"><i class="fa fa-stop" aria-hidden="true"></i> Contact Us</a></li> -->
       </ul>
       <div class="clearfix"></div>
     </div>
       <div class="col-md-3 col-sm-3 wow fadeIn footer-address" data-wow-delay=".3s">
-        <h2 style="text-transform;">THANH TOÁN</h2>
+        <h2 style="text-transform;">Thanh Toán</h2>
         <ul>
 
           <li><i class="fa fa-money" aria-hidden="true"></i> Ngân Hàng: ACB </li>
@@ -600,7 +603,7 @@
 
       </div>
       <div class="col-md-3 col-sm-3 footer-address wow fadeIn" data-wow-delay=".4s">
-        <h2 style="text-transform;">CỬA HÀNG</h2>
+        <h2 style="text-transform;">Cửa Hàng</h2>
         <ul>
           <li><i class="fa fa-map-marker" aria-hidden="true"></i> 127/2/77  Bình Lợi, Phường 13, Bình Thạnh, HCM </li>
           <li><i class="fa fa-phone" aria-hidden="true"></i> 0935060818</li>

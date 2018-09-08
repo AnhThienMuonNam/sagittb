@@ -15,6 +15,19 @@
 .removeItem:hover .delete1 {
  display:none
 }
+.btnpr{
+  font-weight:bold; 
+  white-space:normal;
+  display:inline-flex;
+  background:#ffff;
+  color: #dfb859;
+  border: 1px solid #dfb859;
+  border-radius: 7px;
+}
+.btnpr:hover {
+    background-color: #dfb859;
+    color: white;
+}
 
 </style>
 @endsection
@@ -64,7 +77,8 @@
       <div class="col-md-12 col-sm-12">
         <div class="form-group">
           <div class="secure">
-            <a href="#" data-bind="click: getPhongThuy" style="height:35px; line-height: 35px;">XEM</a>
+            <a href="#" data-bind="click: getPhongThuy" style="height:35px; line-height: 35px;
+            border-radius: 7px;">XEM</a>
           </div>
          <!-- <button style="background:#DDCA22; color: #1e1c1c; font-weight: bold;" type="button" class="btn" data-bind="click: getPhongThuy">XEM</button> -->
        </div>
@@ -86,15 +100,15 @@
     <hr>
     <div class="col-md-6 col-sm-12" >
       <div class="form-group">
-            <button type="button" class="btn" style="font-weight:bold; white-space:normal; display:inline-flex; background:#dfb859; color: #fff;">
-               <span style="text-align: center; font-size: 12px;">Sản phẩm liên quan </span>
+            <button type="button" class="btn btnpr">
+               <span style="text-align: center; font-size: 12px;">Xem thêm</span>
              </button>
       </div>
     </div>
     <div class="col-md-6 col-sm-12" >
       <div class="form-group">
-            <button type="button" class="btn" style="font-weight:bold; white-space:normal; display:inline-flex; background:#dfb859; color: #fff;">
-               <span style="text-align: center; font-size: 12px;">Bạn cần tư vấn </span>
+            <button type="button" class="btn btnpr" >
+               <span style="text-align: center; font-size: 12px;">Tư vấn</span>
              </button>
       </div>
     </div>
