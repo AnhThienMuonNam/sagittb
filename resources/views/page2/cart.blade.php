@@ -51,23 +51,16 @@
       <div class="table-responsive table-none wow fadeIn">
         <table class="table checkout-table">
           <tr class="table-h">
-<<<<<<< HEAD
             <td colspan="2">SẢN PHẨM</td>
             <td>CHI TIẾT</td>
-            <td>ĐƠN GIÁ x SỐ LƯỢNG</td>
-
-=======
-            <td colspan="2">Sản Phẩm</td>
-            <td>Chi Tiết</td>
             <td>
-                <div>ĐƠN GIÁ</div> 
-                <hr> 
-                <div>SL</div> 
+                <div>ĐƠN GIÁ</div>
+                <hr>
+                <div>SL</div>
             </td>
-            <td>XÓA</td>
->>>>>>> e1ede63a62dab43e02084f45f57f4b5798685309
             <td>TỔNG CỘNG</td>
                 <td></td>
+
           </tr>
           <!-- ko foreach: Carts -->
           <tr >
@@ -81,7 +74,7 @@
             </td>
 
             <td><div class="cost2"><span data-bind="text: formatMoney($data.price()/$data.quanlity())">
-              
+
             </span></div>
               <hr>
               <div class="inc-dre">
@@ -197,132 +190,94 @@
     </div>
 
     <div class="row">
-      <div class="col-md-12 col-sm-12  wow fadeIn">
-        <div class="clearfix"> </div>
-        <div class="right-form">
-          <div class="col-lg-12">
-            <div class="title-form">
-              @if(!Auth::check())
-              <h2>Thông tin khách hàng <span>(Nếu bạn đã có tài khoản)</span> </h2>
-              <div class="login-bt"><a data-toggle="modal" href="" data-target="#myModalHorizontal">Đăng Nhập</a></div>
-              @endif
-
-              @if(Auth::check())
-              <h2>Thông tin khách hàng </h2>
-              @endif
-            </div>
-          </div>
-          @if(Auth::check())
-          <div class="col-lg-12">
-            <div class="ship2">
-              <input type="checkbox" data-bind="checked: isUseUserInfo"> SỬ DỤNG THÔNG TIN ĐĂNG NHẬP</div>
-              <div class="clearfix"></div>
-              <hr>
-            </div>
-            @endif
-            <div class="clearfix"></div>
-          @if(count($errors) > 0)
-            <div class="alert alert-danger">
-              @foreach($errors->all() as $error)
-                {{$error}}<br>
-              @endforeach
-            </div>
-            @endif
-            <div data-bind="with: checkoutViewModel">
-              <div class="clearfix"></div>
-              <div class="col-md-12 col-sm-12 col-xs-12">
-                <div class="form-group">
-                  <input type="text" placeholder="Họ tên khách hàng" data-bind="value: CustomerName">
-                </div>
-              </div>
-              <div class="col-md-6 col-sm-6 col-xs-6">
-                <div class="form-group">
-                  <input type="text" placeholder="Số điện thoại" data-bind="value: CustomerPhone">
-                </div>
-              </div>
-              <div class="col-md-6 col-sm-6 col-xs-6">
-                <div class="form-group">
-                  <input type="text" placeholder="Email" data-bind="value: CustomerEmail">
-                </div>
-              </div>
-              <div class="col-md-12 col-sm-12 col-xs-12">
-                <div class="form-group">
-                  <input type="text" placeholder="Địa chỉ" data-bind="value: CustomerAddress">
-                </div>
-              </div>
-              <div class="col-md-6 col-sm-6 col-xs-6">
-                <div class="form-group">
-                  <input type="text" placeholder="Quận/Huyện" data-bind="value: CustomerDistrict">
-                </div>
-              </div>
-              <div class="col-md-6 col-sm-6 col-xs-6">
-                <div class="form-group">
-                  <select id="checkout-country" class="js-countries" data-bind="options: Cities, optionsText: 'name', optionsValue: 'id', value: CustomerCityId, optionsCaption: '-- Tỉnh/Thành phố --'">
-                  </select>
-                </div>
-              </div>
-              <div class="clearfix"></div>
-              <div class="col-md-3 col-sm-4 col-xs-12">
-                <div class="form-group">
-                  <select id="checkout-country" class="js-countries"  data-bind="options: PaymentMethods, optionsText: 'name', optionsValue: 'id', value: CustomerPaymentMethodId, optionsCaption: 'Hình thức thanh toán',attr: { disabled: IsShipCod(), class: IsShipCod() ? 'gray-out': '', title: IsShipCod() ? 'Hiện tại cửa hàng chỉ áp dụng Thanh toán khi nhận hàng với khách hàng ở Tp. Hồ Chí Minh' : ''}" title style="width: 104%">
-                  </select>
-                </div>
-              </div>
-              <div class="col-md-9 col-sm-8 col-xs-12">
-                <div class="form-group">
-                  <input type="text" placeholder="Ghi Chú" data-bind="value: CustomerNote">
-                </div>
-              </div>
-              <div class="clearfix"></div>
-              <!-- ko if: CustomerPaymentMethodId() == 2 -->
-              <div class="col-md-12 col-sm-12 col-xs-12">
-                <div class="form-group">
-                    <span>Thông tin tài khoản thanh toán:</span><br>
-                  <ul style="display: inline-flex;">
-                    <!-- ko foreach: Banks -->
-                        <li>
-                          <div>
-                          <a data-bind="click: ShowBankInfo">
-                            <img style="width: 70px; height: auto; cursor: pointer;" data-bind="attr: { src: ImagePath() + '/' + $data.image }">
-                          </a>
-                          </div>
-                        </li>
-                    <!-- /ko -->
-                    </ul>
-                </div>
-              </div>
-                <!-- ko if: IsVisibleBankDetail -->
-              <div class="col-md-4 col-sm-4 col-xs-12" style="background-color: #eee;">
-                <h2>Ngân hàng <span data-bind="text: BankName"></span> </h2>
-                <p >Chủ tài khoản: <span data-bind="text: BankOwner"></span></p>
-                <p >Số tài khoản: <span data-bind="text: BankNumber"></span></p>
-                <p >Chi nhánh: <span data-bind="text: BankBrand"></span></p>
-
-              </div>
-                    <!-- /ko -->
-                <div class="clearfix"></div>
-
+      <div class="contact-us">
+            <div class="contact-in">
+              <h2 class="wow fadeIn">Đặt hàng</h2>
+              <h4 class="wow fadeIn">We are happy to hear from you and are ready to assist you </h4>
+              <div class="clearfix"> </div>
+              <div class="col-md-6 wow fadeIn">
+                <div class="map-div wow fadeIn text-center">
+                  <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="form-group">
+                      <h5>Tài khoản thanh toán</h5>
+                      <div class="clearfix"> </div>
+                      <ul style="display: inline-flex;">
+                        <!-- ko foreach: Banks -->
+                            <li>
+                              <div>
+                              <a data-bind="click: ShowBankInfo">
+                                <img style="width: 70px; height: auto; cursor: pointer;" data-bind="attr: { src: ImagePath() + '/' + $data.image }">
+                              </a>
+                              </div>
+                            </li>
+                        <!-- /ko -->
+                        </ul>
+                    </div>
+                  </div>
+                    <!-- ko if: IsVisibleBankDetail -->
+                  <div class="col-md-12 col-sm-12 col-xs-12" style="background-color: #eee;">
+                    <h2>Ngân hàng <span data-bind="text: BankName"></span> </h2>
+                    <p >Chủ tài khoản: <span data-bind="text: BankOwner"></span></p>
+                    <p >Số tài khoản: <span data-bind="text: BankNumber"></span></p>
+                    <p >Chi nhánh: <span data-bind="text: BankBrand"></span></p>
+                  </div>
                   <!-- /ko -->
-                <hr>
+                  <div class="clearfix"></div>
+                </div>
+                <div class="clearfix"> </div>
+              </div>
+              <div class="col-md-6  wow fadeIn" data-bind="with: checkoutViewModel">
+                <h5>Thông tin khách hàng</h5>
+                <div class="clearfix"> </div>
+
+
+                <div class="form-2">
+                    @if(!Auth::check())
+                    <br>
+                    <div class="form-group">
+                      <span>
+                          *Nếu bạn đã có tài khoản <a data-toggle="modal" href="" data-target="#myModalHorizontal">(Đăng Nhập)</a>
+                      </span>
+                    </div>
+                    @elseif(Auth::check())
+                      <br>
+                      <span> Sử dụng thông tin đăng nhập <input type="checkbox" data-bind="checked: isUseUserInfo">   </span>
+                      @endif
+
+                    <div class="form-group">
+                      <input placeholder="Họ tên khách hàng" data-bind="value: CustomerName" type="text">
+                    </div>
+                    <div class="form-group">
+                      <input placeholder="Số điện thoại" data-bind="value: CustomerPhone" type="text">
+                    </div>
+                    <div class="form-group">
+                      <input placeholder="Email" data-bind="value: CustomerEmail" type="text">
+                    </div>
+                    <div class="form-group">
+                      <input placeholder="Địa chỉ" data-bind="value: CustomerAddress" type="text">
+                    </div>
+                    <div class="form-group">
+                      <input placeholder="Quận/Huyện" data-bind="value: CustomerDistrict" type="text">
+                    </div>
+                    <div class="form-group">
+                      <select class="selectpicker" data-style="btn-primary" data-bind="options: Cities, optionsText: 'name', optionsValue: 'id', value: CustomerCityId, optionsCaption: '-- Tỉnh/Thành phố --'">
+                      </select>
+
+                    </div>
+                    <div class="form-group">
+                        <input type="text" placeholder="Ghi Chú" data-bind="value: CustomerNote">
+                    </div>
+                    <div class="sub-bt">
+                      <button class="submit-css" type="button" data-bind="click: checkout">ĐẶT HÀNG <i class="fa fa-long-arrow-right" aria-hidden="true"></i></button>
+                    </div>
+                </div>
+                <div class="clearfix"> </div>
+              </div>
+              <div class="clearfix"> </div>
             </div>
           </div>
-          <div class="clearfix"></div>
-      </div>
-    </div>
-
-    <div class="row">
-        <div class="col-md-6 ">
-          <div class="subtotal">
-              <div class="secure">
-                <a href="checkout.html">Xem trước đơn hàng</a>
-                <a href="#" data-bind="click: checkout">Xác nhận đặt hàng</a>
-              </div>
-          </div>
-          <div class="clearfix"></div>
-        </div>
     </div>
     <!-- /ko -->
-    <div class="clearfix"></div>
     <div class="clearfix"></div>
 
   </div>
@@ -357,7 +312,7 @@
   options.RemoveItem = <?php echo json_encode(url('removeItem')); ?>;
   options.Checkout = <?php echo json_encode(url('checkoutPost')); ?>;
   options.ThankYou = <?php echo json_encode(url('thank-you')); ?>;
-  
+
   data.API_URLs = options;
 
   ko.applyBindings(FormViewModel(data), document.getElementById("page-cart"));
