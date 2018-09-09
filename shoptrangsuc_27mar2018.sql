@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 05, 2018 at 04:57 PM
+-- Generation Time: Sep 09, 2018 at 12:31 PM
 -- Server version: 10.1.28-MariaDB
 -- PHP Version: 5.6.32
 
@@ -65,22 +65,30 @@ CREATE TABLE `category` (
   `alias` varchar(300) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `meta_description` varchar(500) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `is_deleted` tinyint(1) NOT NULL DEFAULT '0',
-  `image` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL
+  `image` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `kieuday_name` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `size_hat_name` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `sizevong_name` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `kieudays` varchar(1000) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `sizevongs` varchar(1000) COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `category`
 --
 
-INSERT INTO `category` (`id`, `name`, `display_order`, `is_active`, `created_at`, `updated_at`, `is_custom`, `alias`, `meta_description`, `is_deleted`, `image`) VALUES
-(1, 'Vòng tay', NULL, 1, NULL, '2018-08-04 18:11:47', 1, 'vong-tay', NULL, 0, '1533406307.jpg'),
-(2, 'Nhẫn', NULL, 1, NULL, '2018-06-09 18:44:22', 0, 'nhan', NULL, 0, '1528569862.jpg'),
-(3, 'Hoa tai', NULL, 0, '2018-04-13 20:27:35', '2018-08-04 18:14:22', 1, 'hoa-tai', NULL, 0, '1524848161.jpg'),
-(4, 'Dây chuyền', NULL, 1, '2018-04-13 20:32:39', '2018-04-27 10:00:58', 1, 'day-chuyen', NULL, 0, '1524848458.jpg'),
-(5, 'Vòng chân', NULL, 1, '2018-04-13 23:51:58', '2018-04-14 00:25:27', 0, 'vong-chan', NULL, 0, '1523688842.jpg'),
-(6, 'Test new without charm', NULL, 1, '2018-06-09 16:54:46', '2018-06-09 16:54:46', 1, 'test-new-without-charm', NULL, 0, '1528563182.jpg'),
-(7, 'Danh mục mới 02', NULL, 1, '2018-06-09 16:56:56', '2018-06-09 16:56:56', 1, 'danh-muc-moi-02', NULL, 0, '1528563413.jpg'),
-(8, 'Test new 200', NULL, 1, '2018-08-04 18:19:43', '2018-08-04 18:19:43', 1, 'test-new-200', NULL, 0, '1533406772.jpg');
+INSERT INTO `category` (`id`, `name`, `display_order`, `is_active`, `created_at`, `updated_at`, `is_custom`, `alias`, `meta_description`, `is_deleted`, `image`, `kieuday_name`, `size_hat_name`, `sizevong_name`, `kieudays`, `sizevongs`) VALUES
+(1, 'Vòng tay1', NULL, 1, NULL, '2018-08-26 03:41:12', 1, 'vong-tay1', NULL, 0, '1533406307.jpg', 'Kiểu dây', 'Size hạt', 'Kích thước', '001122,445566,okokok,88888,hihi', 'vòng tay nam 11-cm,vòng tay nam 12cm,vòng tay nam 22cm'),
+(2, 'Nhẫn', NULL, 1, NULL, '2018-06-09 18:44:22', 0, 'nhan', NULL, 0, '1528569862.jpg', NULL, NULL, NULL, NULL, NULL),
+(3, 'Hoa tai', NULL, 0, '2018-04-13 20:27:35', '2018-08-04 18:14:22', 1, 'hoa-tai', NULL, 0, '1524848161.jpg', NULL, NULL, NULL, NULL, NULL),
+(4, 'Dây chuyền', NULL, 1, '2018-04-13 20:32:39', '2018-04-27 10:00:58', 1, 'day-chuyen', NULL, 0, '1524848458.jpg', NULL, NULL, NULL, NULL, NULL),
+(5, 'Vòng chân', NULL, 1, '2018-04-13 23:51:58', '2018-04-14 00:25:27', 0, 'vong-chan', NULL, 0, '1523688842.jpg', NULL, NULL, NULL, NULL, NULL),
+(6, 'Test new without charm', NULL, 1, '2018-06-09 16:54:46', '2018-06-09 16:54:46', 1, 'test-new-without-charm', NULL, 0, '1528563182.jpg', NULL, NULL, NULL, NULL, NULL),
+(7, 'Danh mục mới 02', NULL, 1, '2018-06-09 16:56:56', '2018-06-09 16:56:56', 1, 'danh-muc-moi-02', NULL, 0, '1528563413.jpg', NULL, NULL, NULL, NULL, NULL),
+(8, 'Test new 200', NULL, 1, '2018-08-04 18:19:43', '2018-08-04 18:19:43', 1, 'test-new-200', NULL, 0, '1533406772.jpg', NULL, NULL, NULL, NULL, NULL),
+(9, 'New cate 01', NULL, 1, '2018-08-26 11:32:02', '2018-08-26 11:32:02', 1, 'new-cate-01', NULL, 0, NULL, 'KD', 'Dây', 'Mặt', '111,222,999', '11cm,13cm,15cm'),
+(10, 'New cate 02', NULL, 1, '2018-08-26 11:34:03', '2018-08-26 11:34:03', 1, 'new-cate-02', NULL, 0, NULL, 'KD', 'Dây', 'Mặt', '111,222,999', '11cm,13cm,15cm'),
+(11, 'cate 03', NULL, 1, '2018-08-26 11:35:00', '2018-08-26 11:38:08', 1, 'cate-03', NULL, 0, '1535283488.jpg', 'kd', 'DC', 'DC', '111,666', '11cm,44cm');
 
 -- --------------------------------------------------------
 
@@ -231,42 +239,6 @@ INSERT INTO `estimated_delivery` (`id`, `name`, `min_value`, `max_value`, `creat
 -- --------------------------------------------------------
 
 --
--- Table structure for table `kieuday`
---
-
-CREATE TABLE `kieuday` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `display_order` int(11) DEFAULT NULL,
-  `is_active` tinyint(1) NOT NULL DEFAULT '1',
-  `value` double DEFAULT NULL,
-  `category_id` int(10) UNSIGNED NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  `is_deleted` tinyint(1) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `kieuday`
---
-
-INSERT INTO `kieuday` (`id`, `name`, `display_order`, `is_active`, `value`, `category_id`, `created_at`, `updated_at`, `is_deleted`) VALUES
-(1, 'Kiểu 11', NULL, 1, NULL, 1, NULL, '2018-04-09 10:16:15', 0),
-(2, 'Kiểu 2', NULL, 1, NULL, 1, NULL, NULL, 0),
-(3, '123', NULL, 1, NULL, 1, '2018-04-09 10:16:22', '2018-04-22 09:50:23', 1),
-(4, 'Kieu 1', NULL, 1, NULL, 2, '2018-04-13 09:21:00', '2018-04-13 09:21:00', 0),
-(5, 'Kieu 2', NULL, 1, NULL, 2, '2018-04-13 09:21:00', '2018-04-13 09:21:00', 0),
-(6, 'Kieu 1', NULL, 1, NULL, 4, '2018-04-13 20:32:39', '2018-04-13 20:32:39', 0),
-(7, 'Kieu 3', NULL, 1, NULL, 4, '2018-04-13 20:32:39', '2018-04-13 20:32:39', 0),
-(8, 'Kieu 1', NULL, 1, NULL, 3, '2018-04-20 19:13:55', '2018-08-04 18:14:32', 1),
-(9, 'No', NULL, 1, NULL, 6, '2018-06-09 16:54:46', '2018-06-09 16:54:46', 0),
-(10, 'dasd', NULL, 1, NULL, 7, '2018-06-09 16:56:56', '2018-06-09 16:56:56', 0),
-(11, '123', NULL, 1, NULL, 3, '2018-08-04 18:14:22', '2018-08-04 18:14:22', 0),
-(12, '333', NULL, 1, NULL, 8, '2018-08-04 18:19:43', '2018-08-04 18:19:43', 0);
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `migrations`
 --
 
@@ -335,7 +307,12 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (64, '2018_07_27_143940_update_table_sizecotay', 49),
 (65, '2018_07_30_144508_update_table_User_otp', 50),
 (66, '2018_07_30_162915_update_table_order_themsizecotay', 51),
-(67, '2018_07_30_182733_update_table_user_addIP', 52);
+(67, '2018_07_30_182733_update_table_user_addIP', 52),
+(68, '2018_08_25_234849_add_table_sizeHat', 53),
+(69, '2018_08_26_000805_add_table_sizeVong', 54),
+(70, '2018_08_26_001211_update_category_0012201', 55),
+(71, '2018_08_26_012139_update_category_0012201_addKieudays', 56),
+(72, '2018_08_26_101517_update_category_0012201_addSizeVongs', 57);
 
 -- --------------------------------------------------------
 
@@ -513,14 +490,9 @@ CREATE TABLE `order` (
 --
 
 INSERT INTO `order` (`id`, `customer_name`, `customer_address`, `customer_district`, `customer_city`, `customer_phone`, `customer_email`, `customer_note`, `order_status_id`, `customer_id`, `admin_note`, `created_at`, `updated_at`, `temp_price`, `original_price`, `total_items`, `payment_method_id`, `customer_city_id`, `is_paid`, `estimated_delivery_id`, `random_code`) VALUES
-(64, 'TXT 8899444', 'ok 123', '312', 'Bắc Kạn', '1672304204', 'bccthien@gmail.com', NULL, 1, 3, NULL, '2018-07-30 10:03:38', '2018-07-30 10:03:38', NULL, '7150000', NULL, 2, 4, 0, NULL, NULL),
-(65, 'TXT 8899444', '111 Thong nhat, phuong 11', 'Go Vap', 'Bà Rịa - Vũng Tàu', '1672304204', 'bccthien@gmail.com', NULL, 1, 3, NULL, '2018-07-30 10:31:26', '2018-07-30 10:31:26', NULL, '7300000', NULL, 2, 2, 0, NULL, NULL),
-(66, 'TXT 8899444', '89 Quang trung, phuong 9', 'go vap', 'Tp. Hồ Chí Minh', '1672304204', 'bccthien@gmail.com', NULL, 1, 3, NULL, '2018-07-30 10:36:19', '2018-07-30 10:36:19', NULL, '7300000', NULL, 2, 63, 0, NULL, NULL),
-(67, 'TXT 8899444', '90 Quang trung, Phuong 8', 'Go Vap', 'Tp. Hồ Chí Minh', '1672304204', 'bccthien@gmail.com', NULL, 2, 3, NULL, '2018-07-30 10:37:49', '2018-08-04 17:32:31', NULL, '21150000', NULL, 2, 63, 0, 1, NULL),
-(68, 'TXT 8899444', 'quang trung', 'go vap', 'Tp. Hồ Chí Minh', '1672304204', 'bccthien@gmail.com', NULL, 2, 3, NULL, '2018-07-30 14:59:01', '2018-07-30 15:04:45', NULL, '7000000', NULL, 2, 63, 0, 1, NULL),
-(69, 'Trieu xuan thien', 'Quang trung, phuong 11', 'Go Vap', 'Tp. Hồ Chí Minh', '02i13923293', 'bccthien@gmail.com', NULL, 4, NULL, NULL, '2018-08-05 02:41:20', '2018-08-05 02:45:20', NULL, '672000', NULL, 2, 63, 0, 1, NULL),
-(70, 'TXT 8899444', '90 QUang trung, Phường 12', 'Gò vấp', 'Tp. Hồ Chí Minh', '1672304204', 'bccthien@gmail.com', NULL, 1, 3, NULL, '2018-08-05 03:10:08', '2018-08-05 03:10:08', NULL, '140000', NULL, 2, 63, 0, NULL, NULL),
-(71, 'TXT 8899444', '90 QUang trung, Phường 12', 'Gò vấp', 'Tp. Hồ Chí Minh', '1672304204', 'bccthien@gmail.com', NULL, 1, 3, NULL, '2018-08-05 03:20:39', '2018-08-05 03:20:39', NULL, '1260000', NULL, 2, 63, 0, NULL, 'ShabY9ClcovWvlaQ2AYy47ZNGaTLGahutn6jQ7SwsUZM1HFkbXQ168FbbyYnfrmLcsKhW0jAKMmmwR3WEyMzkIFFAt');
+(5, 'Triệu Xuân Thiện', 'dasd', 'asdasdasd', 'Tp. Hồ Chí Minh', '2123123', 'thiendandy@gmail.com', NULL, 1, 2, NULL, '2018-08-26 11:05:51', '2018-08-26 11:05:51', NULL, '480000', NULL, 2, 63, 0, NULL, 'IgSP2TWqbRsKVe7ZSeUe2ekfWKnOHySFbLjF8CiFiuG35m9FO39nYhWtsp0ptZBNXvfq4DoG42VAyLeUSdZfhbudti'),
+(6, 'Triệu Xuân Thiện', 'thong nhat', 'go vap', 'Tp. Hồ Chí Minh', '2123123', 'thiendandy@gmail.com', NULL, 1, 2, NULL, '2018-09-09 01:39:42', '2018-09-09 01:39:42', NULL, '607000', NULL, 2, 63, 0, NULL, 'YdI0eYVqFNbz3GpQvc5Xe4GqM9bIFA83wjx1o6mhMTVNa9jcYlX15FrJKFX8wWyxbUq5FyQ4MoJsi0BED2OJluXCZE'),
+(7, 'Triệu Xuân Thiện', 'o', 'go vao', 'Tp. Hồ Chí Minh', '2123123', 'thiendandy@gmail.com', 'ok', 1, 2, NULL, '2018-09-09 04:48:27', '2018-09-09 04:48:27', NULL, '420000', NULL, 1, 63, 0, NULL, 'ZMXBLpPuHBo4XP2uKpHvfGui4XxFZOeFwpmn40P2g4Q5pjMERCOWpHNxE6zPYQxihuzXeTaZHvtG5dyN4WeEKu15qX');
 
 -- --------------------------------------------------------
 
@@ -531,51 +503,33 @@ INSERT INTO `order` (`id`, `customer_name`, `customer_address`, `customer_distri
 CREATE TABLE `order_detail` (
   `id` int(10) UNSIGNED NOT NULL,
   `product_name` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `product_size` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `product_material` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `product_sizehat` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `product_kieuday` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `product_color` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `category_name` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `discount` double(8,2) DEFAULT NULL,
   `quanlity` int(11) NOT NULL,
   `order_id` int(10) UNSIGNED NOT NULL,
   `product_id` int(10) UNSIGNED DEFAULT NULL,
-  `product_material_id` int(10) UNSIGNED DEFAULT NULL,
-  `product_size_id` int(10) UNSIGNED DEFAULT NULL,
-  `product_kieuday_id` int(10) UNSIGNED DEFAULT NULL,
-  `product_color_id` int(10) UNSIGNED DEFAULT NULL,
   `category_id` int(10) UNSIGNED DEFAULT NULL,
   `temp_price` decimal(9,0) DEFAULT NULL,
   `original_price` decimal(9,0) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `product_charm` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `product_charm_id` int(10) UNSIGNED DEFAULT NULL,
   `product_image` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `product_alias` varchar(200) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `product_size_co_tay_name` varchar(6) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `product_size_co_tay_id` int(10) UNSIGNED DEFAULT NULL
+  `product_sizevong` varchar(200) COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `order_detail`
 --
 
-INSERT INTO `order_detail` (`id`, `product_name`, `product_size`, `product_material`, `product_kieuday`, `product_color`, `category_name`, `discount`, `quanlity`, `order_id`, `product_id`, `product_material_id`, `product_size_id`, `product_kieuday_id`, `product_color_id`, `category_id`, `temp_price`, `original_price`, `created_at`, `updated_at`, `product_charm`, `product_charm_id`, `product_image`, `product_alias`, `product_size_co_tay_name`, `product_size_co_tay_id`) VALUES
-(167, 'Thiết kế bởiTXT 8899444', NULL, NULL, NULL, NULL, NULL, NULL, 1, 64, NULL, NULL, NULL, 1, NULL, NULL, NULL, '150000', '2018-07-30 10:03:38', '2018-07-30 10:03:38', NULL, NULL, NULL, NULL, NULL, 3),
-(168, 'jav', NULL, NULL, NULL, NULL, 'Vòng tay', NULL, 1, 64, 17, NULL, 1, 1, NULL, 1, NULL, '7000000', '2018-07-30 10:03:38', '2018-07-30 10:03:38', NULL, NULL, '1525012970.jpg', 'jav', NULL, 1),
-(169, 'jav', NULL, NULL, NULL, NULL, 'Vòng tay', NULL, 1, 65, 17, NULL, 1, 1, NULL, 1, NULL, '7000000', '2018-07-30 10:31:26', '2018-07-30 10:31:26', NULL, NULL, '1525012970.jpg', 'jav', NULL, 1),
-(170, 'Thiết kế bởiTXT 8899444', NULL, NULL, NULL, NULL, NULL, NULL, 2, 65, NULL, NULL, NULL, 1, NULL, NULL, NULL, '300000', '2018-07-30 10:31:26', '2018-07-30 10:31:26', NULL, NULL, NULL, NULL, NULL, 3),
-(171, 'Thiết kế bởiTXT 8899444', NULL, NULL, NULL, NULL, NULL, NULL, 2, 66, NULL, NULL, NULL, 1, NULL, NULL, NULL, '300000', '2018-07-30 10:36:19', '2018-07-30 10:36:19', NULL, NULL, NULL, NULL, NULL, 3),
-(172, 'jav', NULL, NULL, NULL, NULL, 'Vòng tay', NULL, 1, 66, 17, NULL, 1, 1, NULL, 1, NULL, '7000000', '2018-07-30 10:36:19', '2018-07-30 10:36:19', NULL, NULL, '1525012970.jpg', 'jav', NULL, 1),
-(173, 'jav', NULL, NULL, NULL, NULL, 'Vòng tay', NULL, 1, 67, 17, NULL, 1, 1, NULL, 1, NULL, '7000000', '2018-07-30 10:37:49', '2018-07-30 10:37:49', NULL, NULL, '1525012970.jpg', 'jav', NULL, 1),
-(174, 'Thiết kế bởiTXT 8899444', NULL, NULL, NULL, NULL, NULL, NULL, 1, 67, NULL, NULL, NULL, 1, NULL, NULL, NULL, '150000', '2018-07-30 10:37:49', '2018-07-30 10:37:49', NULL, NULL, NULL, NULL, NULL, 3),
-(175, 'jav', NULL, NULL, NULL, NULL, 'Vòng tay', NULL, 1, 67, 17, NULL, 1, 1, NULL, 1, NULL, '7000000', '2018-07-30 10:37:49', '2018-07-30 10:37:49', NULL, NULL, '1525012970.jpg', 'jav', NULL, 4),
-(176, 'jav', NULL, NULL, NULL, NULL, 'Vòng tay', NULL, 1, 67, 17, NULL, 1, 2, NULL, 1, NULL, '7000000', '2018-07-30 10:37:49', '2018-07-30 10:37:49', NULL, NULL, '1525012970.jpg', 'jav', NULL, 4),
-(177, 'jav', NULL, NULL, NULL, NULL, 'Vòng tay', NULL, 1, 68, 17, NULL, 1, 1, NULL, 1, NULL, '7000000', '2018-07-30 14:59:01', '2018-07-30 14:59:01', NULL, NULL, '1525012970.jpg', 'jav', NULL, 4),
-(178, 'jav', NULL, NULL, NULL, NULL, 'Vòng tay', NULL, 4, 69, 17, NULL, 2, 1, NULL, 1, NULL, '672000', '2018-08-05 02:41:20', '2018-08-05 02:41:20', NULL, NULL, '1525012970.jpg', 'jav', NULL, 1),
-(179, 'jav', NULL, NULL, NULL, NULL, 'Vòng tay', NULL, 1, 70, 17, NULL, 1, 1, NULL, 1, NULL, '140000', '2018-08-05 03:10:08', '2018-08-05 03:10:08', NULL, NULL, '1525012970.jpg', 'jav', NULL, 1),
-(180, 'jav', NULL, NULL, NULL, NULL, 'Vòng tay', NULL, 9, 71, 17, NULL, 1, 1, NULL, 1, NULL, '1260000', '2018-08-05 03:20:39', '2018-08-05 03:20:39', NULL, NULL, '1525012970.jpg', 'jav', NULL, 1);
+INSERT INTO `order_detail` (`id`, `product_name`, `product_sizehat`, `product_kieuday`, `category_name`, `discount`, `quanlity`, `order_id`, `product_id`, `category_id`, `temp_price`, `original_price`, `created_at`, `updated_at`, `product_image`, `product_alias`, `product_sizevong`) VALUES
+(4, 'jav', 'adas', '001122', 'Vòng tay1', NULL, 1, 5, 17, 1, NULL, '140000', '2018-08-26 11:05:51', '2018-08-26 11:05:51', '1525012970.jpg', 'jav', 'vòng tay nam 11-cm'),
+(5, 'jav', 'BBB', '001122', 'Vòng tay1', NULL, 1, 5, 17, 1, NULL, '210000', '2018-08-26 11:05:51', '2018-08-26 11:05:51', '1525012970.jpg', 'jav', 'vòng tay nam 11-cm'),
+(6, 'Thiết kế bởi Triệu Xuân Thiện', NULL, '001122', NULL, NULL, 1, 5, NULL, NULL, NULL, '130000', '2018-08-26 11:05:51', '2018-08-26 11:05:51', NULL, NULL, 'vòng tay nam 11-cm'),
+(7, 'Thiết kế bởi Triệu Xuân Thiện', NULL, '001122', NULL, NULL, 1, 6, NULL, NULL, NULL, '607000', '2018-09-09 01:39:42', '2018-09-09 01:39:42', NULL, NULL, 'vòng tay nam 11-cm'),
+(8, 'jav', 'X 1.5', '001122', 'Vòng tay1', NULL, 2, 7, 17, 1, NULL, '420000', '2018-09-09 04:48:27', '2018-09-09 04:48:27', '1525012970.jpg', 'jav', 'vòng tay nam 11-cm');
 
 -- --------------------------------------------------------
 
@@ -735,7 +689,7 @@ INSERT INTO `product` (`id`, `name`, `description`, `display_order`, `is_active`
 (13, 'rau muống', NULL, NULL, 1, NULL, '1525012697.jpg,1528569911.jpg', 2, '2018-04-14 01:08:34', '2018-06-09 18:45:12', '90000', 5, NULL, 'rau-muong', NULL, 1, NULL, 0, NULL),
 (15, 'mỏi tay', NULL, NULL, 1, NULL, '1525012718.jpg,1525012723.jpg', 1, '2018-04-14 01:10:03', '2018-04-29 07:38:44', '70000', 2, NULL, 'moi-tay', NULL, 1, NULL, 0, NULL),
 (16, 'buồn ngủ', NULL, NULL, 1, NULL, '1525013337.jpg,1525013339.jpg,1525013341.jpg,1525013343.jpg', 2, '2018-04-14 01:10:44', '2018-04-29 07:49:04', '90000', 5, NULL, 'buon-ngu', NULL, 1, NULL, 0, NULL),
-(17, 'jav', NULL, NULL, 1, NULL, '1525012970.jpg,1525012975.jpg,1525012980.jpg', 1, '2018-04-14 01:11:56', '2018-04-29 07:43:01', '700000', 2, NULL, 'jav', NULL, 1, NULL, 0, 7),
+(17, 'jav', 'mo ta san pham nay', NULL, 1, NULL, '1525012970.jpg,1525012975.jpg,1525012980.jpg', 1, '2018-04-14 01:11:56', '2018-08-26 04:41:01', '140000', 2, NULL, 'jav', NULL, 1, NULL, 0, 7),
 (18, 'the ring', NULL, NULL, 1, NULL, '1525013764.jpg,1525013766.jpg,1525013768.jpg', 4, '2018-04-14 01:12:38', '2018-04-29 07:56:10', '200000', 8, NULL, 'the-ring', NULL, 1, NULL, 0, NULL),
 (19, 'con ma', NULL, NULL, 1, NULL, '1525013310.jpg,1525013311.jpg,1525013313.jpg,1525013315.jpg', 2, '2018-04-14 01:13:50', '2018-04-29 07:48:36', '90000', 5, NULL, 'con-ma', NULL, 1, NULL, 0, NULL),
 (20, 'mây mù', NULL, NULL, 1, NULL, '1525013795.jpg,1525013797.jpg,1525013801.jpg', 5, '2018-04-14 01:14:20', '2018-04-29 07:56:42', '60000', 10, NULL, 'may-mu', NULL, 1, NULL, 0, NULL),
@@ -749,56 +703,34 @@ INSERT INTO `product` (`id`, `name`, `description`, `display_order`, `is_active`
 -- --------------------------------------------------------
 
 --
--- Table structure for table `size`
+-- Table structure for table `size_hat`
 --
 
-CREATE TABLE `size` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `display_order` int(11) DEFAULT NULL,
-  `is_active` tinyint(1) NOT NULL DEFAULT '1',
-  `value` double DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  `is_deleted` tinyint(1) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `size`
---
-
-INSERT INTO `size` (`id`, `name`, `display_order`, `is_active`, `value`, `created_at`, `updated_at`, `is_deleted`) VALUES
-(1, 'S', NULL, 1, 0, NULL, '2018-06-19 11:29:47', 0),
-(2, 'M', NULL, 1, 0.2, NULL, '2018-06-19 11:29:47', 0),
-(3, 'L', NULL, 1, 0.3, NULL, '2018-04-22 09:50:41', 1),
-(5, 'L', NULL, 1, 0.6, '2018-04-13 19:49:01', '2018-04-13 19:49:01', 0),
-(9, 'H', NULL, 1, 0.8, '2018-04-20 19:13:42', '2018-04-20 19:13:42', 0);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `size_co_tay`
---
-
-CREATE TABLE `size_co_tay` (
+CREATE TABLE `size_hat` (
   `id` int(10) UNSIGNED NOT NULL,
   `name` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `value` float NOT NULL,
+  `category_id` int(10) UNSIGNED DEFAULT NULL,
   `is_active` tinyint(1) NOT NULL DEFAULT '1',
   `is_deleted` tinyint(1) NOT NULL DEFAULT '0',
+  `display_order` int(11) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  `display_order` int(11) DEFAULT NULL
+  `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `size_co_tay`
+-- Dumping data for table `size_hat`
 --
 
-INSERT INTO `size_co_tay` (`id`, `name`, `is_active`, `is_deleted`, `created_at`, `updated_at`, `display_order`) VALUES
-(1, 'Nữ 14-16cm', 1, 0, NULL, NULL, 1),
-(2, 'Nữ 17-20cm', 1, 0, NULL, NULL, 1),
-(3, 'Nam 14-16cm', 1, 0, NULL, NULL, 2),
-(4, 'Nam 25-30cm', 1, 0, NULL, NULL, 2);
+INSERT INTO `size_hat` (`id`, `name`, `value`, `category_id`, `is_active`, `is_deleted`, `display_order`, `created_at`, `updated_at`) VALUES
+(2, 'ZIN', 1, 5, 1, 0, NULL, NULL, NULL),
+(17, 'X 1.5', 1.5, 1, 1, 0, NULL, '2018-08-26 03:41:12', '2018-08-26 03:41:12'),
+(18, 'A', 1.2, 9, 1, 0, NULL, '2018-08-26 11:32:02', '2018-08-26 11:32:02'),
+(19, 'D', 1.4, 9, 1, 0, NULL, '2018-08-26 11:32:02', '2018-08-26 11:32:02'),
+(20, 'A', 1.2, 10, 1, 0, NULL, '2018-08-26 11:34:03', '2018-08-26 11:34:03'),
+(21, 'D', 1.4, 10, 1, 0, NULL, '2018-08-26 11:34:03', '2018-08-26 11:34:03'),
+(22, 'A', 3, 11, 1, 0, NULL, '2018-08-26 11:35:00', '2018-08-26 11:35:00'),
+(23, 'F', 6, 11, 1, 0, NULL, '2018-08-26 11:35:00', '2018-08-26 11:35:00');
 
 -- --------------------------------------------------------
 
@@ -821,22 +753,20 @@ CREATE TABLE `sub_order_detail` (
 --
 
 INSERT INTO `sub_order_detail` (`id`, `piece_name`, `order_detail_id`, `piece_id`, `created_at`, `updated_at`, `piece_size`) VALUES
-(1334, 'Đá ba', 167, 3, '2018-07-30 10:03:38', '2018-07-30 10:03:38', 'S'),
-(1335, 'Đá ba', 167, 3, '2018-07-30 10:03:38', '2018-07-30 10:03:38', 'S'),
-(1336, 'charm 6', 167, 6, '2018-07-30 10:03:38', '2018-07-30 10:03:38', '-1'),
-(1337, 'charm 6', 167, 6, '2018-07-30 10:03:38', '2018-07-30 10:03:38', '-1'),
-(1338, 'Đá ba', 170, 3, '2018-07-30 10:31:26', '2018-07-30 10:31:26', 'S'),
-(1339, 'Đá ba', 170, 3, '2018-07-30 10:31:26', '2018-07-30 10:31:26', 'S'),
-(1340, 'charm 6', 170, 6, '2018-07-30 10:31:26', '2018-07-30 10:31:26', '-1'),
-(1341, 'charm 6', 170, 6, '2018-07-30 10:31:26', '2018-07-30 10:31:26', '-1'),
-(1342, 'Đá ba', 171, 3, '2018-07-30 10:36:19', '2018-07-30 10:36:19', 'S'),
-(1343, 'Đá ba', 171, 3, '2018-07-30 10:36:19', '2018-07-30 10:36:19', 'S'),
-(1344, 'charm 6', 171, 6, '2018-07-30 10:36:19', '2018-07-30 10:36:19', '-1'),
-(1345, 'charm 6', 171, 6, '2018-07-30 10:36:19', '2018-07-30 10:36:19', '-1'),
-(1346, 'Đá ba', 174, 3, '2018-07-30 10:37:49', '2018-07-30 10:37:49', 'S'),
-(1347, 'Đá ba', 174, 3, '2018-07-30 10:37:49', '2018-07-30 10:37:49', 'S'),
-(1348, 'charm 6', 174, 6, '2018-07-30 10:37:49', '2018-07-30 10:37:49', '-1'),
-(1349, 'charm 6', 174, 6, '2018-07-30 10:37:49', '2018-07-30 10:37:49', '-1');
+(23, 'Đá hai', 6, 2, '2018-08-26 11:05:51', '2018-08-26 11:05:51', 'adas'),
+(24, 'Đá hai', 6, 2, '2018-08-26 11:05:51', '2018-08-26 11:05:51', 'adas'),
+(25, 'charm 6', 6, 6, '2018-08-26 11:05:51', '2018-08-26 11:05:51', '-1'),
+(26, 'charm 6', 6, 6, '2018-08-26 11:05:51', '2018-08-26 11:05:51', '-1'),
+(27, 'Đá ba', 7, 3, '2018-09-09 01:39:42', '2018-09-09 01:39:42', 'ZIN'),
+(28, 'Đá ba', 7, 3, '2018-09-09 01:39:42', '2018-09-09 01:39:42', 'ZIN'),
+(29, 'Đá ba', 7, 3, '2018-09-09 01:39:42', '2018-09-09 01:39:42', 'ZIN'),
+(30, 'charm 6', 7, 6, '2018-09-09 01:39:42', '2018-09-09 01:39:42', '-1'),
+(31, 'charm 6', 7, 6, '2018-09-09 01:39:42', '2018-09-09 01:39:42', '-1'),
+(32, 'charm 6', 7, 6, '2018-09-09 01:39:42', '2018-09-09 01:39:42', '-1'),
+(33, 'Đá ba', 7, 3, '2018-09-09 01:39:42', '2018-09-09 01:39:42', 'A'),
+(34, 'Đá ba', 7, 3, '2018-09-09 01:39:42', '2018-09-09 01:39:42', 'A'),
+(35, 'charm 5', 7, 5, '2018-09-09 01:39:42', '2018-09-09 01:39:42', '-1'),
+(36, 'charm 5', 7, 5, '2018-09-09 01:39:42', '2018-09-09 01:39:42', '-1');
 
 -- --------------------------------------------------------
 
@@ -902,7 +832,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `password`, `remember_token`, `created_at`, `updated_at`, `phone`, `is_admin`, `is_active`, `address`, `district`, `city`, `city_id`, `birthday`, `gender`, `year_ob`, `month_ob`, `day_ob`, `hour_ob`, `minute_ob`, `otp`, `ip`) VALUES
-(2, 'Triệu Xuân Thiện', 'thiendandy@gmail.com', '$2y$10$gEwIpQy9PGW1AkP9fYGq0u6TFdQJ1r9LBoeP11.GBgJ/J.5XLoUxi', 'BjvsoQZiAGbicwnebL56YJle4g8ZZNlug6JGZsWLuxWqdXhRyodWQNaVNYzl', NULL, '2018-08-04 15:47:06', 2123123, 1, 1, NULL, NULL, 'Đắk Nông', 15, NULL, -1, 1995, 8, 17, 12, 19, NULL, NULL),
+(2, 'Triệu Xuân Thiện', 'thiendandy@gmail.com', '$2y$10$gEwIpQy9PGW1AkP9fYGq0u6TFdQJ1r9LBoeP11.GBgJ/J.5XLoUxi', 'Ref4XlwAjLWERRdKNJOaBW6bQmbv0aJd3LVhEtmc7AF7FY1nAy5ifdiufyYi', NULL, '2018-08-04 15:47:06', 2123123, 1, 1, NULL, NULL, 'Đắk Nông', 15, NULL, -1, 1995, 8, 17, 12, 19, NULL, NULL),
 (3, 'TXT 8899444', 'bccthien@gmail.com', '$2y$10$qFEudQ5GOzcPtsRRIc8dbuReV5tIGK6byKD7eeUN.DmPx/LaDwNfO', 'bhVKZk6MN5IWvfKkQSmDXoMliPdaEjn09Vt2RPCcfFuzVYCDkksZZGNIwjd7', '2018-04-29 10:34:50', '2018-07-30 14:23:57', 1672304204, 0, 1, '90 QUang trung, Phường 12', 'Gò vấp', 'Bình Dương', 9, NULL, 1, 1990, 1, 1, 0, 0, '1FLr9l', NULL),
 (4, 'Thien', 'xtthien@gmail.com', '$2y$10$yOoxKmp.FQZCrqM.BYWAnuUEveUfh3oKx9uOL2.AcE.SmCFsnFGEG', NULL, '2018-07-30 14:25:02', '2018-07-30 14:25:02', 82131923, 0, 1, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
@@ -928,9 +858,9 @@ INSERT INTO `wish_list` (`id`, `product_id`, `user_id`, `created_at`, `updated_a
 (12, 11, 2, '2018-04-22 10:12:41', '2018-04-22 10:12:41'),
 (13, 4, 2, '2018-04-22 10:15:21', '2018-04-22 10:15:21'),
 (17, 15, 3, '2018-04-30 05:45:25', '2018-04-30 05:45:25'),
-(21, 17, 2, '2018-06-09 15:58:47', '2018-06-09 15:58:47'),
 (27, 2, 2, '2018-07-13 12:41:05', '2018-07-13 12:41:05'),
-(28, 17, 3, '2018-08-05 10:59:17', '2018-08-05 10:59:17');
+(28, 17, 3, '2018-08-05 10:59:17', '2018-08-05 10:59:17'),
+(30, 17, 2, '2018-08-26 11:11:23', '2018-08-26 11:11:23');
 
 --
 -- Indexes for dumped tables
@@ -967,13 +897,6 @@ ALTER TABLE `estimated_delivery`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `kieuday`
---
-ALTER TABLE `kieuday`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `kieuday_category_id_foreign` (`category_id`);
-
---
 -- Indexes for table `migrations`
 --
 ALTER TABLE `migrations`
@@ -1004,13 +927,7 @@ ALTER TABLE `order_detail`
   ADD PRIMARY KEY (`id`),
   ADD KEY `order_detail_order_id_foreign` (`order_id`),
   ADD KEY `order_detail_product_id_foreign` (`product_id`),
-  ADD KEY `order_detail_product_material_id_foreign` (`product_material_id`),
-  ADD KEY `order_detail_product_size_id_foreign` (`product_size_id`),
-  ADD KEY `order_detail_product_kieuday_id_foreign` (`product_kieuday_id`),
-  ADD KEY `order_detail_product_color_id_foreign` (`product_color_id`),
-  ADD KEY `order_detail_category_id_foreign` (`category_id`),
-  ADD KEY `order_detail_product_charm_id_foreign` (`product_charm_id`),
-  ADD KEY `order_detail_product_size_co_tay_id_foreign` (`product_size_co_tay_id`);
+  ADD KEY `order_detail_category_id_foreign` (`category_id`);
 
 --
 -- Indexes for table `order_status`
@@ -1046,16 +963,11 @@ ALTER TABLE `product`
   ADD KEY `product_topic_id_foreign` (`topic_id`);
 
 --
--- Indexes for table `size`
+-- Indexes for table `size_hat`
 --
-ALTER TABLE `size`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `size_co_tay`
---
-ALTER TABLE `size_co_tay`
-  ADD PRIMARY KEY (`id`);
+ALTER TABLE `size_hat`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `size_hat_category_id_foreign` (`category_id`);
 
 --
 -- Indexes for table `sub_order_detail`
@@ -1100,7 +1012,7 @@ ALTER TABLE `bank`
 -- AUTO_INCREMENT for table `category`
 --
 ALTER TABLE `category`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `charm`
@@ -1121,16 +1033,10 @@ ALTER TABLE `estimated_delivery`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
--- AUTO_INCREMENT for table `kieuday`
---
-ALTER TABLE `kieuday`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
-
---
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=73;
 
 --
 -- AUTO_INCREMENT for table `nam_phong_thuy`
@@ -1142,13 +1048,13 @@ ALTER TABLE `nam_phong_thuy`
 -- AUTO_INCREMENT for table `order`
 --
 ALTER TABLE `order`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=72;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `order_detail`
 --
 ALTER TABLE `order_detail`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=181;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `order_status`
@@ -1181,22 +1087,16 @@ ALTER TABLE `product`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
--- AUTO_INCREMENT for table `size`
+-- AUTO_INCREMENT for table `size_hat`
 --
-ALTER TABLE `size`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
-
---
--- AUTO_INCREMENT for table `size_co_tay`
---
-ALTER TABLE `size_co_tay`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+ALTER TABLE `size_hat`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `sub_order_detail`
 --
 ALTER TABLE `sub_order_detail`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1350;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT for table `topic`
@@ -1214,17 +1114,11 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `wish_list`
 --
 ALTER TABLE `wish_list`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- Constraints for dumped tables
 --
-
---
--- Constraints for table `kieuday`
---
-ALTER TABLE `kieuday`
-  ADD CONSTRAINT `kieuday_category_id_foreign` FOREIGN KEY (`category_id`) REFERENCES `category` (`id`);
 
 --
 -- Constraints for table `nam_phong_thuy`
@@ -1248,13 +1142,7 @@ ALTER TABLE `order`
 ALTER TABLE `order_detail`
   ADD CONSTRAINT `order_detail_category_id_foreign` FOREIGN KEY (`category_id`) REFERENCES `category` (`id`),
   ADD CONSTRAINT `order_detail_order_id_foreign` FOREIGN KEY (`order_id`) REFERENCES `order` (`id`),
-  ADD CONSTRAINT `order_detail_product_charm_id_foreign` FOREIGN KEY (`product_charm_id`) REFERENCES `charm` (`id`),
-  ADD CONSTRAINT `order_detail_product_color_id_foreign` FOREIGN KEY (`product_color_id`) REFERENCES `color` (`id`),
-  ADD CONSTRAINT `order_detail_product_id_foreign` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`),
-  ADD CONSTRAINT `order_detail_product_kieuday_id_foreign` FOREIGN KEY (`product_kieuday_id`) REFERENCES `kieuday` (`id`),
-  ADD CONSTRAINT `order_detail_product_material_id_foreign` FOREIGN KEY (`product_material_id`) REFERENCES `material` (`id`),
-  ADD CONSTRAINT `order_detail_product_size_co_tay_id_foreign` FOREIGN KEY (`product_size_co_tay_id`) REFERENCES `size_co_tay` (`id`),
-  ADD CONSTRAINT `order_detail_product_size_id_foreign` FOREIGN KEY (`product_size_id`) REFERENCES `size` (`id`);
+  ADD CONSTRAINT `order_detail_product_id_foreign` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`);
 
 --
 -- Constraints for table `product`
@@ -1263,6 +1151,12 @@ ALTER TABLE `product`
   ADD CONSTRAINT `product_category_id_foreign` FOREIGN KEY (`category_id`) REFERENCES `category` (`id`),
   ADD CONSTRAINT `product_material_id_foreign` FOREIGN KEY (`piece_id`) REFERENCES `piece` (`id`),
   ADD CONSTRAINT `product_topic_id_foreign` FOREIGN KEY (`topic_id`) REFERENCES `topic` (`id`);
+
+--
+-- Constraints for table `size_hat`
+--
+ALTER TABLE `size_hat`
+  ADD CONSTRAINT `size_hat_category_id_foreign` FOREIGN KEY (`category_id`) REFERENCES `category` (`id`);
 
 --
 -- Constraints for table `sub_order_detail`
