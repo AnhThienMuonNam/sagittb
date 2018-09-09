@@ -54,8 +54,9 @@
             <td colspan="2">SẢN PHẨM</td>
             <td>CHI TIẾT</td>
             <td>ĐƠN GIÁ x SỐ LƯỢNG</td>
-            <td>XÓA</td>
+
             <td>TỔNG CỘNG</td>
+                <td></td>
           </tr>
           <!-- ko foreach: Carts -->
           <tr >
@@ -80,10 +81,13 @@
               </span>  </div>
               </div>
             </td>
+
+            <td><div class="cost" style="background: #1e1c1c;">
+              <span style="font-size: 20px; color: #DDCA22;" data-bind="text: formatMoney($data.price())"></span>
+            </div></td>
             <td class="remove-css text-center"><p><a href="#" data-bind="click: removeItem"><i class="fa fa-trash-o" aria-hidden="true"></i>
                                                 </a> </p>
             </td>
-            <td><div class="cost" style="background: #1e1c1c; "><span style="font-size: 20px; color: #DDCA22;" data-bind="text: formatMoney($data.price())"></span></div></td>
           </tr>
           <!-- /ko -->
         </table>
@@ -95,13 +99,14 @@
             <td class="text-center">
               <img style="width: auto; height: 60px;" data-bind="attr: { src: ImagePath() + '/' + $data.image() }" alt="" title="" class="img-responsive">
             </td>
-            <td  colspan="2">
-                <h1 style="margin: 0px; padding: 0px;" data-bind="text: $data.name()"><br></h1>
+            <td >
+              <div class="cost2">
+                  <span data-bind="text: $data.name()"></span>
+              </div>
             </td>
-          </tr>
-
-          <tr class="product-name">
-            <td colspan="3" style="padding: 0px;"><div class="cost2"><span data-bind="html: detailItem($data)"></span></div></td>
+            <td colspan="2" >
+              <span data-bind="html: detailItem($data)"></span>
+          </td>
           </tr>
 
           <tr>
@@ -114,23 +119,25 @@
               <div class="inc-dre">
                 <div class="input-group">
                   <span class="input-group-btn">
-                  <button type="button" class="btn btn-default btn-number"> <span class="glyphicon glyphicon-minus"></span> </button>
+                  <button type="button" class="btn btn-default btn-number" data-bind="click: minusItem"> <span class="glyphicon glyphicon-minus"></span> </button>
                   </span>
                   <input name="quant[1]" class="input-number" data-bind="value: $data.quanlity()" readonly type="text">
                   <span class="input-group-btn">
-                    <button type="button" class="btn btn-default btn-number" data-type="plus" data-field="quant[1]"> <span class="glyphicon glyphicon-plus"></span> </button>
+                    <button type="button" class="btn btn-default btn-number" data-type="plus" data-bind="click: plusItem"> <span class="glyphicon glyphicon-plus"></span> </button>
                   </span>
                 </div>
               </div>
             </td>
-            <td><p class="text-center"> <a href="#"><i class="fa fa-trash-o" aria-hidden="true"></i><br>
-            </a>
+
+            <td><div class="cost" style="background: #1e1c1c;">
+              <span style="font-size: 20px; color: #DDCA22;" data-bind="text: formatMoney($data.price())"></span>
+            </div></td>
+
+            <td><p class="text-center"> <a href="#" data-bind="click: removeItem"><i class="fa fa-trash-o" aria-hidden="true"></i><br></a>
             </p>
             </td>
           </tr>
-          <tr>
-            <td colspan="3"><div class="cost"><span data-bind="text: formatMoney($data.price())"></span></div></td>
-          </tr>
+
         </table>
         <br>
         <!-- /ko -->
@@ -320,13 +327,11 @@
   var options = {};
   data.Carts = <?php echo json_encode($Carts); ?>;
 
-  data.Sizes = <?php echo json_encode($Sizes); ?>;
-  data.Kieudays = <?php echo json_encode($Kieudays); ?>;
   data.Charms = <?php echo json_encode($Charms); ?>;
   data.Cities = <?php echo json_encode($Cities); ?>;
   data.PaymentMethods = <?php echo json_encode($PaymentMethods); ?>;
   data.Banks = <?php echo json_encode($Banks); ?>;
-  data.SizeCoTays = <?php echo json_encode($SizeCoTays); ?>;
+  data.SizeHats = <?php echo json_encode($SizeHats); ?>;
 
 
   data.User = <?php echo json_encode(Auth::check() ? Auth::user() : null); ?>;

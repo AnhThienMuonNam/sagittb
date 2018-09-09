@@ -2,9 +2,6 @@ var SingleViewModel = function(data) {
     self.User = ko.observable(data.User || null);
     self.Product = ko.observable(data.Product || null);
     self.Id = ko.observable(data.Product.id || null);
-    self.Name = ko.observable(data.Product.name || null);
-
-    self.Description = ko.observable(data.Product.description || null);
 
     self.PublicPath = ko.observable(data.API_URLs.PublicPath || null);
     self.ImagePath = ko.observable(data.API_URLs.ImagePath || null);
@@ -13,34 +10,8 @@ var SingleViewModel = function(data) {
     self.ServerCharms = ko.observableArray(data.Charms);
 
     self.SizeCoTays = ko.observableArray(data.SizeCoTays);
-    self.SizeCoTayId = ko.observable(null);
-
-    self.Kieudays = ko.observableArray(data.Kieudays);
-    self.KieudayId = ko.observable(null);
-
-    self.Sizes = ko.observableArray(data.Sizes);
-    self.SizeId = ko.observable(null);
-
-    self.SelectedSize = ko.observable(null);
-    self.Price = ko.observable(data.Product.price || 0);
 
     self.IsInWishList = ko.observable(data.IsInWishList || false);
-
-    //
-    self.categoryIsCustom = ko.observable(data.Product.category.is_custom  || 0);
-
-    self.Alias = ko.observable(data.Product.alias || 0);
-    //
-
-    self.getFirstImage = function(stringPath){
-        var result="";
-        if(stringPath){
-           var splittedArray = stringPath.split(",");
-           if(splittedArray.length>0)
-            result=splittedArray[0];
-        }
-        return result;
-    };
 
     self.addToWishList = function(){
         if(self.User()){
@@ -71,66 +42,6 @@ var SingleViewModel = function(data) {
             alertify.warning('<i class="fa fa-bell" aria-hidden="true" style="color: white;"></i> <strong style="color: white;">Xin lỗi! Chức năng này chỉ sử dụng được khi bạn đã đăng nhập</strong>');
         }
     };
-
-
-    self.Image = ko.observable(self.getFirstImage(data.Product.images));
-
-    self.SizeId.subscribe(function(value){
-        if(value){
-            self.SelectedSize(self.Sizes().filter(function(item){ return item.id == value; })[0]);
-            if(self.SelectedSize()){
-                var totalPieces = (parseFloat(self.SelectedSize().value) * parseInt(self.Product().quantity_of_pieces)) + parseInt(self.Product().quantity_of_pieces);
-                var newPrice = totalPieces * parseInt(self.Product().piece.price);
-                self.Price(newPrice);
-            }
-        }
-    });
-
-
-
-    self.addToCart = function() {
-        $.ajaxSetup({
-            headers: {'X-CSRF-Token': $('#_token').val()}
-        });
-        $.ajax({
-            url: data.API_URLs.AddToCart,
-            type: "POST",
-            data: { id: self.Id(),
-                    name: self.Name(),
-                    price: self.Price(),
-                    size: self.SizeId(),
-                    image: self.Image(),
-                    sizeCoTay: self.SizeCoTayId(),
-                    // charm: self.CharmId(),
-                    kieuday: self.KieudayId(),
-                    categoryIsCustom: 0,
-
-                    alias: self.Alias()
-
-            },
-            beforeSend: function(){
-                NProgress.start();
-            },
-            success: function(response){
-                alertify.success('<i class="fa fa-bell" aria-hidden="true"></i><strong> Đã thêm sản phẩm "'+self.Name()+'" vào giỏ hàng</strong>');
-            },
-            error: function(xhr, error){
-            },
-            complete: function(){
-                NProgress.done();
-            },
-
-        });
-    };
-
-      function convertToArrayImage(stringArray){
-        var result=[];
-        if(stringArray){
-            result=stringArray.split(',');
-        }
-        return result;
-    };
-
 
     self.formatMoney = function(number) {
         var val=parseInt(number);
@@ -169,6 +80,103 @@ var SingleViewModel = function(data) {
     }
 
 
+
+   self.productModel = ko.observable(new ProductModel(data));
+}
+
+var ProductModel = function(parent){
+    var self = this;
+    self.Kieudays = ko.observableArray(parent.Product.category.kieudays ? parent.Product.category.kieudays.split(",") : []);
+    self.SizeVongs = ko.observableArray(parent.Product.category.sizevongs ? parent.Product.category.sizevongs.split(",") : []);
+    self.SizeHats = ko.observableArray(parent.Product.category.size_hats || []);
+
+    self.Id = ko.observable(parent.Product.id || null);
+    self.Name = ko.observable(parent.Product.name || null);
+    self.Description = ko.observable(parent.Product.description || null);
+    self.KieudayName = ko.observable(parent.Product.category.kieuday_name || null);
+    self.SizeVongName = ko.observable(parent.Product.category.sizevong_name || null);
+    self.SizeHatName = ko.observable(parent.Product.category.size_hat_name || null);
+    self.IsCustom = ko.observable(parent.Product.category.is_custom == 1 ? true : false || false);
+    self.Price = ko.observable(parent.Product.price || 0);
+    self.Alias = ko.observable(parent.Product.alias || '');
+
+    self.KieudayId = ko.observable(null);
+    self.SizeHatId = ko.observable(null);
+    self.SizeVongId = ko.observable(null);
+
+    self.SelectedSizeHat = ko.observable(null);
+
+    self.SizeHatId.subscribe(function(value){
+        if(value){
+            self.SelectedSizeHat(self.SizeHats().filter(function(item){ return item.id == value; })[0]);
+            if(self.SelectedSizeHat()){
+                var newPrice = parseFloat(self.SelectedSizeHat().value) * parseInt(parent.Product.price);
+                self.Price(newPrice);
+            }
+        }
+    });
+
+    self.Image = ko.observable(getFirstImage(parent.Product.images));
+
+    function getFirstImage(stringPath){
+        var result="";
+        if(stringPath){
+           var splittedArray = stringPath.split(",");
+           if(splittedArray.length>0)
+            result = splittedArray[0];
+        }
+        return result;
+    };
+
+    self.addToCart = function() {
+        $.ajaxSetup({
+            headers: {'X-CSRF-Token': $('#_token').val()}
+        });
+        $.ajax({
+            url: parent.API_URLs.AddToCart,
+            type: "POST",
+            data: { id: self.Id(),
+                    name: self.Name(),
+                    price: self.Price(),
+                    image: self.Image(),
+                    sizehat: self.SelectedSizeHat() ? self.SelectedSizeHat().name : '',
+                    sizevong: self.SizeVongId(),
+                    kieuday: self.KieudayId(),
+                    is_custom: 0,
+                    alias: self.Alias()
+            },
+            beforeSend: function(){
+                NProgress.start();
+            },
+            success: function(response){
+                alertify.success('<i class="fa fa-bell" aria-hidden="true"></i><strong> Đã thêm sản phẩm "'+self.Name()+'" vào giỏ hàng</strong>');
+            },
+            error: function(xhr, error){
+            },
+            complete: function(){
+                NProgress.done();
+            },
+
+        });
+    };
+
+    self.CustomSizeHatId = ko.observable(null);
+    self.CustomSizeHatObject = ko.observable(null);
+    self.CustomSizeHatId.subscribe(function(value){
+       if(value) {
+         var selectedItem = self.SizeHats().filter(function(item){ return item.id == value; })[0];
+         if(selectedItem){
+             self.CustomSizeHatObject(selectedItem);
+         } else
+             self.CustomSizeHatObject();
+       }
+   });
+    self.CustomKieudayId = ko.observable(null);
+    self.CustomCharmId = ko.observable(null);
+    self.CustomSizeVongId = ko.observable(null);
+    self.CustomName = ko.observable(parent.User ? 'Thiết kế bởi ' + parent.User.name: 'Đặt tên cho sản phẩm của bạn');
+
+
     //new feature
 
     self.SeletedPiece = ko.observable(null);
@@ -201,19 +209,15 @@ var SingleViewModel = function(data) {
         self.IsVisibleAllCharms(!self.IsVisibleAllCharms());
     }
 
-    self.CustomKieudayId = ko.observable(null);
-    self.CustomMaudayId = ko.observable(null);
-    self.CustomCharmId = ko.observable(null);
-    self.CustomSizeCoTayId = ko.observable(null);
+
 
     self.CustomPrice = ko.observable(0);
-    self.CustomName = ko.observable(self.User() ? 'Thiết kế bởi ' + self.User().name: 'Đặt tên cho sản phẩm của bạn');
 
     self.ViewDetailFromSelectedItem = function(obj){
         if(obj){
           if(obj.itemSize !== -1){
             self.SeletedPiece(obj.fullItem);
-            self.SeletedPieceSizeId(obj.itemSize);
+            self.CustomSizeHatId(obj.itemSize);
           } else {
             self.SeletedCharm(obj.fullItem);
           }
@@ -231,11 +235,11 @@ var SingleViewModel = function(data) {
                               itemName: self.SeletedPiece().name,
                               itemId: self.SeletedPiece().id,
                               itemPrice: self.SeletedPiece().price,
-                              itemSize: self.SeletedPieceSizeId(),
+                              itemSize: self.CustomSizeHatObject() ? self.CustomSizeHatObject().name : '',
                               fullItem : self.SeletedPiece() };
 
               self.Pieces.push(newItem);
-                var price = self.CustomPrice() + (parseInt(self.SeletedPiece().price) + (getValueSelectedPieceSize(self.SeletedPieceSizeId()) * parseInt(self.SeletedPiece().price)));
+              var price = self.CustomPrice() + (parseInt(self.SeletedPiece().price) + (self.CustomSizeHatObject().value * parseInt(self.SeletedPiece().price)));
 
               self.CustomPrice(price);
         }
@@ -262,17 +266,9 @@ var SingleViewModel = function(data) {
        self.Pieces.remove(obj);
        var price = self.CustomPrice() - parseInt(obj.itemPrice);
        self.CustomPrice(price);
-   };
+     };
 
-   function getValueSelectedPieceSize(pieceSizeId){
-      if(pieceSizeId) {
-        var selectedItem = self.Sizes().filter(function(item){ return item.name == pieceSizeId; })[0];
-        if(selectedItem){
-            return selectedItem.value;
-        } else
-            return 0;
-      }
-   }
+
 
    self.AddCustomProductToCart = function() {
       if(self.Pieces().length == 0 || !self.CustomName()){
@@ -284,17 +280,16 @@ var SingleViewModel = function(data) {
            headers: {'X-CSRF-Token': $('#_token').val()}
        });
        $.ajax({
-           url: data.API_URLs.AddToCart,
+           url: parent.API_URLs.AddToCart,
            type: "POST",
            data: {
                    name: self.CustomName(),
                    price: self.CustomPrice(),
-                   // image: self.Image(),
                    charm: self.CustomCharmId(),
                    kieuday: self.CustomKieudayId(),
                    categoryIsCustom: 1,
                    details: self.Pieces(),
-                   sizeCoTay : self.CustomSizeCoTayId()
+                   sizevong : self.CustomSizeVongId()
            },
            beforeSend: function(){
                NProgress.start();
@@ -310,8 +305,9 @@ var SingleViewModel = function(data) {
 
        });
    };
-}
 
+
+}
 
 var PhongThuy = function(option){
     self.Menh = ko.observable(option ? option.phong_thuy.menh : null);

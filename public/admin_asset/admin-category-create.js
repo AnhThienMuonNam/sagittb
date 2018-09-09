@@ -1,109 +1,16 @@
 var FormViewModel = function (data) {
     // Data
     var self = this;
-    self.NotifyErrors = ko.observable(null);
     self.ImagePath = ko.observable(data.API_URLs.ImagePath || null);
-    self.categoryImage = ko.observable(null);
-    self.categoryName = ko.observable(null);
-    self.categoryIsActive = ko.observable(false);
-    self.categoryIsCustom = ko.observable(false);
-
-    self.currentKieudays = ko.observableArray([]);
-
-    self.kieudayViewModel = ko.observable(new KieudayViewModel());
-
-    self.idNewKieuday  = ko.observable(false);
-
-    self.uploadImages = function(){
-        var file_data = $('#uploadFile').prop('files')[0];
-        var form_data = new FormData();
-        form_data.append('uploadFile', file_data);
-        $.ajaxSetup({
-            headers: {'X-CSRF-Token': $('#_token').val()}
-        });
-
-        $.ajax({
-            url: data.API_URLs.UploadImage,
-            beforeSend: function(){
-                 NProgress.set(0.75);
-            },
-            type: "POST",
-            data: form_data,
-            cache: false,
-            contentType: false,
-            processData: false,
-            success: function(res){
-                self.categoryImage(res);
-                $('#uploadFile').val("");
-            },
-            error: function(xhr, error){
-                // alert("Something went wrong :(")
-            },
-            complete: function(){
-                 NProgress.done();
-           },
-        });
-    };
-
-
-
-    self.addKieuday = function(){
-        self.kieudayViewModel(new KieudayViewModel());
-        self.idNewKieuday(true);
-        $('#modal-kieuday').modal();
-    };
-
-    self.editKieuday = function(obj){
-        self.idNewKieuday(false);
-        self.kieudayViewModel(new KieudayViewModel(obj.toJSON()));
-        $('#modal-kieuday').modal();
-    };
-
-    self.removeKieuday = function(obj){
-        self.currentKieudays.remove(obj);
-    };
-
-    self.saveKieuday = function(){
-        self.kieudayViewModel().showErrorValidations();
-        if(self.kieudayViewModel().hasErrors()) return;
-
-        if(self.idNewKieuday() == true){
-            self.kieudayViewModel().id(self.currentKieudays().length + 1);
-            self.kieudayViewModel().name(self.kieudayViewModel().fakeName());
-            self.currentKieudays.push(self.kieudayViewModel());
-        } else if(self.idNewKieuday() == false){
-            var item = self.currentKieudays().filter(function(i){ return i.id() == self.kieudayViewModel().id();})[0];
-            if(item){
-                item.name(self.kieudayViewModel().fakeName());
-            }
-        }
-
-        $('#modal-kieuday').modal('toggle');
-    };
-
+    self.NotifyErrors = ko.observable(null);
+    self.categoryModel = new CategoryModel(data);
 
     self.saveCategory = function(){
         self.NotifyErrors('');
-        if(!self.categoryName() || !self.categoryImage()) {
-            self.NotifyErrors('Dữ liệu nhập chưa đủ');
-            return;
-        }
+        self.showErrorValidations();
+        if(self.hasErrors()) return;
 
-
-        if(self.categoryIsCustom()){
-            if(self.currentKieudays().length == 0) {
-                self.NotifyErrors('Dữ liệu nhập chưa đủ');
-                return;
-            }
-        }
-
-        var model = {
-            categoryName: self.categoryName(),
-            categoryIsActive: self.categoryIsActive() == true ? 1 : 0,
-            categoryIsCustom: self.categoryIsCustom() == true ? 1 : 0,
-            kieudays: self.currentKieudays(),
-            categoryImage: self.categoryImage()
-        }
+        var model = self.categoryModel.toJSON();
 
         $.ajaxSetup({
             headers: {'X-CSRF-Token': $('#_token').val()}
@@ -116,26 +23,18 @@ var FormViewModel = function (data) {
             type: "POST",
             data: model,
             success: function(data){
-              if(data.IsSuccess == true){
-                  alertify.success('Thêm danh mục thành công');
-              }
+                if(data.IsSuccess == true){
+                    alertify.success('Tạo danh mục thành công');
+                }
             },
             error: function(xhr, error){
-                alert("Something went wrong :(")
+                // alert("Something went wrong :(")
             },
             complete: function(){
                 NProgress.done();
             },
         });
     };
-
-}
-
-
-var KieudayViewModel = function (data) {
-    var self = this;
-    self.id = ko.observable(data && data.id ? data.id : null);
-    self.name = ko.observable(data && data.name ? data.name : null);
 
     self.hasErrors = ko.observable(false);
     self.showErrorValidations = function () {
@@ -147,14 +46,94 @@ var KieudayViewModel = function (data) {
             self.hasErrors(false);
         }
     };
-    self.fakeName = ko.observable(data ? data.name : null).extend({ required: { params: true, message: 'Chưa có tên' } });
 
-    KieudayViewModel.prototype.toJSON = function() {
-        var model = {
-                id: ko.utils.unwrapObservable(this.id),
-                name: ko.utils.unwrapObservable(this.name),
-            };
+}
 
-        return model;
+
+var CategoryModel = function (parent){
+    var self = this;
+    self.Id = ko.observable(null);
+    self.Name = ko.observable('');
+    self.IsActive = ko.observable(true);
+    self.IsCustom = ko.observable(false);
+    self.Image = ko.observable('');
+    self.SizeHatName = ko.observable('');
+    self.SizeVongName = ko.observable('');
+    self.KieudayName = ko.observable('');
+
+    self.Kieudays = ko.observableArray([]);
+    self.SizeHats = ko.observableArray([]);
+    self.SizeVongs = ko.observableArray([]);
+
+    self.changeKieuday = function(){
+       self.Kieudays($('#kieudaysList').val());
     };
+
+    self.changeSizeVong = function(){
+       self.SizeVongs($('#sizeVongsList').val());
+    };
+
+    CategoryModel.prototype.toJSON = function () {
+       var model = {
+           id: ko.utils.unwrapObservable(this.Id),
+           name: ko.utils.unwrapObservable(this.Name),
+           is_active: ko.utils.unwrapObservable(this.IsActive() == true ? 1 : 0),
+           is_custom: ko.utils.unwrapObservable(this.IsCustom() == true ? 1 : 0),
+           size_hat_name: ko.utils.unwrapObservable(this.SizeHatName),
+           sizevong_name: ko.utils.unwrapObservable(this.SizeVongName),
+           kieuday_name: ko.utils.unwrapObservable(this.KieudayName),
+           image: ko.utils.unwrapObservable(this.Image),
+
+           kieudays: ko.utils.unwrapObservable(this.Kieudays().length > 0 ? this.Kieudays().toString() : ''),
+           sizevongs: ko.utils.unwrapObservable(this.SizeVongs().length > 0 ? this.SizeVongs().toString() : ''),
+           sizehats: ko.utils.unwrapObservable(this.SizeHats)
+
+       };
+
+       return model;
+   };
+
+   self.addSizeHat = function(){
+     var newObject = {
+        name:'',
+        value:null
+     };
+     self.SizeHats.push(newObject);
+   };
+
+   self.removeSizeHat = function(item){
+     self.SizeHats.remove(item);
+   };
+
+   self.uploadImages = function(){
+    var file_data = $('#uploadFile').prop('files')[0];
+    var form_data = new FormData();
+    form_data.append('uploadFile', file_data);
+    $.ajaxSetup({
+        headers: {'X-CSRF-Token': $('#_token').val()}
+    });
+
+    $.ajax({
+        url: parent.API_URLs.UploadImage,
+        beforeSend: function(){
+             NProgress.set(0.75);
+        },
+        type: "POST",
+        data: form_data,
+        cache: false,
+        contentType: false,
+        processData: false,
+        success: function(res){
+            self.Image(res);
+            $('#uploadFile').val("");
+        },
+        error: function(xhr, error){
+            // alert("Something went wrong :(")
+        },
+        complete: function(){
+             NProgress.done();
+       },
+    });
+};
+
 }

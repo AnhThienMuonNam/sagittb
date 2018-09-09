@@ -23,142 +23,14 @@ use App\Charm;
 use App\Payment_Method;
 use App\Estimated_Delivery;
 use App\City;
-use App\Size_Co_Tay;
+use App\Size_Vong;
+use App\Size_Hat;
 use App\Piece;
 use App\Topic;
 
 
 class AdminController extends Controller
 {
-    //
-    public function getAll(){
-    	$users = User::with(['District'=>function($q){ return $q->with('City');}])->get();
-    	return view('admin.user.index',['users'=> $users]);
-    }
-
- 	public function editView($Id){
-    	$user = User::find($Id);
-    	return view('admin.user.edit',['user'=> $user]);
-    }
-
-    public function edit(Request $request, $Id){
-    	$model = User::find($Id);
-    	$this->validate($request,[
-			'Name'=>'required|min:3|max:100',
-			'PhoneNumber'=>'max:12',
-		],[
-			'Name.required'=>'Bạn chưa nhập họ tên',
-			'Name.min'=>'Họ tên phải nhiều hơn 3 ký tự',
-			'Name.max'=>'Họ tên phải ít hơn 100 ký tự',
-			'PhoneNumber.max'=>'Số điện thoại không hợp lệ',
-		]);
-
-		$model->Name=$request->Name;
-		$model->PhoneNumber=$request->PhoneNumber;
-		$model->IsAdmin = $request->IsAdmin;
-		$model->Gender = 0;
-
-		$model->save();
-
-		return redirect('admin/user/edit/'.$Id)->with('message','Thêm thành công');
-    }
-
-    public function changePassWordAdmin(Request $request, $Id)
-    {
-		 $this->validate($request, [
-            'OldPassword' => 'required',
-            'NewPassword' => 'required|min:6',
-            'NewPassword_Confirmation' => 'required|same:NewPassword',
-        ],[
-            'OldPassword.required' => 'Bạn chưa nhập mật khẩu cũ',
-            'NewPassword.required' => 'Bạn chưa nhập mật khẩu mới',
-            'NewPassword.min' => 'Mật khẩu mới phải lớn hơn hoặc bằng 6 ký tự',
-            'NewPassword_Confirmation.required' => 'Bạn chưa nhập xác nhận mật khẩu mới',
-            'NewPassword_Confirmation.same' => 'Mật khẩu mới không trùng nhau'
-        ]);
-		// bcrypt($request->Password);
-		  $current_password = Auth::User()->password;
-        if(Hash::check($request->OldPassword, $current_password))
-        {
-          $user_id = Auth::User()->id;
-          $obj_user = User::find($user_id);
-          $obj_user->password = bcrypt($request->NewPassword);
-          $obj_user->save();
-          return redirect('admin/user/edit/'.$Id)->with('message','Đổi mật khẩu thành công');
-
-        }else{
-        	 return redirect('admin/user/edit/'.$Id)->with('message','Mật khẩu cũ không đúng');
-
-        }
-    }
-
-
-
-    public function createView()
-    {
-		return view('admin.user.create');
-    }
-    //reset password
-    public function forgotPasswordView()
-    {
-		return view('forgotPassword');
-    }
-    public function sendEmailResetPassword(Request $request)
-    {
-    	$this->validate($request,[
-									'Email'=>'required',
-								],
-								[
-									'Email.required'=>'Bạn chưa nhập địa chỉ email',
-								]);
-    	$CustomerEmail=$request->Email;
-    	$user = User::where('email',$CustomerEmail)->first();
-    	if($user !== null){
-    		$user->remember_token = str_random(90);
-    		$user->save();
-    		$contentEmail = [ 'toEmail'=>$CustomerEmail, 'token'=>$user->remember_token ];
-		 	Mail::send('page.layout.mail_ResetPassword', $contentEmail, function($message) use ($CustomerEmail){
-	            $message->to($CustomerEmail, 'Customer')->subject('Khôi phục mật khẩu');
-	        });
-		 }
-		 return redirect('forgot-password')->with(['message'=> 'Đã gửi email khôi phục mật khẩu. Vui lòng kiểm tra email của bạn để tiếp tục việc khôi phục mật khẩu']);
-    }
-
- 	public function resetPasswordView(Request $request, $token)
-    {
-    	$user = User::where('remember_token',$token)->first();
-    	if($user === null){
-    		return redirect('');
-    	}else{
-    		return view('resetPassword',['token'=>$token]);
-    	}
-    }
-
-    public function resetPassword(Request $request, $token)
-    {
-    	$user = User::where('remember_token',$token)->first();
-    	$this->validate($request,[
-			'Password'=>'required|min:6',
-			'Password_confirmation'=>'required|same:Password',
-		],[
-			'Password.required'=>'Bạn chưa nhập mật khẩu',
-			'Password_confirmation.required'=>'Bạn chưa nhập xác nhận mật khẩu',
-			'Password_confirmation.same' => 'Mật khẩu không trùng nhau'
-		]);
-    	if($user === null){
-    		return redirect('');
-    	}else{
-    		$user->password = bcrypt($request->Password);
-    		$user->remember_token = '';
-    		$user->save();
-    		return redirect('login')->with(['message'=> 'Bạn đã khôi phục mật khẩu thành công']);
-    	}
-    }
-    //end reset password
-
-
-
-
     //shop trang suc
  	public function loginView()
     {
@@ -233,32 +105,39 @@ class AdminController extends Controller
 
     public function createCategory(Request $request)
     {
-        $this->validate($request,['categoryName'=>'required|max:100'],[
-            'categoryName.required'=>'Bạn chưa nhập tên danh mục',
-            'categoryName.max'=>'Tên danh mục phải ít hơn 100 ký tự',
-        ]);
+        $this->validate($request, ['name'=>'required|max:100'],[
+                                  'name.required'=>'Bạn chưa nhập tên danh mục',
+                                  'name.max'=>'Tên danh mục phải ít hơn 100 ký tự',
+                              ]);
 
         $model = $request;
         $category =  new Category;
+        $category->name = $model->name;
+        $category->alias = $this->changeTitle($model->name);
+        $category->is_active = $model->is_active;
+        $category->is_custom = $model->is_custom;
+        $category->kieudays = $model->kieudays;
+        $category->sizevongs = $model->sizevongs;
+        $category->image = $model->image;
 
-        $category->name = $model->categoryName;
-        $category->alias = $this->changeTitle($request->categoryName);
-        $category->image = $model->categoryImage;
-        $category->is_active = $model->categoryIsActive;
-        $category->is_custom = $model->categoryIsCustom;
+        $category->size_hat_name = $model->size_hat_name;
+        $category->sizevong_name = $model->sizevong_name;
+        $category->kieuday_name = $model->kieuday_name;
+
+
         $category->save();
 
 
-        if ($model->kieudays){
-            foreach($model->kieudays as $key => $item)
+        if($model->sizehats){
+            foreach($model->sizehats as $key => $item)
             {
-                $obj = new Kieuday;
+                $obj = new Size_Hat;
                 $obj->name = $item['name'];
+                $obj->value = $item['value'];
                 $obj->category_id = $category->id;
-
                 $obj->save();
-            }
-        }
+              }
+          }
 
 
 
@@ -268,55 +147,52 @@ class AdminController extends Controller
     public function editCategoryView($Id)
     {
         $category = Category::find($Id);
-  	    $currentKieudays = Kieuday::where('category_id',$category->id)->where('is_deleted',0)->get();
+        $category->sizeHats = Size_Hat::where('category_id', $Id)->get();
 
-        return view('admin.category.edit',['category'=>$category, 'currentKieudays'=>$currentKieudays ]);
+        return view('admin.category.edit',['category'=>$category]);
     }
 
- 	public function editCategory(Request $request)
+ 	  public function editCategory(Request $request)
     {
-    	$this->validate($request,['categoryName'=>'required|max:100'],[
-			'categoryName.required'=>'Bạn chưa nhập tên danh mục',
-			'categoryName.max'=>'Tên danh mục phải ít hơn 100 ký tự',
-		]);
+    	 $this->validate($request, ['name'=>'required|max:100'],[
+                          			'name.required'=>'Bạn chưa nhập tên danh mục',
+                          			'name.max'=>'Tên danh mục phải ít hơn 100 ký tự',
+                                ]);
 
-    	$model = $request;
-		$category = Category::find($model->categoryId);
+        $model = $request;
+		    $category = Category::find($model->id);
 
-		$category->name = $model->categoryName;
-        $category->alias = $this->changeTitle($model->categoryName);
-		$category->is_active = $model->categoryIsActive;
-        $category->is_custom = $model->categoryIsCustom;
+		    $category->name = $model->name;
+        $category->alias = $this->changeTitle($model->name);
+	      $category->is_active = $model->is_active;
+        $category->is_custom = $model->is_custom;
+        $category->kieudays = $model->kieudays;
+        $category->sizevongs = $model->sizevongs;
 
+        $category->size_hat_name = $model->size_hat_name;
+        $category->sizevong_name = $model->sizevong_name;
+        $category->kieuday_name = $model->kieuday_name;
 
-        if($model->kieudays){
-            foreach($model->kieudays as $key => $item)
-            {
-                if($item['id'] != null){
-                    $obj = Kieuday::find($item['id']);
-                    $obj->name = $item['name'];
-                     if($item['is_deleted']){
-                         $obj->is_deleted = 1;
-                    } else {
-                         $obj->is_deleted = 0;
-                    }
-                    $obj->save();
-                } else {
-                	$obj = new Kieuday;
-    				$obj->name = $item['name'];
-    				$obj->category_id = $model->categoryId;
-
-    				$obj->save();
-                }
-            }
+        $Size_Hats =   Size_Hat::where('category_id',$model->id)->get();
+        foreach($Size_Hats as $item)
+        {
+          $item->delete();
         }
 
 
-		// $category->MetaDescription = $request->MetaDescription;
+        if($model->sizehats){
+            foreach($model->sizehats as $key => $item)
+            {
+              	$obj = new Size_Hat;
+				        $obj->name = $item['name'];
+                $obj->value = $item['value'];
+		            $obj->category_id = $model->id;
+				        $obj->save();
+              }
+          }
 
-		$category->save();
-
-		return response()->json(['IsSuccess' => true]);
+    		$category->save();
+    		return response()->json(['IsSuccess' => true]);
 		// return redirect('admin/category/edit/'.$Id)->with('message','Sửa thành công');
     }
 

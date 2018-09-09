@@ -100,10 +100,8 @@
           <td><div class="cost2"><span data-bind="text: formatMoney($data.original_price/$data.quanlity)"></span></div>
             <hr>
             <div class="cost2"><span data-bind="text: $data.quanlity + ' sản phẩm'"></span></div></td>
-       <!-- <td class="product-name"><span data-bind="text: $data.quanlity">
-      </span></td> -->
+
   <td><div class="cost" style="background: #1e1c1c; "><span style="font-size: 20px; color: #DDCA22;" data-bind="text: formatMoney($data.original_price)"></span></div></td>
-       <!-- <td class="product-name"><span data-bind="text: formatMoney($data.original_price)"> -->
       </span></td>
     </tr>
     <!-- /ko -->
@@ -120,15 +118,16 @@
     <div class="cost2"><a data-bind="text: $data.product_name, attr:{href: PublicPath()+'/san-pham/'+$data.product_alias+'/'+$data.product_id}"></a>
     </div>
   </td>
+  <td >
+    <span style="margin: 0px;" data-bind="html: detailItem($data)"></span></td>
   </tr>
   <tr class="product-name">
-        <td colspan="2" style="padding: 0px;"><div class="cost2" style="line-height: 35px;">
-          <span style="margin: 0px;" data-bind="html: detailItem($data)"></span></div></td>
+
   </tr>
   <tr class="product-name">
-    <td><div class="cost2"><span style="margin: 0px; padding: 0px;" data-bind="text: 'Số lượng: ' + $data.quanlity">
-    </span></div></td>
-    <td><div class="cost2"><span data-bind="text: 'Thành tiền: ' + formatMoney($data.original_price)"></span></div></td>
+  <td colspan="2"><div class="cost2"><span data-bind="text: 'Đơn giá: ' + formatMoney($data.original_price/$data.quanlity) + ' x Số lượng: '+ $data.quanlity"></span></div></td>
+  <td><div class="cost" style="background: #1e1c1c; "><span style="font-size: 20px; color: #DDCA22;" data-bind="text: formatMoney($data.original_price)"></span></div></td>
+      </span></td>
   </tr>
 </table>
 <div class="clearfix"></div>
@@ -241,12 +240,10 @@
       var data = {};
       var options = {};
       data.Order = <?php echo json_encode($Order); ?>;
-      data.Sizes = <?php echo json_encode($Sizes); ?>;
-      data.Kieudays = <?php echo json_encode($Kieudays); ?>;
       data.Charms = <?php echo json_encode($Charms); ?>;
       data.Banks = <?php echo json_encode($Banks); ?>;
       data.Pieces = <?php echo json_encode($Pieces); ?>;
-      data.SizeCoTays = <?php echo json_encode($SizeCoTays); ?>;
+      data.SizeHats = <?php echo json_encode($SizeHats); ?>;
 
       options.ImagePath = <?php echo json_encode(asset('/images')); ?>;
       options.PublicPath = <?php echo json_encode(url('')); ?>;

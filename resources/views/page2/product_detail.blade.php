@@ -26,13 +26,13 @@
 <section>
   <div class="inner-bg" style="background: url({{asset('images/'.$Product->category->image)}}) no-repeat center;">
     <div class="inner-head wow fadeInDown">
-      <h3 style="background-color: rgba(0, 0, 0, 0.4); display: inline-block;padding: 10px;" data-bind="text: Name()" ></h3>
+      <h3 style="background-color: rgba(0, 0, 0, 0.4); display: inline-block;padding: 10px;">{{$Product->name}}</h3>
     </div>
   </div>
 </section>
 <!--page heading-->
 <!--container-->
-<div class="container">
+<div class="container" data-bind="with: productModel">
   <input type="hidden" id="_token" name="_token" value="{{csrf_token()}}" />
   <div class="shop-in">
     <div class="col-md-12">
@@ -107,20 +107,15 @@
       <!-- Wrapper for slides -->
       <div class="carousel-inner">
         <div class="item active">
-        @foreach($ProductSameColors as $item)
+        @foreach($RelatedProducts as $item)
           <div class="product-scroll">
             <div class="col-md-6 col-sm-3 col-xs-6"><a href="{{url('san-pham/'.$item->alias.'/'.$item->id)}}"><img src="{{asset('images/'.preg_replace('/^([^,]*).*$/', '$1', $item->images))}}" style="display: table-cell; margin: 0 auto;max-height: 70px; min-width: 30px;" alt="" title="" class="img-responsive"></a></div>
             <div class="col-md-6 col-sm-9 col-xs-6"> <h3><a href="{{url('san-pham/'.$item->alias.'/'.$item->id)}}">{{$item->name}}</a></h3>
              <br>
-              @if($item->category->is_custom)
-              <h4>{{number_format($item->price * $item->category->sizes->first()->value, 0, ',', '.').'(đ)'}}</h4>
-              @else
               <h4>{{number_format($item->price, 0, ',', '.').'(đ)'}}</h4>
-              @endif
             </div>
           </div>
           <div class="clearfix"></div>
-         <hr>
          @endforeach
         </div>
         @if(count($ProductSameMaterials) > 0)
@@ -166,30 +161,30 @@
 
     <div class="clearfix">&nbsp;</div>
   </div>
-  <!-- ko if: categoryIsCustom() == true -->
+  <!-- ko if: IsCustom() == true -->
   <div class="clearfix">&nbsp;</div>
   <div class="row">
     <div class="col-md-4">
-      <span style="float: left;">&nbspKÍCH THƯỚC HẠT</span>
+      <span style="float: left;" data-bind="text: '&nbsp' + SizeHatName()"></span>
       <div class="form-group">
-        <select id="checkout-country" class="js-countries" data-bind="options: Sizes, optionsText: 'name', optionsValue: 'id', value: SizeId">
+        <select id="checkout-country" class="js-countries" data-bind="options: SizeHats, optionsText: 'name', optionsValue: 'id', value: SizeHatId">
         </select>
       </div>
     </div>
     <div class="col-md-4">
-     <span style="float: left;">&nbspCÁCH ĐAN DÂY</span>
+     <span style="float: left;" data-bind="text: '&nbsp' + KieudayName()"></span>
      <div class="form-group">
-      <select id="checkout-country" class="js-countries" data-bind="options: Kieudays, optionsText: 'name', optionsValue: 'id', value: KieudayId">
+      <select id="checkout-country" class="js-countries" data-bind="options: Kieudays, optionsText: $data, optionsValue: $data, value: KieudayId">
       </select>
     </div>
   </div>
-  <div class="col-md-4">
-   <span style="float: left;">&nbspSIZE CỔ TAY</span>
-   <div class="form-group">
-     <select id="checkout-country" class="js-countries" data-bind="options: SizeCoTays, optionsText: 'name', optionsValue: 'id', value: SizeCoTayId">
-     </select>
-   </div>
- </div>
+ <div class="col-md-4">
+  <span style="float: left;" data-bind="text: '&nbsp' + SizeVongName()"></span>
+  <div class="form-group">
+    <select id="checkout-country" class="js-countries" data-bind="options: SizeVongs, optionsText: $data, optionsValue: $data, value: SizeVongId">
+    </select>
+  </div>
+</div>
 </div>
 <div class="clearfix"></div>
 
@@ -262,7 +257,9 @@
         </div>
         <div class="col-md-4 col-sm-4 col-xs-4 icon-div">
           <div class="form-group">
-           <button type="button" class="btn btn-primary" data-bind="click: getPhongThuy">XEM</button>
+            <div class="secure">
+              <a href="#" data-bind="click: getPhongThuy" style="height:35px; line-height: 35px;">XEM</a>
+            </div>
          </div>
        </div>
        <div class="clearfix"></div>
@@ -280,19 +277,29 @@
       <div class="clearfix"></div>
       <hr>
       <div class="col-md-6 col-sm-6  col-xs-6" >
-        <div class="form-group">
+        <!-- <div class="form-group">
               <button type="button" class="btn btn-primary" style="font-weight:bold;white-space:normal;display:inline-flex;margin-left: auto;
     margin-right: auto;
     display: table;">
                  <span style="text-align: center; font-size: 12px;">Sản phẩm liên quan </span>
                </button>
+        </div> -->
+        <div class="form-group">
+              <button type="button" class="btn" style="font-weight:bold; white-space:normal; display:inline-flex; background:#dfb859; color: #fff;">
+                 <span style="text-align: center; font-size: 12px;">Sản phẩm liên quan </span>
+               </button>
         </div>
       </div>
       <div class="col-md-6 col-sm-6  col-xs-6" >
-        <div class="form-group">
+        <!-- <div class="form-group">
               <button type="button" class="btn btn-primary" style="font-weight:bold;white-space:normal;display:inline-flex;margin-left: auto;
     margin-right: auto;
     display: table;">
+                 <span style="text-align: center; font-size: 12px;">Bạn cần tư vấn </span>
+               </button>
+        </div> -->
+        <div class="form-group">
+              <button type="button" class="btn" style="font-weight:bold; white-space:normal; display:inline-flex; background:#dfb859; color: #fff;">
                  <span style="text-align: center; font-size: 12px;">Bạn cần tư vấn </span>
                </button>
         </div>
@@ -310,21 +317,17 @@
         <div class="carousel-inner">
           <div class="item active">
 
-        @foreach($ProductSameColors as $item)
-          <div class="product-scroll">
-            <div class="col-md-6 col-sm-3 col-xs-3"><a href="{{url('san-pham/'.$item->alias.'/'.$item->id)}}"><img src="{{asset('images/'.preg_replace('/^([^,]*).*$/', '$1', $item->images))}}" style="display: table-cell; margin: 0 auto;max-height: 70px; min-width: 30px;" alt="" title="" class="img-responsive"></a></div>
-            <div class="col-md-6 col-sm-9 col-xs-9"> <h3><a href="{{url('san-pham/'.$item->alias.'/'.$item->id)}}">{{$item->name}}</a></h3>
-             <br>
-              @if($item->category->is_custom)
-              <h4>{{number_format($item->price * $item->category->sizes->first()->value, 0, ',', '.').'(đ)'}}</h4>
-              @else
-              <h4>{{number_format($item->price, 0, ',', '.').'(đ)'}}</h4>
-              @endif
+          @foreach($RelatedProducts as $item)
+            <div class="product-scroll">
+              <div class="col-md-6 col-sm-3 col-xs-3"><a href="{{url('san-pham/'.$item->alias.'/'.$item->id)}}"><img src="{{asset('images/'.preg_replace('/^([^,]*).*$/', '$1', $item->images))}}" style="display: table-cell; margin: 0 auto;max-height: 70px; min-width: 30px;" alt="" title="" class="img-responsive"></a></div>
+              <div class="col-md-6 col-sm-9 col-xs-9"> <h3><a href="{{url('san-pham/'.$item->alias.'/'.$item->id)}}">{{$item->name}}</a></h3>
+               <br>
+                <h4>{{number_format($item->price, 0, ',', '.').'(đ)'}}</h4>
+              </div>
             </div>
-          </div>
-          <div class="clearfix"></div>
-         <hr>
-         @endforeach
+            <div class="clearfix"></div>
+
+           @endforeach
           </div>
 
             @if(count($ProductSameMaterials) > 0)
@@ -361,7 +364,7 @@
 
 
 <!-- Modal -->
- <div class="modal" id="modalDesignProduct" role="dialog">
+ <div class="modal" id="modalDesignProduct" role="dialog" data-bind="with: productModel">
    <div class="modal-dialog modal-lg">
      <div class="modal-content"  style="height: auto;">
        <div class="modal-header">
@@ -397,9 +400,9 @@
                      </div>
 
                    <div class="col-md-6">
-                     <span style="float: left;">&nbsp;KÍCH THƯỚC HẠT</span>
+                     <span style="float: left;" data-bind="text: '&nbsp;' + SizeHatName()"></span>
                      <div class="form-group">
-                       <select id="checkout-country" class="js-countries" data-bind="options: Sizes, optionsText: 'name', optionsValue: 'name', value: SeletedPieceSizeId">
+                       <select id="checkout-country" class="js-countries" data-bind="options: SizeHats, optionsText: 'name', optionsValue: 'id', value: CustomSizeHatId ">
                        </select>
                      </div>
                  </div>
@@ -473,7 +476,7 @@
                   <!-- ko foreach: ServerPieces -->
 
                   <li class="list-group-item" style="display: inline-grid; padding: 5px 5px;"
-                    data-bind="click: SelectPiece, style: { background: SeletedPiece() && SeletedPiece().id == $data.id ? '#ddd' : '' }">
+                    data-bind="click: $parent.SelectPiece, style: { background: $parent.SeletedPiece() && $parent.SeletedPiece().id == $data.id ? '#ddd' : '' }">
 
                   <img style="height: 50px; cursor: pointer; display: table; margin-left: auto; margin-right: auto;"
                         data-bind="attr: { src: ImagePath() + '/' + $data.image, title: $data.name+' - ' + formatMoney($data.price) }" />
@@ -495,7 +498,7 @@
                   <!-- ko foreach: ServerCharms -->
 
                   <li class="list-group-item" style="display: inline-grid; padding: 5px 5px;"
-                    data-bind="click: SelectCharm, style: { background: SeletedCharm() && SeletedCharm().id == $data.id ? '#ddd' : '' }">
+                    data-bind="click: $parent.SelectCharm, style: { background: $parent.SeletedCharm() && $parent.SeletedCharm().id == $data.id ? '#ddd' : '' }">
 
                   <img style="height: 50px; cursor: pointer; display: table; margin-left: auto; margin-right: auto;"
                         data-bind="attr: { src: ImagePath() + '/' + $data.image, title: $data.name+' - ' + formatMoney($data.price) }" />
@@ -521,9 +524,9 @@
                <ul class="list-group">
                 <!-- ko foreach: Pieces -->
                 <li class="list-group-item removeItem" style="display: inline-grid; border: 0px; padding: 1px 3px;">
-                  <a class='delete' href="#" data-bind="click: RemoveItem" style="text-align: center;"><span class="glyphicon glyphicon-remove"></span></a>
+                  <a class='delete' href="#" data-bind="click: $parent.RemoveItem" style="text-align: center;"><span class="glyphicon glyphicon-remove"></span></a>
                     <span class='delete1'>&nbsp</span>
-                    <img style="height: 35px; cursor: pointer;" data-bind="attr: { src: ImagePath() + '/' + $data.itemImage }, click: ViewDetailFromSelectedItem" />
+                    <img style="height: 35px; cursor: pointer;" data-bind="attr: { src: ImagePath() + '/' + $data.itemImage }, click: $parent.ViewDetailFromSelectedItem" />
                       <span style="font-size: 9px;" data-bind="text: $data.itemSize == -1 ? 'Charm' : 'Hạt'"></span>
                 </li>
                 <!-- /ko -->
@@ -533,17 +536,17 @@
 
       <div class="row">
               <div class="col-md-3">
-                <span style="float: left;">&nbsp;CÁCH ĐAN DÂY</span>
+                <span style="float: left;" data-bind="text: '&nbsp;' + KieudayName()"></span>
                 <div class="form-group">
-                  <select id="checkout-country" class="js-countries" data-bind="options: Kieudays, optionsText: 'name', optionsValue: 'id', value: CustomKieudayId">
+                  <select id="checkout-country" class="js-countries" data-bind="options: Kieudays, optionsText: $data, optionsValue: $data, value: CustomKieudayId">
                   </select>
                 </div>
             </div>
 
             <div class="col-md-3">
-              <span style="float: left;">&nbsp;SIZE CỔ TAY</span>
+              <span style="float: left;" data-bind="text: '&nbsp;' + SizeVongName()"></span>
               <div class="form-group">
-                <select id="checkout-country" class="js-countries" data-bind="options: SizeCoTays, optionsText: 'name', optionsValue: 'id', value: CustomSizeCoTayId">
+                <select id="checkout-country" class="js-countries" data-bind="options: SizeVongs, optionsText: $data, optionsValue: $data, value: CustomSizeVongId">
                 </select>
               </div>
           </div>
@@ -584,13 +587,11 @@
     var data = {};
     var options = {};
     data.Product = <?php echo json_encode($Product); ?>;
-    data.Sizes = <?php echo json_encode($Sizes); ?>;
     data.Pieces = <?php echo json_encode($Pieces); ?>;
 
     data.Charms = <?php echo json_encode($Charms); ?>;
-    data.Kieudays = <?php echo json_encode($Kieudays); ?>;
 
-    data.SizeCoTays = <?php echo json_encode($SizeCoTays); ?>;
+    data.SizeCoTays = [];
 
     data.IsInWishList = <?php echo json_encode($IsInWishList); ?>;
     data.User = <?php echo json_encode(Auth::User()); ?>;

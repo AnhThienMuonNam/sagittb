@@ -26,7 +26,7 @@ use App\Nam_Phong_Thuy;
 use App\Topic;
 use App\Bank;
 use App\Piece;
-use App\Size_Co_Tay;
+use App\Size_Hat;
 
 
 
@@ -143,28 +143,24 @@ class HomeController extends Controller
 
 
      public function product_detail($Alias, $Id)
-    {
+     {
          $Product = Product::with('category')->with('piece')->where('id',$Id)->first();
-         $Sizes = Size::where('is_deleted', 0)->where('is_active', 1)->get();
-         $Kieudays = Kieuday::where('category_id',$Product->category_id)->where('is_deleted',0)->get();
-
+         $Product->category->size_hats = Size_Hat::where('is_deleted', 0)->where('is_active', 1)->where('category_id', $Product->category_id)->get();
          $Charms = Charm::all();
          $Pieces = Piece::where('is_deleted', 0)->where('is_active', 1)->get();
-         $SizeCoTays = Size_Co_Tay::where('is_deleted', 0)->where('is_active', 1)->get();
 
          $IsInWishList = false;
          if(Auth::check() && Wish_List::where('product_id',$Id)->where('user_id', Auth::user()->id)->count()>0){
-          $IsInWishList = true;
+           $IsInWishList = true;
          }
+
          $Images = explode(',', $Product->images);
 
-        // $ProductSameColors = Product::with(['category'=>function($q){ return $q->with('sizes');}])
-        //                             ->with('piece')
-        //                             ->where('id','!=',$Product->id)
-        //                             ->where('category_id',$Product->category_id)
-        //                             ->where('color_id',$Product->color_id)
-        //                             ->inRandomOrder()
-        //                             ->skip(0)->take(3)->get();
+         $RelatedProducts = Product::where('id','!=',$Product->id)
+                                    ->where('category_id',$Product->category_id)
+                                    ->inRandomOrder()
+                                    ->skip(0)->take(3)->get();
+
         // if(count($ProductSameColors) == 0){
         //     $ProductSameColors = Product::with(['category'=>function($q){ return $q->with('sizes');}])
         //                                 ->with('piece')
@@ -178,13 +174,10 @@ class HomeController extends Controller
 
         return view('page2.product_detail',['Product'=>$Product,
                                             'Images'=>$Images,
-                                            'Sizes'=>$Sizes,
-                                            'Kieudays'=>$Kieudays,
                                             'Charms'  =>  $Charms,
                                             'Pieces'  =>  $Pieces,
-                                            'SizeCoTays'  =>  $SizeCoTays,
-                                            'IsInWishList'  =>  $IsInWishList,
-                                            'ProductSameColors'=>[],
+                                            'IsInWishList' => $IsInWishList,
+                                            'RelatedProducts' => $RelatedProducts,
                                             'ProductSameMaterials'=>[] ]);
     }
 
@@ -207,19 +200,16 @@ class HomeController extends Controller
         $storedItem = [ 'cartId'=>uniqid(),
                         'id'=>$newItem->id,
                         'name'=>$newItem->name,
-                        'size'=>$newItem->size,
+                        'sizehat'=>$newItem->sizehat,
                         'kieuday'=>$newItem->kieuday,
+                        'sizevong'=>$newItem->sizevong,
                         'quanlity'=> 1,
                         'price'=>(int)$newItem->price,
                         'image'=>$newItem->image,
-                        'categoryIsCustom'=>$newItem->categoryIsCustom,
+                        'is_custom'=>$newItem->is_custom,
                         'details'=>$newItem->details,
                         'alias'=>$newItem->alias,
-                        'sizeCoTay'=>$newItem->sizeCoTay
-
                     ];
-
-
 
         if($oldCart)
         {
@@ -229,18 +219,18 @@ class HomeController extends Controller
                 $oldItemDetails = $oldItem['details'];
 
                 if ($newItem->id == $oldItem['id'] &&
-                    $newItem->categoryIsCustom == 0 &&
-                    $this->compareSize($oldItem, $newItem) &&
-                    $this->compareSizeCoTay($oldItem, $newItem) &&
+                    $newItem->is_custom == 0 &&
+                    $this->compareSizeHat($oldItem, $newItem) &&
+                    $this->compareSizeVong($oldItem, $newItem) &&
                     $this->compareKieuday($oldItem, $newItem)) {
 
                       $oldCart[$key]['quanlity']++;
                       (int)$oldCart[$key]['price'] += (int)$newItem->price;
                       return $oldCart;
 
-                } else if ($newItem->categoryIsCustom != 0 &&
-                          $this->compareSizeCoTay($oldItem, $newItem) &&
+                } else if ($newItem->is_custom != 0 &&
                           $this->compareKieuday($oldItem, $newItem) &&
+                          $this->compareSizeVong($oldItem, $newItem) &&
                           $this->compareDetails($oldItemDetails, $newItemDetails)){
 
                             $oldCart[$key]['quanlity']++;
@@ -315,8 +305,8 @@ class HomeController extends Controller
    }
 
 
-    function compareSize($oldItem, $newItem){
-      if($oldItem['size'] == $newItem->size){
+    function compareSizeHat($oldItem, $newItem){
+      if($oldItem['sizehat'] == $newItem->sizehat){
         return true;
       }
       else {
@@ -333,16 +323,14 @@ class HomeController extends Controller
       }
     }
 
-    function compareSizeCoTay($oldItem, $newItem){
-      if($oldItem['sizeCoTay'] == $newItem->sizeCoTay){
+    function compareSizeVong($oldItem, $newItem){
+      if($oldItem['sizevong'] == $newItem->sizevong){
         return true;
       }
       else {
         return false;
       }
     }
-
-
 
     function compareDetails($oldItemDetail, $newItemDetail)
     {
@@ -374,10 +362,8 @@ class HomeController extends Controller
     {
         $Carts = Session::has('myCart') ? Session::get('myCart') : null;
 
-        $Sizes = Size::all();
-        $Kieudays = Kieuday::all();
         $Charms = Charm::all();
-          $SizeCoTays = Size_Co_Tay::where('is_active',1)->get();
+        $SizeHats = Size_Hat::all();
 
         $Banks = Bank::where('is_active',1)->get();
         $Cities = City::orderBy('display_order','desc')->get();
@@ -387,14 +373,10 @@ class HomeController extends Controller
                                         ->get();
 
         return view('page2.cart',['Carts'=>$Carts,
-
-                                'Sizes'=>$Sizes,
-                                'Kieudays'=>$Kieudays,
                                 'Charms'=>$Charms,
-
                                 'Cities'=>$Cities,
                                 'Banks'=>$Banks,
-                                'SizeCoTays'=>$SizeCoTays,
+                                'SizeHats'=>$SizeHats,
                                 'PaymentMethods'=>$PaymentMethods ]);
     }
 
@@ -517,6 +499,19 @@ class HomeController extends Controller
     }
          //end shop trang suc
      function createOrderDetails($cart, $order){
+
+       // 'cartId'=>uniqid(),
+       //                 'id'=>$newItem->id,
+       //                 'name'=>$newItem->name,
+       //                 'sizehat'=>$newItem->sizehat,
+       //                 'kieuday'=>$newItem->kieuday,
+       //                 'sizevong'=>$newItem->sizevong,
+       //                 'quanlity'=> 1,
+       //                 'price'=>(int)$newItem->price,
+       //                 'image'=>$newItem->image,
+       //                 'is_custom'=>$newItem->is_custom,
+       //                 'details'=>$newItem->details,
+       //                 'alias'=>$newItem->alias,
         if($cart){
             $latestPrice = 0;
             foreach($cart as $key => $struct){
@@ -526,18 +521,13 @@ class HomeController extends Controller
               $orderDetail->product_name = $struct['name'];
               $orderDetail->product_image = $struct['image'];
               $orderDetail->product_alias = $struct['alias'];
-
-              $orderDetail->product_size_id = $struct['size'];
-
-              $orderDetail->product_kieuday_id = $struct['kieuday'];
-              $orderDetail->product_size_co_tay_id = $struct['sizeCoTay'];
+              $orderDetail->product_sizehat = $struct['sizehat'];
+              $orderDetail->product_kieuday = $struct['kieuday'];
+              $orderDetail->product_sizevong = $struct['sizevong'];
 
               if ($product) {
-
                 $orderDetail->category_name = $product->category->name;
                 $orderDetail->category_id = $product->category->id;
-
-
               }
 
               $orderDetail->original_price = $struct['price'];
@@ -565,7 +555,7 @@ class HomeController extends Controller
               $subOrderDetail->order_detail_id = $orderDetail->id;
               $subOrderDetail->save();
             }
-      }
+          }
     }
 
     function getPhongThuy(Request $request)

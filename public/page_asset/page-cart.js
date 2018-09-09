@@ -3,12 +3,10 @@ var FormViewModel = function(data) {
     self.NotifySuccess = ko.observable(null);
     self.Carts = ko.observableArray(convertToCartObservableArray(data.Carts) || []);
 
-    self.Sizes = ko.observableArray(data.Sizes || []);
-    self.Kieudays = ko.observableArray(data.Kieudays || []);
     self.Charms = ko.observableArray(data.Charms || []);
     self.Cities = ko.observableArray(data.Cities || []);
     self.Banks = ko.observableArray(data.Banks || []);
-    self.SizeCoTays = ko.observableArray(data.SizeCoTays || []);
+    self.SizeHats = ko.observableArray(data.SizeHats || []);
 
     self.PaymentMethods = ko.observableArray(data.PaymentMethods || []);
 
@@ -65,7 +63,6 @@ var FormViewModel = function(data) {
     });
 
     self.checkout = function(){
-
         self.checkoutViewModel().showErrorValidations();
         if(self.checkoutViewModel().hasErrors() == true) return;
 
@@ -125,31 +122,25 @@ var FormViewModel = function(data) {
         var items = cart.details();
         var result = "";
 
-        if(cart.size()){
-          var _size = self.Sizes().filter(function(x){ return x.id == cart.size(); })[0];
-
-            if(_size){
+        if(cart.sizehat()){
               if(result){
-                  result = result + '<br />Kích thước hạt: ' + _size.name;
+                  result = result + '<br />Kích thước hạt: ' + cart.sizehat();
               } else {
-                  result = 'Kích thước hạt: ' + _size.name;
+                  result = 'Kích thước hạt: ' + cart.sizehat();
               }
-            }
         }
         if(cart.kieuday()){
-            var kieudayName = self.Kieudays().filter(function(x){ return x.id == cart.kieuday(); })[0].name;
             if(result){
-                result = result + '<br />Cách đan dây: ' + kieudayName;
+                result = result + '<br />Cách đan dây: ' + cart.kieuday();
             } else {
-                result = 'Cách đan dây: ' + kieudayName;
+                result = 'Cách đan dây: ' + cart.kieuday();
             }
         }
-        if(cart.sizeCoTay()){
-            var itemName = self.SizeCoTays().filter(function(x){ return x.id == cart.sizeCoTay(); })[0].name;
+        if(cart.sizevong()){
             if(result){
-                result = result + '<br />Size cổ tay: ' + itemName;
+                result = result + '<br />Size dây/vòng: ' + cart.sizevong();
             } else {
-                result = 'Size cổ tay: ' + itemName;
+                result = 'Size dây/vòng: ' + cart.sizevong();
             }
         }
         if(cart.charm()){
@@ -166,7 +157,7 @@ var FormViewModel = function(data) {
 
           if(listGroupByPieceId && listGroupByPieceId.length > 0) {
             if(result) {
-              result = result +'<br />Hạt x S.lg: ';
+              result = result +'<br />Items: ';
             } else {
               result = result +'Hạt x S.lg: ';
             }
@@ -174,17 +165,23 @@ var FormViewModel = function(data) {
             for (var i = 0; i < listGroupByPieceId.length; i++) {
               var listGroupBySize = groupBy(listGroupByPieceId[i],'itemSize');
               var listCharms = [];
-              if(listGroupBySize.length > 0 && listGroupBySize[0][0].itemSize == -1){
-
-              } else {
-                  for (var j = 0; j < listGroupBySize.length; j++) {
-                      if (i == listGroupByPieceId.length - 1 && j == listGroupBySize.length - 1){
-                        result = result + listGroupBySize[j][0].itemName +' ('+ listGroupBySize[j][0].itemSize +') x ' + listGroupBySize[j].length;
-                      } else {
-                        result = result + listGroupBySize[j][0].itemName +' ('+ listGroupBySize[j][0].itemSize +') x ' + listGroupBySize[j].length + '; ';
-                      }
+              for (var j = 0; j < listGroupBySize.length; j++) {
+                  if (i == listGroupByPieceId.length - 1 && j == listGroupBySize.length - 1){
+                    if(listGroupBySize[j][0].itemSize === "-1"){
+                      result = result + listGroupBySize[j][0].itemName + ' x ' + listGroupBySize[j].length;
+                    } else {
+                      result = result + listGroupBySize[j][0].itemName +' ('+ listGroupBySize[j][0].itemSize +') x ' + listGroupBySize[j].length;
                     }
+                  } else {
+                      if(listGroupBySize[j][0].itemSize === "-1"){
+                        result = result + listGroupBySize[j][0].itemName +' x ' + listGroupBySize[j].length + '; ';
+
+                      }else {
+                        result = result + listGroupBySize[j][0].itemName +' ('+ listGroupBySize[j][0].itemSize +') x ' + listGroupBySize[j].length + '; ';
+
+                      }
                   }
+                }
               }
           }
         }
@@ -293,18 +290,18 @@ var FormViewModel = function(data) {
 var CartViewModel = function(data) {
     var self = this;
     self.cartId = ko.observable(data.cartId || null);
-    self.categoryIsCustom = ko.observable(data.categoryIsCustom || false);
+    self.is_custom = ko.observable(parseInt(data.is_custom) == 1 ? true : false);
     self.id = ko.observable(data.id || null);
     self.image = ko.observable(data.image || null);
     self.details = ko.observableArray(data.details || []);
     self.name = ko.observable(data.name || null);
     self.price = ko.observable(data.price || null);
     self.quanlity = ko.observable(data.quanlity || null);
-    self.size = ko.observable(data.size || null);
+    self.sizehat = ko.observable(data.sizehat || null);
     self.kieuday = ko.observable(data.kieuday || null);
     self.charm = ko.observable(data.charm || null);
     self.alias = ko.observable(data.alias || null);
-    self.sizeCoTay = ko.observable(data.sizeCoTay || null);
+    self.sizevong = ko.observable(data.sizevong || null);
 }
 
 

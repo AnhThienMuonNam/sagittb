@@ -79,7 +79,7 @@
 						<tr class="table-h">
 							<td>ID</td>
 							<td>Ngày đặt</td>
-							<td>Trị giá đơn hàng</td>
+							<td>Giá trị đơn hàng</td>
 							<td>Trạng thái</td>
 							<td></td>
 						</tr>
@@ -89,13 +89,16 @@
 							</span></td>
 							<td class="product-name"><span data-bind="text: $data.created_at">
 							</span></td>
-							<td>
+							<!-- <td>
 								<div class="cost2"><span data-bind="text: formatMoney($data.original_price)"></span>
 								</div>
-							</td>
+							</td> -->
+              <td><div class="cost" style="background: #1e1c1c;">
+                <span style="font-size: 20px; color: #DDCA22;" data-bind="text: formatMoney($data.original_price)"></span>
+              </div></td>
 							<td>
 								<div class="cost2"><span data-bind="text: $data.order_status.name"></span>
-                
+
 								</div>
 							</td>
 							<td><div class="cost"><a data-bind="attr:{href: PublicPath()+'/user/order-detail/'+$data.id}" style="color: #fff;" >Xem Chi Tiết</a></div></td>
@@ -110,16 +113,19 @@
 							<td><div class="cost2"><span style="margin: 0px; padding: 0px;" data-bind="text: 'ID: '+ $data.id"> </div>
 							</span></td>
 							<td><div class="cost2"><span data-bind="text: 'Ngày đặt: '+ $data.created_at"></span></div></td>
+            
+               <td><div class="cost" style="background: #1e1c1c;">
+                 <span style="font-size: 20px; color: #DDCA22;" data-bind="text: formatMoney($data.original_price)"></span>
+               </div></td>
 						</tr>
 
 						<tr class="product-name">
-							<td><div class="cost2"><span style="margin: 0px; padding: 0px;" data-bind="text: 'Trị giá đơn hàng: ' + formatMoney($data.original_price)">
-							 </div></span></td>
-							<td><div class="cost2"><span data-bind="text: 'Trạng thái: ' + $data.order_status.name"></span></div></td>
+
+							<td><div class="cost2"><span data-bind="text: $data.order_status.name"></span></div></td>
+              <td colspan="2"><div class="cost"><a data-bind="attr:{href: PublicPath()+'/user/order-detail/'+$data.id}" style="color: #fff;" >Xem Chi Tiết</a></div></td>
+
 						</tr>
-						<tr>
-							<td colspan="2"><div class="cost"><a data-bind="attr:{href: PublicPath()+'/user/order-detail/'+$data.id}" href="#">Xem Chi Tiết</a></div></td>
-						</tr>
+
 					</table>
 					<div class="clearfix"></div>
 					<br>

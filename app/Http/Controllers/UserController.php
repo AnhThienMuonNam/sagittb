@@ -19,7 +19,7 @@ use App\Wish_List;
 use App\City;
 use App\Bank;
 use App\Piece;
-use App\Size_Co_Tay;
+use App\Size_Hat;
 
 use Hash;
 
@@ -203,23 +203,19 @@ class UserController extends Controller
               return;
 
         	$OrderStatues = Order_Status::all();
-          $Sizes = Size::all();
-          $Kieudays = Kieuday::all();
+
           $Charms = Charm::all();
           $Pieces = Piece::all();
-          $SizeCoTays = Size_Co_Tay::all();
+          $SizeHats = Size_Hat::all();
           $Banks = Bank::where('is_active',1)->get();
 
   		    return view('page2.user.order_detail',[	'Order'=>$Order,
-    												'OrderStatues'=>$OrderStatues,
-    												'Sizes'=>$Sizes,
-    												'Kieudays'=>$Kieudays,
-    												'Charms'=>$Charms,
-                          	'Banks'=>$Banks,
-                          	'Pieces'=>$Pieces,
-                            'SizeCoTays'=>$SizeCoTays,
-
-    											]);
+                          												'OrderStatues'=>$OrderStatues,
+                          												'Charms'=>$Charms,
+                                                	'Banks'=>$Banks,
+                                                	'Pieces'=>$Pieces,
+                                                  'SizeHats'=>$SizeHats,
+                          											]);
         }
     }
 
@@ -234,21 +230,17 @@ class UserController extends Controller
       if(!$Order)
         return;
       $OrderStatues = Order_Status::all();
-      $Sizes = Size::all();
-      $Kieudays = Kieuday::all();
       $Charms = Charm::all();
       $Pieces = Piece::all();
-      $SizeCoTays = Size_Co_Tay::all();
+      $SizeHats = Size_Hat::all();
       $Banks = Bank::where('is_active',1)->get();
 
-        return view('page2.user.order_detail',[	'Order'=>$Order,
+      return view('page2.user.order_detail',[	'Order'=>$Order,
                         'OrderStatues'=>$OrderStatues,
-                        'Sizes'=>$Sizes,
-                        'Kieudays'=>$Kieudays,
                         'Charms'=>$Charms,
                         'Banks'=>$Banks,
                         'Pieces'=>$Pieces,
-                        'SizeCoTays'=>$SizeCoTays,
+                        'SizeHats'=>$SizeHats,
                       ]);
     }
 
