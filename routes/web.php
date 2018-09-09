@@ -137,4 +137,5 @@ Route::get('guarantee-policy','IntroController@guaranteePolicy');
 
 Route::get('order/{orderCode}', 'UserController@getOrderDetailByCode');
 
+Route::get('thank-you', 'HomeController@thankYouPage');
 //end shop trang suc
