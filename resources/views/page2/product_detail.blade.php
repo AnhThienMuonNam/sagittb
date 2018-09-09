@@ -16,7 +16,7 @@
  display:none
 }
 .btnpr{
-  font-weight:bold; 
+  font-weight:bold;
   white-space:normal;
   display:inline-flex;
   background:#ffff;
@@ -246,9 +246,9 @@
       <!-- <h6>SKU - 12458AF6</h6> -->
       <p data-bind="html: Description"></p>
       <p><img src="{{asset('images/products/line.jpg')}}"  alt="" title=""></p>
-      <h2>Từ khóa</h2>
+      <!-- <h2>Từ khóa</h2>
       <p>#tag1 #tag2 #00112233</p>
-      <p><img src="{{asset('images/products/line.jpg')}}"  alt="" title=""></p>
+      <p><img src="{{asset('images/products/line.jpg')}}"  alt="" title=""></p> -->
     </div>
     <div class="clearfix"></div>
   </div>
@@ -299,8 +299,8 @@
                </button>
         </div> -->
         <div class="form-group">
-              <button type="button" class="btn" style="font-weight:bold; white-space:normal; display:inline-flex; background:#dfb859; color: #fff;">
-                 <span style="text-align: center; font-size: 12px;">Sản phẩm liên quan </span>
+              <button type="button" class="btn btnpr">
+                 <span style="text-align: center; font-size: 12px;">Xem thêm</span>
                </button>
         </div>
       </div>
@@ -313,8 +313,8 @@
                </button>
         </div> -->
         <div class="form-group">
-              <button type="button" class="btn" style="font-weight:bold; white-space:normal; display:inline-flex; background:#dfb859; color: #fff;">
-                 <span style="text-align: center; font-size: 12px;">Bạn cần tư vấn </span>
+              <button type="button" class="btn btnpr">
+                 <span style="text-align: center; font-size: 12px;">Tư vấn</span>
                </button>
         </div>
       </div>

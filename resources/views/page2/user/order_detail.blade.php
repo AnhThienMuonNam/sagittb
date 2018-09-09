@@ -55,7 +55,7 @@
       <div class="col-md-4 col-sm-4  wow fadeIn">
 
             <div class="panel panel-default">
-
+  <label data-bind="text: 'ID đơn hàng: ' + Order().id"></label><br>
              <div class="panel-body">
                <span data-bind="text: Order().customer_name"></span><br>
                  <span data-bind="text: Order().customer_phone"></span><br>
@@ -138,33 +138,38 @@
 <div class="clearfix"></div>
 <div class="row" style="padding-bottom: 30px;">
 
-  <div class="col-md-6 col-sm-12 col-xs-12">
-    <div class="form-group">
-      <hr>
-      <span>Thông tin tài khoản thanh toán:</span><br>
-      <ul style="display: inline-flex;">
-        <!-- ko foreach: Banks -->
-            <li>
-              <div>
-              <a data-bind="click: ShowBankInfo">
-                <img style="width: 70px; height: auto; cursor: pointer;" data-bind="attr: { src: ImagePath() + '/' + $data.image }">
-              </a>
-              </div>
-            </li>
-        <!-- /ko -->
-        </ul>
+
+  <div class="col-md-6 wow fadeIn">
+    <div class="map-div wow fadeIn text-center">
+      <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="form-group">
+          <h5>Tài khoản thanh toán</h5>
+          <div class="clearfix"> </div>
+          <ul style="display: inline-flex;">
+            <!-- ko foreach: Banks -->
+                <li>
+                  <div>
+                  <a data-bind="click: ShowBankInfo">
+                    <img style="width: 70px; height: auto; cursor: pointer;" data-bind="attr: { src: ImagePath() + '/' + $data.image }">
+                  </a>
+                  </div>
+                </li>
+            <!-- /ko -->
+            </ul>
+        </div>
+      </div>
+        <!-- ko if: IsVisibleBankDetail -->
+      <div class="col-md-12 col-sm-12 col-xs-12" style="background-color: #eee;">
+        <h2>Ngân hàng <span data-bind="text: BankName"></span> </h2>
+        <p >Chủ tài khoản: <span data-bind="text: BankOwner"></span></p>
+        <p >Số tài khoản: <span data-bind="text: BankNumber"></span></p>
+        <p >Chi nhánh: <span data-bind="text: BankBrand"></span></p>
+      </div>
+      <!-- /ko -->
+      <div class="clearfix"></div>
     </div>
-    <!-- ko if: IsVisibleBankDetail -->
-  <div class="col-md-12 col-sm-4 col-xs-12" style="background-color: #eee;">
-    <h2>Ngân hàng <span data-bind="text: BankName"></span> </h2>
-    <p >Chủ tài khoản: <span data-bind="text: BankOwner"></span></p>
-    <p >Số tài khoản: <span data-bind="text: BankNumber"></span></p>
-    <p >Chi nhánh: <span data-bind="text: BankBrand"></span></p>
-
+    <div class="clearfix"> </div>
   </div>
-        <!-- /ko -->
-  </div>
-
 
       <div class="col-md-6 col-sm-12  wow fadeIn">
           <div class="form-horizontal">

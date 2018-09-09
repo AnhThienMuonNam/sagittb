@@ -316,8 +316,8 @@ var CheckoutViewModel = function(option, parent) {
     self.CustomerCity = ko.observable(option ? option.city : null);
     self.CustomerNote = ko.observable(null);
 
-    self.CustomerCityId = ko.observable(null).extend({ required: { params: false, message: 'Bạn chưa chọn tỉnh/thành phố' } });
-    self.CustomerPaymentMethodId = ko.observable(null).extend({ required: { params: false, message: 'Bạn chưa chọn hình thức thanh toán' } });
+    self.CustomerCityId = ko.observable(null).extend({ required: { params: true, message: 'Bạn chưa chọn tỉnh/thành phố' } });
+    self.CustomerPaymentMethodId = ko.observable(null).extend({ required: { params: true, message: 'Bạn chưa chọn hình thức thanh toán' } });
     self.IsShipCod = ko.observable(false);
 
     self.CustomerCityId.subscribe(function(value){

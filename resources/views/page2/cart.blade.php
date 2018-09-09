@@ -265,6 +265,12 @@
 
                     </div>
                     <div class="form-group">
+                      <select class="selectpicker" data-style="btn-primary" data-bind="options: PaymentMethods, optionsText: 'name', optionsValue: 'id', value: CustomerPaymentMethodId, optionsCaption: '-- Hình thức thanh toán --',
+                                                                                      attr: { disabled: IsShipCod(), class: IsShipCod() ? 'gray-out': '', title: IsShipCod() ? 'Hiện tại cửa hàng chỉ áp dụng Thanh toán khi nhận hàng với khách hàng ở Tp. Hồ Chí Minh' : ''}">
+                      </select>
+
+                    </div>
+                    <div class="form-group">
                         <input type="text" placeholder="Ghi Chú" data-bind="value: CustomerNote">
                     </div>
                     <div class="sub-bt">
