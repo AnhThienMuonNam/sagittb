@@ -426,7 +426,7 @@
       <li class="search-div">
         <div id="sb-search" class="sb-search">
           <form>
-            <input class="sb-search-input"  placeholder="Search" type="text" value="" name="search" id="search">
+            <input class="sb-search-input"  style="border-radius: 7px;" placeholder="Search" type="text" value="" name="search" id="search">
             <input class="sb-search-submit" type="submit" value="">
             <span class="sb-icon-search"></span>
           </form>
