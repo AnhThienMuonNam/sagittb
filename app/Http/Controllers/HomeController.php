@@ -35,8 +35,7 @@ use Session;
 
 class HomeController extends Controller
 {
-   private $pageSize = 15;
-
+    private $pageSize = 15;
 
     //shop trang suc
     public function page02()
@@ -384,7 +383,6 @@ class HomeController extends Controller
     public function checkoutView()
     {
         $Carts = Session::has('myCart') ? Session::get('myCart') : null;
-
         $Sizes = Size::all();
         return view('page2.checkout',['Carts'=>$Carts,'Sizes'=>$Sizes ]);
     }
@@ -409,15 +407,11 @@ class HomeController extends Controller
         }
     }
 
-
-
-
     public function logoutPage()
     {
         Auth::logout();
         return 1;
     }
-
 
     public function addToWishList(Request $request)
     {
@@ -498,20 +492,8 @@ class HomeController extends Controller
         return response()->json(['OrderId' => $model->id, 'IsSuccess'=>true]);
     }
          //end shop trang suc
-     function createOrderDetails($cart, $order){
-
-       // 'cartId'=>uniqid(),
-       //                 'id'=>$newItem->id,
-       //                 'name'=>$newItem->name,
-       //                 'sizehat'=>$newItem->sizehat,
-       //                 'kieuday'=>$newItem->kieuday,
-       //                 'sizevong'=>$newItem->sizevong,
-       //                 'quanlity'=> 1,
-       //                 'price'=>(int)$newItem->price,
-       //                 'image'=>$newItem->image,
-       //                 'is_custom'=>$newItem->is_custom,
-       //                 'details'=>$newItem->details,
-       //                 'alias'=>$newItem->alias,
+     function createOrderDetails($cart, $order)
+     {
         if($cart){
             $latestPrice = 0;
             foreach($cart as $key => $struct){

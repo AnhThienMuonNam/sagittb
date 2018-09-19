@@ -16,7 +16,7 @@ use Hash;
 
 use App\Product;
 use App\Kieuday;
-use App\Size;
+
 use App\Order;
 use App\Order_Status;
 use App\Charm;
@@ -240,11 +240,13 @@ class AdminController extends Controller
 
     public function editProduct(Request $request)
     {
+      try {
         $this->validate($request,[
                                     'name'=>'required|max:100',
                                     'price'=>'required|numeric|min:1000',
                                     'category_id'=>'required',
-                                    'piece_id'=>'required'
+                                    'piece_id'=>'required',
+                                    'description'=>'max:500'
                                 ],
             [
                 'name.required'=>'Bạn chưa nhập tên sản phẩm',
@@ -253,6 +255,7 @@ class AdminController extends Controller
                 'price.min'=>'Giá sản phẩm phải lớn hơn 1000 (một ngàn)',
                 'category_id.required'=>'Bạn chưa chọn danh mục',
                 'piece_id.required'=>'Bạn chưa chọn hạt',
+                'description.max'=>'Mô tả phải ít hơn 500 ký tự'
             ]);
 
         $model = Product::find($request->id);
@@ -292,6 +295,9 @@ class AdminController extends Controller
         $model->save();
 
         return response()->json(['IsSuccess' => true]);
+      } catch (Exception $e) {
+        return response()->json(['IsSuccess' => false]);
+      }
     }
 
     public function createProductView()
@@ -310,7 +316,8 @@ class AdminController extends Controller
                                     'name'=>'required|max:100',
                                     'price'=>'required|numeric|min:1000',
                                     'category_id'=>'required',
-                                    'piece_id'=>'required'
+                                    'piece_id'=>'required',
+                                    'description.max'=>'Mô tả phải ít hơn 500 ký tự'
                                 ],
             [
                 'name.required'=>'Bạn chưa nhập tên sản phẩm',
@@ -319,6 +326,7 @@ class AdminController extends Controller
                 'price.min'=>'Giá sản phẩm phải lớn hơn 1000 (một ngàn)',
                 'category_id.required'=>'Bạn chưa chọn danh mục',
                 'piece_id.required'=>'Bạn chưa chọn hạt',
+                'description.max'=>'Mô tả phải ít hơn 500 ký tự'
             ]);
 
         $model = new Product;
@@ -444,22 +452,14 @@ class AdminController extends Controller
                         ->where('id',$Id)
                         ->first();
         $OrderStatues = Order_Status::all();
-        $Sizes = Size::all();
-        $Kieudays = Kieuday::all();
-        $Charms = Charm::all();
         $PaymentMethods = Payment_Method::all();
         $EstimatedDeliveries = Estimated_Delivery::all();
-        $SizeCoTays = Size_Co_Tay::all();
         $Pieces = Piece::all();
 
         return view('admin.order.edit',['Order'=>$Order,
                                         'OrderStatues'=>$OrderStatues,
-                                        'Sizes'=>$Sizes,
-                                        'Kieudays'=>$Kieudays,
-                                        'Charms'=>$Charms,
                                         'PaymentMethods'=>$PaymentMethods,
                                         'Pieces'=>$Pieces,
-                                        'SizeCoTays'=>$SizeCoTays,
                                         'EstimatedDeliveries'=>$EstimatedDeliveries ]);
     }
 

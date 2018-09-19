@@ -1,18 +1,12 @@
 var FormViewModel = function(data) {
     var self = this;
-
     self.Order = ko.observable(data.Order || null);
     self.EstimatedDelivery = ko.observable(data.Order.estimated_delivery || null);
     self.OrderDetails = ko.observableArray(data.Order.order_details || []);
 
-    self.Sizes = ko.observableArray(data.Sizes || []);
-
-    self.Charms = ko.observableArray(data.Charms || []);
-
     self.Banks = ko.observableArray(data.Banks || []);
     self.Pieces = ko.observableArray(data.Pieces || []);
     self.SizeHats = ko.observableArray(data.SizeHats || []);
-
 
     self.ImagePath = ko.observable(data.API_URLs.ImagePath || null);
     self.PublicPath = ko.observable(data.API_URLs.PublicPath || null);

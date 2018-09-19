@@ -5,12 +5,6 @@ function FormViewModel(data) {
     self.Order = ko.observable(data.Order || null);
     self.OrderDetails = ko.observableArray(data.Order.order_details || null);
 
-
-    self.Sizes = ko.observableArray(data.Sizes || []);
-    self.Kieudays = ko.observableArray(data.Kieudays || []);
-    self.Charms = ko.observableArray(data.Charms || []);
-  
-    self.SizeCoTays = ko.observableArray(data.SizeCoTays || []);
     self.Pieces = ko.observableArray(data.Pieces || []);
 
     self.EstimatedDeliveries = ko.observableArray(data.EstimatedDeliveries || []);
@@ -39,28 +33,25 @@ function FormViewModel(data) {
         var result = "";
 
 
-        if(cart.product_size_id){
-            var sizeName = self.Sizes().filter(function(x){ return x.id == cart.product_size_id; })[0].name;
+        if(cart.product_sizehat){
             if(result){
-                result = result + '<br />Kích thước: ' + sizeName;
+                result = result + '<br />Kích thước: ' + cart.product_sizehat;
             } else {
-                result = 'Kích thước: ' + sizeName;
+                result = 'Kích thước: ' + cart.product_sizehat;
             }
         }
-        if(cart.product_kieuday_id){
-            var kieudayName = self.Kieudays().filter(function(x){ return x.id == cart.product_kieuday_id; })[0].name;
+        if(cart.product_kieuday){
             if(result){
-                result = result + '<br />Cách đan dây: ' + kieudayName;
+                result = result + '<br />Cách đan dây: ' + cart.product_kieuday;
             } else {
-                result = 'Cách đan dây: ' + kieudayName;
+                result = 'Cách đan dây: ' + cart.product_kieuday;
             }
         }
-        if(cart.product_size_co_tay_id){
-            var itemName = self.SizeCoTays().filter(function(x){ return x.id == cart.product_size_co_tay_id; })[0].name;
+        if(cart.product_sizevong){
             if(result){
-                result = result + '<br />Size cổ tay: ' + itemName;
+                result = result + '<br />Size dây/vòng: ' + cart.product_sizevong;
             } else {
-                result = 'Size cổ tay: ' + itemName;
+                result = 'Size dây/vòng: ' + cart.product_sizevong;
             }
         }
 
@@ -68,20 +59,26 @@ function FormViewModel(data) {
           var listGroupByPieceId =  groupBy(items,'piece_id');
 
           if(listGroupByPieceId && listGroupByPieceId.length > 0) {
-            result = result +'<br />Hạt x S.lg: ';
+            result = result +'<br />Items: ';
             for (var i = 0; i < listGroupByPieceId.length; i++) {
               var listGroupBySize = groupBy(listGroupByPieceId[i],'piece_size');
-              if(listGroupBySize.length > 0 && listGroupBySize[0][0].piece_size == -1){
 
-              } else {
               for (var j = 0; j < listGroupBySize.length; j++) {
                   if (i == listGroupByPieceId.length - 1 && j == listGroupBySize.length - 1){
-                    result = result + listGroupBySize[j][0].piece_name +' ('+ listGroupBySize[j][0].piece_size +') x ' + listGroupBySize[j].length;
+                    if(listGroupBySize[j][0].piece_size === "-1"){
+                      result = result + listGroupBySize[j][0].piece_name +' x ' + listGroupBySize[j].length;
+                    }else {
+                      result = result + listGroupBySize[j][0].piece_name +' ('+ listGroupBySize[j][0].piece_size +') x ' + listGroupBySize[j].length;
+                    }
                   } else {
-                    result = result + listGroupBySize[j][0].piece_name +' ('+ listGroupBySize[j][0].piece_size +') x ' + listGroupBySize[j].length + '; ';
+                    if(listGroupBySize[j][0].piece_size === "-1"){
+                      result = result + listGroupBySize[j][0].piece_name +' x ' + listGroupBySize[j].length + '; ';
+                    }else {
+                      result = result + listGroupBySize[j][0].piece_name +' ('+ listGroupBySize[j][0].piece_size +') x ' + listGroupBySize[j].length + '; ';
+
+                    }
                   }
                 }
-              }
             }
           }
         }

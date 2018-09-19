@@ -191,14 +191,9 @@ Admin - Cập nhật Đơn hàng
 
     data.Order = <?php echo json_encode($Order); ?>;
 
-    data.Sizes = <?php echo json_encode($Sizes); ?>;
-    data.Kieudays = <?php echo json_encode($Kieudays); ?>;
-    data.Charms = <?php echo json_encode($Charms); ?>;
-  
     data.OrderStatues = <?php echo json_encode($OrderStatues); ?>;
     data.PaymentMethods = <?php echo json_encode($PaymentMethods); ?>;
     data.EstimatedDeliveries = <?php echo json_encode($EstimatedDeliveries); ?>;
-    data.SizeCoTays = <?php echo json_encode($SizeCoTays); ?>;
 
     options.ImagePath = <?php echo json_encode(asset('/images')); ?>;
     options.PublicPath = <?php echo json_encode(url('')); ?>;

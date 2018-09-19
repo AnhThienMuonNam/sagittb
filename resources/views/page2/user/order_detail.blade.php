@@ -245,7 +245,6 @@
       var data = {};
       var options = {};
       data.Order = <?php echo json_encode($Order); ?>;
-      data.Charms = <?php echo json_encode($Charms); ?>;
       data.Banks = <?php echo json_encode($Banks); ?>;
       data.Pieces = <?php echo json_encode($Pieces); ?>;
       data.SizeHats = <?php echo json_encode($SizeHats); ?>;

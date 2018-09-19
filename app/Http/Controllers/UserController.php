@@ -8,10 +8,7 @@ use App\User;
 use Mail;
 use App\Order;
 use App\Order_Detail;
-
 use App\Charm;
-use App\Size;
-use App\Kieuday;
 use App\Order_Status;
 use App\Category;
 use App\Product;
@@ -25,16 +22,11 @@ use Hash;
 
 class UserController extends Controller
 {
-    //
-
-
     //reset password
     public function forgotPasswordView()
     {
 		return view('forgotPassword');
     }
-
-
 
     //end reset password
 
@@ -230,20 +222,17 @@ class UserController extends Controller
       if(!$Order)
         return;
       $OrderStatues = Order_Status::all();
-      $Charms = Charm::all();
       $Pieces = Piece::all();
       $SizeHats = Size_Hat::all();
       $Banks = Bank::where('is_active',1)->get();
 
       return view('page2.user.order_detail',[	'Order'=>$Order,
                         'OrderStatues'=>$OrderStatues,
-                        'Charms'=>$Charms,
                         'Banks'=>$Banks,
                         'Pieces'=>$Pieces,
                         'SizeHats'=>$SizeHats,
                       ]);
     }
-
 
 
 	public function getProfile()
