@@ -15,7 +15,7 @@
 .socialmedia { margin:-2px 0 0 3px}
 .share-icon { width:74px}
 .read-full li { font-size:12px; width:auto; padding:0 10px}
-.read-full { float:left}
+.read-full { float:right;}
 .title-form h2 { font-size:14px}
 .our-store { width:100%;}
 .footer-in .pull-left { padding-left:15px;}
@@ -410,6 +410,8 @@ body.show_sidebar #push_sidebar {left:50%!important;}
 .specific-content h5 {font-size: 35px;}
 .title-h { margin:0!important;}
 .four img { width:100px;}
+
+.read-full { float:left;}
 }
 
 @media(max-width:693px) {
@@ -532,7 +534,9 @@ figure.effect-apollo p { display:none}
 .footer-logos .owl-next { width:25px; height:25px;}
 .price-2 li { width:48%;}
 .right-form .col-xs-6{ padding:5px;}
-
+.price-2 li:last-child {
+    width: 52%;
+}
 .form-group input, .form-group textarea { font-size:11px;}
 .form-group select { font-size:11px;}
 .ship2 { margin:10px 0 0 0; font-size:10px}
@@ -552,8 +556,8 @@ figure.effect-apollo p { display:none}
 
 #back-countdiown li span { font-size:50px!important;}
 #back-countdiown li { width:140px!important;}
-.read-full {width: 185px; height:81px;}
-.read-full li:last-child img { width:60px;}
+.read-full {width: 30%; height:81px;}
+.read-full li:last-child img { display: none;}
 
 
 }
@@ -573,11 +577,14 @@ figure.effect-apollo p { display:none}
 .navbar { min-height:60px;}
 
 .read-full li:last-child { width: 64.5%;}
-.socialmedia  { display:none!important}
+/* .socialmedia  { display:none!important} */
 /* .share-icon  { display:none!important} */
 .price-2 { width:100%!important}
 .price-2 li { font-size:11px!important}
-.price-2 a { padding:0 12.8%}
+.price-2 a { padding:0 0.8%}
+.price-2 li:last-child {
+	width: 52%;
+}
 .category-in ul li { width:48%!important}
 .copyright { font-size:11px;}
 .older-posts h1 { font-size:20px;}

@@ -404,7 +404,7 @@
       @if(!Auth::check())
       <li class="sign-in">
         <input type="button" value="Đăng Nhập" data-toggle="modal" data-target="#myModalHorizontal" >
-        
+
         <input  value="Đăng Ký"  type="button" data-toggle="modal" data-target="#myModalHorizontal2" >
       </li>
       @endif

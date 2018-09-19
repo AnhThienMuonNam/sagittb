@@ -35,7 +35,7 @@ use Session;
 
 class HomeController extends Controller
 {
-   private $pageSize = 2;
+   private $pageSize = 15;
 
 
     //shop trang suc

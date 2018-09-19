@@ -280,9 +280,6 @@ var FormViewModel = function(data) {
             },
         });
    };
-
-   self.checkoutViewModel().hideErrorValidations();
-
 }
 
 
@@ -307,17 +304,66 @@ var CartViewModel = function(data) {
 
 var CheckoutViewModel = function(option, parent) {
     var self = this;
-
-    self.CustomerName = ko.observable(option ? option.name : null).extend({ required: { params: true, message: 'Bạn chưa nhập họ tên' } });
-    self.CustomerPhone = ko.observable(option ? option.phone : null).extend({ required: { params: true, message: 'Bạn chưa nhập số điện thoại' } });
-    self.CustomerEmail = ko.observable(option ? option.email : null).extend({ required: { params: true, message: 'Bạn chưa nhập email' } });
-    self.CustomerAddress = ko.observable(option ? option.address : null).extend({ required: { params: true, message: 'Bạn chưa nhập số nhà, tên đường, phường/xã' } });
-    self.CustomerDistrict = ko.observable(option ? option.district : null).extend({ required: { params: true, message: 'Bạn chưa nhập quận/huyện' } });
+    self.ExecuteValidation = ko.observable(false);
+    self.CustomerName = ko.observable(option ? option.name : null).extend({
+        required: {
+            message: "Bạn chưa nhập họ tên",
+            onlyIf: function () {
+                return self.ExecuteValidation() === true;
+            }
+        }
+    });
+    self.CustomerPhone = ko.observable(option ? option.phone : null).extend({
+        required: {
+            message: "Bạn chưa nhập số điện thoại",
+            onlyIf: function () {
+                return self.ExecuteValidation() === true;
+            }
+        }
+    });
+    self.CustomerEmail = ko.observable(option ? option.email : null).extend({
+        required: {
+            message: "Bạn chưa nhập email",
+            onlyIf: function () {
+                return self.ExecuteValidation() === true;
+            }
+        }
+    });
+    self.CustomerAddress = ko.observable(option ? option.address : null).extend({
+        required: {
+            message: "Bạn chưa nhập địa chỉ nhận hàng",
+            onlyIf: function () {
+                return self.ExecuteValidation() === true;
+            }
+        }
+    });
+    self.CustomerDistrict = ko.observable(option ? option.district : null).extend({
+        required: {
+            message: "Bạn chưa nhập phường/xã",
+            onlyIf: function () {
+                return self.ExecuteValidation() === true;
+            }
+        }
+    });
     self.CustomerCity = ko.observable(option ? option.city : null);
     self.CustomerNote = ko.observable(null);
 
-    self.CustomerCityId = ko.observable(null).extend({ required: { params: true, message: 'Bạn chưa chọn tỉnh/thành phố' } });
-    self.CustomerPaymentMethodId = ko.observable(null).extend({ required: { params: true, message: 'Bạn chưa chọn hình thức thanh toán' } });
+    self.CustomerCityId = ko.observable(null).extend({
+        required: {
+            message: "Bạn chưa chọn tỉnh/thành phố",
+            onlyIf: function () {
+                return self.ExecuteValidation() === true;
+            }
+        }
+    });
+    self.CustomerPaymentMethodId = ko.observable(null).extend({
+        required: {
+            message: "Bạn chưa chọn hình thức thanh toán",
+            onlyIf: function () {
+                return self.ExecuteValidation() === true;
+            }
+        }
+    });
     self.IsShipCod = ko.observable(false);
 
     self.CustomerCityId.subscribe(function(value){
@@ -356,19 +402,13 @@ var CheckoutViewModel = function(option, parent) {
     };
     self.hasErrors = ko.observable(false);
     self.showErrorValidations = function () {
+      self.ExecuteValidation(true);
         var errors = ko.validation.group(self);
         if(errors().length > 0){
             errors.showAllMessages(true);
             self.hasErrors(true);
         }else{
             self.hasErrors(false);
-        }
-    };
-
-    self.hideErrorValidations = function(){
-        var errors = ko.validation.group(self);
-        if(errors().length > 0){
-            errors.showAllMessages(false);
         }
     };
 }

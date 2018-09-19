@@ -10,6 +10,16 @@
      background: #dfb859;
      text-transform: capitalize;
  }
+ @media (max-width: 1024px){
+  .footer-logos .owl-nav {
+      top: -20%;
+
+  }
+
+  .categoryImageIndex img {
+    max-width: 100% !important;
+}
+}
  </style>
  @endsection
 
@@ -37,7 +47,7 @@
     </div>
   </section>
   <!-- Popular Collections-->
-  <section  class="content-section specific-module">
+  <section  class="content-section specific-module tetpbg">
     <div class="div-center">
       <div class="specific-content">
         <h1 class="title-h wow fadeInDown" style="text-transform: none;">Sản phẩm mới</h1>
@@ -88,7 +98,6 @@
   <!--best of our store-->
   <section class="content-section">
     <div class="best-div">
-
         <div class="best-of-our-store">
           <h2 class="wow fadeInUp"  style="text-transform: none;">Bán nhiều nhất</h2>
           <div class="owl-carousel owl-theme wow fadeIn">
@@ -118,32 +127,85 @@
   </section>
   <!--shop by category-->
 
-  <section class="content-section category">
-      <div class="category-in">
-          <h1 class="text-center wow fadeInUp"  style="text-transform: none;">Danh mục sản phẩm</h1>
-      <div class="popular-brands footer-logos content-section" style="background: #f4f4f4;">
-        <div id="owl-demo" class="owl-carousel owl-carousel-2 wow fadeInDown">
-            @foreach($MenuCategories as $item)
+
+  <section class="content-section" style="background: #f4f4f4;padding-bottom: 0px;">
+      <div class="best-div" style="background: #f4f4f4;">
+          <div class="best-of-our-store">
+              <h2 class="wow fadeInUp"  style="text-transform: none;">Danh mục sản phẩm</h2>
+            <div class="popular-brands footer-logos content-section categoryImageIndex" style="background: #f4f4f4;">
+            <div id="owl-demo" class="owl-carousel owl-carousel-2 wow fadeInDown">
+                @foreach($MenuCategories as $item)
 
 
-          <div class="item">
-              <figure class="effect-moses" >
-            <a href="{{url('danh-muc/'.$item->alias.'/'.$item->id)}}">
-              <img src="{{asset('images/'.$item->image)}}" alt="" title=""/>
-            </a>
-              </figure>
-              <h4 class="category-in_cusom_h4"><a style="color: #fff;" href="{{url('danh-muc/'.$item->alias.'/'.$item->id)}}">{{$item->name}}</a></h4>
+              <div class="item">
+                  <figure class="effect-moses" >
+                <a href="{{url('danh-muc/'.$item->alias.'/'.$item->id)}}">
+                  <img src="{{asset('images/'.$item->image)}}" alt="" title=""/>
+                </a>
+                  </figure>
+                  <h4 class="category-in_cusom_h4"><a style="color: #fff;" href="{{url('danh-muc/'.$item->alias.'/'.$item->id)}}">{{$item->name}}</a></h4>
+              </div>
+
+                @endforeach
+            </div>
           </div>
-
-            @endforeach
-        </div>
       </div>
+        <div class="clearfix"></div>
+    </div>
+      <div class="clearfix"></div>
+  </section>
+
+  <section>
+    <div class="tetpbg" style="background: #fff;">
+      <div class="container">
+        <div class="row">
+          <div class='col-md-12 text-center'>
+            <div class="title-box  wow fadeIn" style="max-width: 540px;">
+              <h2>Khách hàng nói gì về chúng tôi</h2>
+            </div>
+            <div class="clearfix"></div>
+          </div>
+        </div>
+        <div class='row'>
+          <div class='col-md-12 col-center'>
+            <div class="carousel slide wow fadeIn" data-ride="carousel" id="quote-carousel">
+              <!-- Carousel Slides / Quotes -->
+              <div class="carousel-inner">
+                <!-- Quote 1 -->
+                <div class="item active">
+                  <div class="row">
+                    <div class="col-sm-9 col-center text-center"> <img class="img-circle" src="{{asset('images/testimonial-be.jpg')}}" alt="" title=""> </div>
+                    <div class="col-sm-9 col-center">
+                      <div class="clients text-center"><img src="{{asset('images/coma.jpg')}}" class="coma1" alt="" title="">  cũng bình thuờng  <img src="{{asset('images/coma2.jpg')}}" class="coma12" alt="" title=""></div>
+                      <p class="clients-name">- Thiện said - </p>
+                    </div>
+                  </div>
+                </div>
+                <!-- Quote 2 -->
+                <div class="item">
+                  <div class="row">
+                    <div class="col-sm-9 col-center text-center"> <img class="img-circle" src="{{asset('images/testimonial-be2.jpg')}}" alt="" title=""> </div>
+                    <div class="col-sm-9 col-center">
+                      <div class="clients text-center"><img src="{{asset('images/coma.jpg')}}" class="coma1" alt="" title="">  Lorem Ipsum ist ein einfacher Demo-Text für die Print- und Schriftindustrie. Lorem Ipsum ist in der Industrie bereits der Standard Demo-Text seit 1500, als ein unbekannter Schriftsteller   <img src="{{asset('images/coma2.jpg')}}" class="coma12" alt="" title=""></div>
+                      <p class="clients-name"> - Tao said - </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- Carousel Buttons Next/Prev -->
+              <a data-slide="prev" href="#quote-carousel" class="left left-arrow"><i class="fa fa-chevron-left"></i></a> <a data-slide="next" href="#quote-carousel" class="right right-arrow"><i class="fa fa-chevron-right"></i></a> </div>
+          </div>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+      <div class="clearfix"></div>
     </div>
   </section>
 
+
   <!--latest jewellery collection-->
   @if(Auth::check())
-  <section class="bg-2 content-section ">
+  <section class="bg-2 content-section" style="background: #f4f4f4;">
     <h2 class="text-center  wow fadeInDown" style="text-transform: lowercase;">SẢN PHẨM YÊU THÍCH <a href="{{url('user/wish-list')}}" style="font-size:12px; font-style: italic;">(Xem thêm)</a></h2>
     <div class="clearfix"></div>
     <div class="section">
@@ -171,51 +233,7 @@
   </section>
   @endif
   <div class="clearfix"></div>
-  <div class="tetpbg">
-    <div class="container">
-      <div class="row">
-        <div class='col-md-12 text-center'>
-          <div class="title-box  wow fadeIn" style="max-width: 540px;">
-            <h2>Khách hàng nói gì về chúng tôi</h2>
-          </div>
-          <div class="clearfix"></div>
-        </div>
-      </div>
-      <div class='row'>
-        <div class='col-md-12 col-center'>
-          <div class="carousel slide wow fadeIn" data-ride="carousel" id="quote-carousel">
-            <!-- Carousel Slides / Quotes -->
-            <div class="carousel-inner">
-              <!-- Quote 1 -->
-              <div class="item active">
-                <div class="row">
-                  <div class="col-sm-9 col-center text-center"> <img class="img-circle" src="{{asset('images/testimonial-be.jpg')}}" alt="" title=""> </div>
-                  <div class="col-sm-9 col-center">
-                    <div class="clients text-center"><img src="{{asset('images/coma.jpg')}}" class="coma1" alt="" title="">  cũng bình thuờng  <img src="{{asset('images/coma2.jpg')}}" class="coma12" alt="" title=""></div>
-                    <p class="clients-name">- Thiện said - </p>
-                  </div>
-                </div>
-              </div>
-              <!-- Quote 2 -->
-              <div class="item">
-                <div class="row">
-                  <div class="col-sm-9 col-center text-center"> <img class="img-circle" src="{{asset('images/testimonial-be2.jpg')}}" alt="" title=""> </div>
-                  <div class="col-sm-9 col-center">
-                    <div class="clients text-center"><img src="{{asset('images/coma.jpg')}}" class="coma1" alt="" title="">  Lorem Ipsum ist ein einfacher Demo-Text für die Print- und Schriftindustrie. Lorem Ipsum ist in der Industrie bereits der Standard Demo-Text seit 1500, als ein unbekannter Schriftsteller   <img src="{{asset('images/coma2.jpg')}}" class="coma12" alt="" title=""></div>
-                    <p class="clients-name"> - Tao said - </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- Carousel Buttons Next/Prev -->
-            <a data-slide="prev" href="#quote-carousel" class="left left-arrow"><i class="fa fa-chevron-left"></i></a> <a data-slide="next" href="#quote-carousel" class="right right-arrow"><i class="fa fa-chevron-right"></i></a> </div>
-        </div>
-      </div>
-      <div class="clearfix"></div>
-    </div>
-    <div class="clearfix"></div>
-  </div>
-  <div class="clearfix"></div>
+
 
 
   <!--Popular Brands-->

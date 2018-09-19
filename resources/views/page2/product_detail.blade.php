@@ -29,6 +29,7 @@
     color: white;
 }
 
+
 </style>
 @endsection
 
@@ -36,8 +37,8 @@
 @section('content')
 <!--page heading-->
 <div id="page-single">
-<section>
-  <div class="inner-bg" style="background: url({{asset('images/'.$Product->category->image)}}) no-repeat center;">
+<section style="background: url({{asset('images/'.$Product->category->image)}});">
+  <div class="inner-bg" >
     <div class="inner-head wow fadeInDown">
       <h3 style="background-color: rgba(0, 0, 0, 0.4); display: inline-block;padding: 10px;">{{$Product->name}}</h3>
     </div>
@@ -166,7 +167,7 @@
         <ul class="slides">
           @foreach( $Images as $item )
           <li data-thumb="{{asset('images/'.$item)}}" >
-            <img style="width: auto; height: 500px; margin: 0 auto;" src="{{asset('images/'.$item)}}" />
+            <img style="margin: 0 auto;" src="{{asset('images/'.$item)}}" />
           </li>
           @endforeach
           <!-- items mirrored twice, total of 12 -->
@@ -214,6 +215,7 @@
        <div class="share-icon" >
         <a href="#" data-toggle="modal" data-target="#modalDesignProduct">  <i class="fa fa-puzzle-piece" aria-hidden="true"></i> <br>TỰ THIẾT KẾ</a>
         </div>
+
        <div class="socialmedia">
          <ul>
            <li><a href="#" data-bind="click: addToWishList"> <!-- ko if: IsInWishList() == true -->
@@ -228,6 +230,7 @@
 
          </ul>
        </div>
+
        <div class="read-full">
          <ul>
            <li><a data-toggle="collapse" data-target="#demo"> <span>XEM MÔ TẢ</span> </a></li>
@@ -413,6 +416,24 @@
                          </div>
                      </div>
 
+                     <!-- ko if: IsVisibleAllPieces -->
+                         <div class="col-md-12">
+                            <span style="float: right; font-size: 10px;">Danh sách Hạt</span><br/>
+                           <ul class="list-group" style="background: #eee;display: table; margin-right: auto; margin-left: auto; margin-bottom: 0px;">
+                            <!-- ko foreach: ServerPieces -->
+
+                            <li class="list-group-item" style="display: inline-grid; padding: 5px 5px;"
+                              data-bind="click: $parent.SelectPiece, style: { background: $parent.SeletedPiece() && $parent.SeletedPiece().id == $data.id ? '#ddd' : '' }">
+
+                            <img style="height: 50px; cursor: pointer; display: table; margin-left: auto; margin-right: auto;"
+                                  data-bind="attr: { src: ImagePath() + '/' + $data.image, title: $data.name+' - ' + formatMoney($data.price) }" />
+                            </li>
+                            <!-- /ko -->
+
+                          </ul>
+                         </div>
+                     <!-- /ko -->
+
                    <div class="col-md-6">
                      <span style="float: left;" data-bind="text: '&nbsp;' + SizeHatName()"></span>
                      <div class="form-group">
@@ -420,8 +441,8 @@
                        </select>
                      </div>
                  </div>
-                 <div class="col-md-7">
-                   <!-- ko if: SeletedPiece() -->
+                 <div class="col-md-7 col-xs-6">
+                   <!-- ko if: SeletedPiece() && !IsVisibleAllPieces() -->
                    <div class="form-group" >
                         <img style="height: 50px;" data-bind="attr: { src: ImagePath() + '/' + SeletedPiece().image }" />
                         <label for="exampleInputEmail1"><span data-bind="text: formatMoney(SeletedPiece().price) +'/hạt'"></span></label>
@@ -433,13 +454,15 @@
                   </div>
                  <!-- /ko -->
                  </div>
-                 <div class="col-md-5">
+                 <div class="col-md-5 col-xs-6">
                    <div class="form-group">
                         <label for="exampleInputEmail1">&nbsp;</label>
                       <button type="button" data-bind="click: AddPiece" class="btn btn-default form-control" style="background:#dfb859; color: #fff; font-weight: bold;">+ HẠT</button>
 
                      </div>
                  </div>
+
+
                </div>
          </div>
           </div>
@@ -457,15 +480,28 @@
                          placeholder="Chọn charm" data-bind="click: ShowAllCharms, value: SeletedCharm() ? SeletedCharm().name : ''" >
                      </div>
                    </div>
-                   <div class="col-md-5">
-                     <div class="form-group">
-                          <label for="exampleInputEmail1">&nbsp;</label>
-                          <button type="button" data-bind="click: AddCharm" class="btn btn-default form-control" style="background:#dfb859; color: #fff; font-weight: bold;">+ CHARM</button>
-                       </div>
-                   </div>
+                   <!-- ko if: IsVisibleAllCharms -->
 
-                   <div class="col-md-7">
-                     <!-- ko if: SeletedCharm() -->
+                       <div class="col-md-12">
+                         <span style="float: right; font-size: 10px;">Danh sách Charm</span><br/>
+                         <ul class="list-group" style="background: #eee;display: table; margin-right: auto; margin-left: auto; margin-bottom: 0px;">
+                          <!-- ko foreach: ServerCharms -->
+
+                          <li class="list-group-item" style="display: inline-grid; padding: 5px 5px;"
+                            data-bind="click: $parent.SelectCharm, style: { background: $parent.SeletedCharm() && $parent.SeletedCharm().id == $data.id ? '#ddd' : '' }">
+
+                          <img style="height: 50px; cursor: pointer; display: table; margin-left: auto; margin-right: auto;"
+                                data-bind="attr: { src: ImagePath() + '/' + $data.image, title: $data.name+' - ' + formatMoney($data.price) }" />
+                          </li>
+
+                          <!-- /ko -->
+
+                        </ul>
+                       </div>
+
+                   <!-- /ko -->
+                   <div class="col-md-7 col-xs-6">
+                     <!-- ko if: SeletedCharm() && !IsVisibleAllCharms()-->
                      <div class="form-group" >
                           <img style="height: 50px;" data-bind="attr: { src: ImagePath() + '/' + SeletedCharm().image }" />
                           <label for="exampleInputEmail1"><span data-bind="text: formatMoney(SeletedCharm().price) +'/charm'"></span></label>
@@ -477,54 +513,22 @@
                     </div>
                    <!-- /ko -->
                    </div>
+                   <div class="col-md-5 col-xs-6">
+                     <div class="form-group">
+                          <label for="exampleInputEmail1">&nbsp;</label>
+                          <button type="button" data-bind="click: AddCharm" class="btn btn-default form-control" style="background:#dfb859; color: #fff; font-weight: bold;">+ CHARM</button>
+                       </div>
+                   </div>
+
+
                  </div>
              </div>
          </div>
 
          </div>
-           <!-- ko if: IsVisibleAllPieces -->
-           <div class="row">
-               <div class="col-md-12"  style="">
-                  <span style="float: right; font-size: 10px;">Danh sách Hạt</span><br/>
-                 <ul class="list-group" style="background: #eee;display: table; margin-right: auto; margin-left: auto; margin-bottom: 0px;">
-                  <!-- ko foreach: ServerPieces -->
 
-                  <li class="list-group-item" style="display: inline-grid; padding: 5px 5px;"
-                    data-bind="click: $parent.SelectPiece, style: { background: $parent.SeletedPiece() && $parent.SeletedPiece().id == $data.id ? '#ddd' : '' }">
 
-                  <img style="height: 50px; cursor: pointer; display: table; margin-left: auto; margin-right: auto;"
-                        data-bind="attr: { src: ImagePath() + '/' + $data.image, title: $data.name+' - ' + formatMoney($data.price) }" />
-                  </li>
 
-                  <!-- /ko -->
-
-                </ul>
-               </div>
-           </div>
-           <hr>
-           <!-- /ko -->
-
-           <!-- ko if: IsVisibleAllCharms -->
-           <div class="row">
-               <div class="col-md-12"  style="">
-                 <span style="float: right; font-size: 10px;">Danh sách Charm</span><br/>
-                 <ul class="list-group" style="background: #eee;display: table; margin-right: auto; margin-left: auto; margin-bottom: 0px;">
-                  <!-- ko foreach: ServerCharms -->
-
-                  <li class="list-group-item" style="display: inline-grid; padding: 5px 5px;"
-                    data-bind="click: $parent.SelectCharm, style: { background: $parent.SeletedCharm() && $parent.SeletedCharm().id == $data.id ? '#ddd' : '' }">
-
-                  <img style="height: 50px; cursor: pointer; display: table; margin-left: auto; margin-right: auto;"
-                        data-bind="attr: { src: ImagePath() + '/' + $data.image, title: $data.name+' - ' + formatMoney($data.price) }" />
-                  </li>
-
-                  <!-- /ko -->
-
-                </ul>
-               </div>
-           </div>
-           <hr>
-           <!-- /ko -->
 
          <div class="row">
              <!-- ko if: Pieces().length > 0 -->

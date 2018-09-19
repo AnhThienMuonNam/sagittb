@@ -3,8 +3,8 @@
 
 @section('content')
  <!--page heading-->
-  <section>
-    <div class="inner-bg" style="background: url({{asset('images/'.$Category->image)}}) no-repeat center;">
+  <section style="background: url({{asset('images/'.$Category->image)}});">
+    <div class="inner-bg">
       <div class="inner-head wow fadeInDown">
         <h3 style="background-color: rgba(0, 0, 0, 0.4); display: inline-block;padding: 10px;">{{$Category->name}}</h3>
       </div>
