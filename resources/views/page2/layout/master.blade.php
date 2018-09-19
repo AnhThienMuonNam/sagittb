@@ -7,7 +7,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
   <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
-  <title>SagittB</title>
+  <title>SagittB Trang sức đá quý phong thủy, thuần tự nhiên</title>
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 <!--[if lt IE 9]>
@@ -415,7 +415,12 @@
       @endif
     </ul>
     <br>
-    <div class="social-network social-circle text-right"><a href="#" class="icoFacebook" title="Facebook"><i class="fa fa-facebook"></i></a><a href="#" class="icoGoogle" title="Instagram +"><i class="fa fa-instagram"></i></a></div>
+    <div class="social-network social-circle text-right">
+      <a href="#" class="icoTwitter" title="Twitter"><i class="fa fa-twitter"></i></a>
+      <a href="https://www.instagram.com/sagittarius_bijou/" target="_blank" class="icoFacebook" title="Instagram"><i class="fa fa-instagram"></i></a>
+      <a  href="https://www.facebook.com/SagittB" target="_blank" class="icoFacebook" title="Facebook"><i class="fa fa-facebook"></i></a>
+      <a href="#" class="icoGoogle" title="Google +"><i class="fa fa-google-plus"></i></a>
+    </div>
   </div>
   <!--sidebar-->
   <!--nav-->
@@ -426,7 +431,7 @@
       <li class="search-div">
         <div id="sb-search" class="sb-search">
           <form>
-            <input class="sb-search-input"  placeholder="Search" type="text" value="" name="search" id="search">
+            <input class="sb-search-input"  style="border-radius: 7px;" placeholder="Search" type="text" value="" name="search" id="search">
             <input class="sb-search-submit" type="submit" value="">
             <span class="sb-icon-search"></span>
           </form>
@@ -436,7 +441,7 @@
       @if(Auth::check())
       <li>
        <div class="dropdown_header">
-        <span style="color: #fff;margin: 0 10px 0;padding: 0;display: block;font-size: 14px; text-transform: lowercase;">
+        <span style="color: #fff;margin: 0 10px 0;padding: 0;display: block;font-size: 14px;">Chào
         {{Auth::user()->name}} <i class="fa fa-angle-down" aria-hidden="true"></i>
         </span>
         <div class="dropdown-content_header">

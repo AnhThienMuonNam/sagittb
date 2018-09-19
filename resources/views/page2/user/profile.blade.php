@@ -31,7 +31,7 @@
         <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
           <div class="panel panel-default">
             <div class="panel-heading panel-bg" role="tab" id="headingOne">
-              <h4 class="panel-title"> <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">Thông tin tài khoản</a> </h4>
+              <h4 class="panel-title"> <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">Thông Tin Tài Khoản</a> </h4>
             </div>
             <div id="collapseOne" style="width: 100%;" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
               <div class="panel-body form-horizontal">
@@ -42,19 +42,19 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-sm-2" for="pwd">Họ tên*</label>
+                        <label class="control-label col-sm-2" for="pwd">Họ Tên</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" placeholder="Họ tên" data-bind="value: Name">
+                            <input type="text" class="form-control" placeholder="Họ Tên" data-bind="value: Name">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-sm-2" for="pwd">Số điện thọai*</label>
+                        <label class="control-label col-sm-2" for="pwd">Số Điện Thoại</label>
                         <div class="col-sm-10">
                             <input type="number" class="form-control" placeholder="Số điện thoại" data-bind="value: Phone">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-sm-2" for="pwd">Ngày/Tháng/Năm sinh</label>
+                        <label class="control-label col-sm-2" for="pwd">Ngày Sinh</label>
                         <div class="col-sm-1">
                           <select class="form-control" data-bind="options: Years, value: YearOb">
                           </select>
@@ -69,47 +69,48 @@
                           </select>
                         </div>
 
-                        <label class="control-label col-sm-2" style="text-align:right;" for="pwd">Thời gian sinh</label>
+                        <label class="control-label col-sm-2" style="text-align:right;" for="pwd">Giờ Sinh</label>
                         <div class="col-sm-1">
                           <select class="form-control" data-bind="options: Hours, value: HourOb">
                           </select>
-                        </div>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </div>
                         <div class="col-sm-1">
                           <select class="form-control" data-bind="options: Minutes, value: MinuteOb">
                           </select>
+
                         </div>
 
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-sm-2" for="pwd">Giới tính</label>
+                        <label class="control-label col-sm-2" for="pwd">Giới Tính</label>
                         <div class="col-sm-10">
                             <select class="form-control" data-bind="options: Genders, optionsText: 'name', optionsValue: 'id', value: Gender">
                             </select>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-sm-2" for="pwd">Địa chỉ</label>
+                        <label class="control-label col-sm-2" for="pwd">Địa Chỉ</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" placeholder="Số nhà, tên đường, phường/xã" data-bind="value: Address">
+                            <input type="text" class="form-control" placeholder="Số Nhà/ Đường / Phường xã" data-bind="value: Address">
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-sm-2" for="pwd">Quận/Huyện</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" placeholder="Số nhà, tên đường, quận/huyện"  data-bind="value: District">
+                            <input type="text" class="form-control"  data-bind="value: District">
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-sm-2" for="pwd">Tỉnh/Thành phố</label>
                         <div class="col-sm-10">
-                            <select class="form-control" data-bind="options: Cities, optionsText: 'name', optionsValue: 'id', value: CityId, optionsCaption: '-- Tỉnh/Thành phố --'">
+                            <select class="form-control" data-bind="options: Cities, optionsText: 'name', optionsValue: 'id', value: CityId, optionsCaption: 'Tỉnh/Thành phố'">
                             </select>
                             <!-- <input type="text" class="form-control" placeholder="Số nhà, tên đường, quận/huyện"  data-bind="value: CityId"> -->
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-10">
-                            <button type="button" class="btn btn-default" style="color: black;" data-bind="click: openPopupGetOTPForUpdateInfo">Cập nhật thông tin</button>
+                            <button type="button" class="btn btn-default" style="color: black;" data-bind="click: openPopupGetOTPForUpdateInfo">Cập Nhật</button>
                         </div>
                     </div>
               </div>
@@ -119,7 +120,7 @@
           <div class="clearfix"></div>
           <div class="panel panel-default">
             <div class="panel-heading panel-bg" role="tab" id="headingTwo">
-              <h4 class="panel-title"> <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">Đổi mật khẩu</a> </h4>
+              <h4 class="panel-title"> <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">Đổi Mật Khẩu</a> </h4>
             </div>
             <div id="collapseTwo" style="width: 100%;" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
               <div class="panel-body form-horizontal">

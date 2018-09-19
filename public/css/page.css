@@ -599,6 +599,12 @@ ul.social-network li {
 .social-network a.icoGoogle:hover {
 	background-color:#e12f2f;
 }
+.social-network a.icoIn {
+	background-color:#dfb859;
+}
+.social-network a.icoIn:hover {
+	background-color:#e4405f;
+}
 a.socialIcon:hover, .socialHoverClass {
 	color:#44BCDD;
 }
