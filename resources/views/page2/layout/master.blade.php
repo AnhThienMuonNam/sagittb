@@ -194,6 +194,15 @@
   }
 
   /*end menu dropdown*/
+  
+
+  /* start css new product */
+
+  .flex-sp-moi .col-md-3.col-sm-3.col-xs-6.text-center{
+    float: none !important;
+  }
+  /* end css new product*/
+
 </style>
 @yield('css')
 

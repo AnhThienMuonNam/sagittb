@@ -52,21 +52,23 @@
       <div class="specific-content">
         <h1 class="title-h wow fadeInDown" style="text-transform: none;">Sản phẩm mới</h1>
       </div>
-      @foreach($HotProducts as $item)
-      <div class="col-md-3 col-sm-3 col-xs-6 text-center wow fadeIn">
-        <div class="box-css"> <a href="{{url('san-pham/'.$item->alias.'/'.$item->id)}}">
-          <img src="{{asset('images/'.preg_replace('/^([^,]*).*$/', '$1', $item->images))}}" class="img-responsive" alt="" style="display: table-cell; margin: 0 auto;max-height: 285px;min-width: 50px;">
-          <div class="opacitybox white">
-            <div class="boxcontent">
-              <h4 class="white">{{$item->name}}</h4>
+      <div class="flex-sp-moi" style="display: flex; align-items: center; flex-wrap: wrap;">
+        @foreach($HotProducts as $item)
+        <div class="col-md-3 col-sm-3 col-xs-6 text-center wow fadeIn" style="float: none">
+          <div class="box-css"> <a href="{{url('san-pham/'.$item->alias.'/'.$item->id)}}">
+            <img src="{{asset('images/'.preg_replace('/^([^,]*).*$/', '$1', $item->images))}}" class="img-responsive" alt="" style="display: table-cell; margin: 0 auto;max-height: 285px;min-width: 50px;">
+            <div class="opacitybox white">
+              <div class="boxcontent">
+                <h4 class="white">{{$item->name}}</h4>
 
-                <h3 class="white">{{number_format($item->price, 0, ',', '.').'(đ)'}}</h3> </div>
+                  <h3 class="white">{{number_format($item->price, 0, ',', '.').'(đ)'}}</h3> </div>
 
+            </div>
+            </a>
           </div>
-          </a>
         </div>
+        @endforeach
       </div>
-      @endforeach
       <div class="clearfix"></div>
       <!-- <div class="View-all  wow fadeInDown"><a href="#">XEM THÊM >>><i class="fa fa-long-arrow-right" aria-hidden="true"></i></a></div> -->
       <div class="clearfix"></div>
