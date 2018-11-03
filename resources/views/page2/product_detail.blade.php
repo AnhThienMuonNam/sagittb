@@ -246,6 +246,7 @@
   <div class="inner-div">
     <div class="col-md-12 col-sm-12 product-info">
       <h2>Thông tin sản phẩm</h2>
+        <p><img src="{{asset('images/products/line.jpg')}}"  alt="" title="" style="width: 287px; height: 1px;"></p>
       <!-- <h6>SKU - 12458AF6</h6> -->
       <p data-bind="html: Description"></p>
       <p><img src="{{asset('images/products/line.jpg')}}"  alt="" title=""></p>

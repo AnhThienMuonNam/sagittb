@@ -16292,8 +16292,8 @@ padding:0;
 }
 #demo h2 {
 	text-transform:uppercase;
-	font-size:18px;
-	color:#000
+	font-size:27px;
+	color:#458705
 }
 .inner-div {
 	margin:0;
@@ -16320,6 +16320,7 @@ padding:0;
 	font-size:13px;
 	color:#222;
 	line-height:22px;
+
 }
 .product-info h2 {
 	color:#000
@@ -16330,6 +16331,8 @@ padding:0;
 .product-info p {
 	margin:0;
 	padding:0;
+	letter-spacing: 1.5px;
+	font-size: 16px;
 }
 .amazingslider-bullet-image-1 {
 	border:solid 1px #e6e6e6;
