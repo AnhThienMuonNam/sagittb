@@ -133,6 +133,7 @@ Route::group([ 'prefix' => 'user' ] , function() {
 Route::get('about-us','IntroController@aboutUs');
 Route::get('shipping-policy','IntroController@shippingPolicy');
 Route::get('guarantee-policy','IntroController@guaranteePolicy');
+Route::get('jewellery-care','IntroController@jewelleryCare');
 
 
 Route::get('order/{orderCode}', 'UserController@getOrderDetailByCode');

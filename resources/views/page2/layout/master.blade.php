@@ -6,7 +6,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="">
   <meta name="author" content="">
-  <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
+  <link rel="shortcut icon" type="image/x-icon" href="{{asset('images/favicon.ico')}}">
+
   <title>SagittB Trang sức đá quý phong thủy, thuần tự nhiên</title>
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -407,7 +408,7 @@
 
         </ul>
       </li>
-        <li><a href="#" >Hướng Dẫn</a></li>
+      <li><a href="{{url('jewellery-care')}}" >Hướng Dẫn</a></li>
       <li><a href="#" >Blog</a></li>
       <!-- <li><a href="contact-us.html">LIÊN HỆ</a></li> -->
       @if(!Auth::check())
