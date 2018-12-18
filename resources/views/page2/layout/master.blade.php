@@ -568,70 +568,105 @@
 -->
 
 <div class="footer-css">
-  <div class="newsletter wow fadeIn" style="padding: 15px 10px 8px;"></div>
+  <div class="newsletter wow fadeIn">
+      <div class="container">
+        <div class="p-color-bg">
+          <div class="text float-left"> <i class="fa fa-envelope" aria-hidden="true"></i>
+            <h2><span>Đăng ký</span> với chúng tôi</h2>
+            <p>Điền email của bạn vào đây để nhận được tư vấn miễn phí về ngũ hành sức khỏe</p>
+          </div>
+          <!-- /.text -->
+          <div class="float-right">
+            <form action="" method="post" id="subsForm" onSubmit="return ajaxmailsubscribe();">
+              <input placeholder="Your Email Address" type="email" name="subsemail" id="subsemail">
+              <button class="theme-button"  type="button" value="SUBSCRIBE" onClick="return ajaxmailsubscribe();"> <i class="fa fa-angle-right" aria-hidden="true"></i></button>
+              <!--<input class="theme-button"/><i class="fa fa-angle-right" aria-hidden="true"></i>-->
+              <!--<button class="theme-button"><i class="fa fa-angle-right" aria-hidden="true"></i></button>-->
+            </form>
+          </div>
+          <!-- /.float-right -->
+          <div class="clear-fix"></div>
+        </div>
+        <!-- /.bg -->
+      </div>
+      <!-- /.container -->
+    </div>
   <div class="clearfix"></div>
   <div class="footer-in">
     <div class="col-md-3 col-sm-3  wow fadeIn" data-wow-delay=".1s">
       <div class="logo-f"><img src="{{asset('images/logo-2.png')}}" alt="" title="" ></div>
       <div class="about-b">
-        <div class="footer-text">
-          <p>Shop trang sức đá quý </p> </div>
-      </div>
-
-      <div class="clearfix"></div>
-      <ul class="social2">
-        <li style="text-transform: lowercase;"> Follow Us on : </li>
-        <li><a href="#" class="icoFacebook" title="facebook"><i class="fa fa-facebook"></i></a></li>
-        <li><a href="#" class="icoTwitter" title="instagram"><i class="fa fa-instagram"></i></a></li>
-      </ul>
-      <div class="clearfix"></div>
-      <br>
+        <div class="">
+          <div class="footer-text" style="margin-bottom: 24px;">
+          </div>
+          <div class="col-md-2 col-sm-2">
+             <a  href="https://www.facebook.com/SagittB" target="_blank" title="Facebook"><p style="font-size: 27px;" class="fa fa-facebook"></p></a>              
+          </div>
+           <div class="col-md-2 col-sm-2">
+             <a  href="https://www.instagram.com/sagittarius_bijou/" target="_blank" title="Instagram"><p style="font-size: 27px;" class="fa fa fa-instagram"></p></a>              
+          </div>
+           <div class="col-md-2 col-sm-2">
+             <a  href="https://www.facebook.com/SagittB" target="_blank"  title="Youtube"><p style="font-size: 27px;" class="fa fa-youtube"></p></a>              
+          </div>
+           <div class="col-md-2 col-sm-2">
+             <a  href="https://www.instagram.com/sagittarius_bijou/" target="_blank"  title="Pinterest"><p style="font-size: 27px;" class="fa fa-pinterest"></p></a>             
+          </div>
+           <div class="col-md-2 col-sm-2">
+             <a  href="https://www.facebook.com/SagittB" target="_blank" title="Google"><p style="font-size: 27px;" class="fa fa-google-plus"></p></a>              
+          </div>
+           <div class="col-md-2 col-sm-2">
+             <a  href="https://www.facebook.com/SagittB" target="_blank" title="Store"><p style="font-size: 27px;" class="fa fa-map-marker"></p></a>              
+          </div>
+         <!--   <div class="col-md-2 col-sm-2">
+                <a href="https://www.instagram.com/sagittarius_bijou/" style="font-size: 27px;"
+                target="_blank" title="Instagram"><i class="fa fa-instagram"></i></a>
+          </div> -->
+        <!--    <div class="col-md-2 col-sm-2">
+               <p style="font-size: 27px;" class="fa fa-youtube"></p>
+          </div>
+           <div class="col-md-2 col-sm-2">
+               <p style="font-size: 27px;" class="fa fa-pinterest"></p>
+          </div>
+           <div class="col-md-2 col-sm-2">
+               <p style="font-size: 27px;" class="fa fa-google-plus"></p>
+          </div>
+           <div class="col-md-2 col-sm-2">
+               <p style="font-size: 27px;" class="fa fa-map-marker"></p>
+          </div> -->
+        </div>
+      </div>     
     </div>
-    <div class="col-md-3 col-sm-3 link-footer  wow fadeIn" data-wow-delay=".2s">
-      <h2 style="text-transform;">Giới Thiệu</h2>
+    <div class="col-md-3 col-sm-3 footer-address wow fadeIn" data-wow-delay=".2s">
+      <h2 style="text-transform; margin-left: 26px;">Giới Thiệu</h2>
       <ul class="pull-left">
-        <li><a href="{{url('about-us')}}"> <i class="fa fa-stop" aria-hidden="true"></i> Về Chúng Tôi</a></li>
-        <li><a href="{{url('shipping-policy')}}"><i class="fa fa-stop" aria-hidden="true"></i> Chính Sách Giao Hàng</a></li>
-        <li><a href="{{url('guarantee-policy')}}"><i class="fa fa-stop" aria-hidden="true"></i> Chính Sách Bảo Hành</a></li>
-        <li><a href="{{url('guarantee-policy')}}"><i class="fa fa-stop" aria-hidden="true"></i> Hướng Dẫn</a></li>
-        <li><a href="#"><i class="fa fa-stop" aria-hidden="true"></i> Blog</a></li>
-        <!-- <li><a href="privacy.html"><i class="fa fa-stop" aria-hidden="true"></i> Liên hệ</a></li> -->
-        <li><a href="{{url('admin')}}" target="_blank"><i class="fa fa-stop" aria-hidden="true"></i> Admin</a></li>
-        <!-- <li><a href="contact-us.html"><i class="fa fa-stop" aria-hidden="true"></i> Contact Us</a></li> -->
+        <li><a href="{{url('about-us')}}"> <i class="fa fa-leaf" aria-hidden="true"></i> Về chúng tôi</a></li>
+        <li><a href="{{url('shipping-policy')}}"><i class="fa fa-truck" aria-hidden="true"></i> Chính sách giao hàng</a></li>
+        <li><a href="{{url('guarantee-policy')}}"><i class="fa fa-fire" aria-hidden="true"></i> Bộ sưu tập</a></li>
+        <li><a href="{{url('guarantee-policy')}}"><i class="fa fa-key" aria-hidden="true"></i> Hướng Dẫn</a></li>
+        <li><a href="#"><i class="fa fa-pagelines" aria-hidden="true"></i> Blog</a></li>
+        
       </ul>
       <div class="clearfix"></div>
     </div>
-      <div class="col-md-3 col-sm-3 wow fadeIn footer-address" data-wow-delay=".3s">
-        <h2 style="text-transform;">Thanh Toán</h2>
-        <ul>
-
-          <li><i class="fa fa-money" aria-hidden="true"></i> Ngân Hàng: ACB </li>
-          <li><i class="fa fa-circle" aria-hidden="true"></i> Chi Nhánh: Tân Bình</li>
-          <li><i class="fa fa-credit-card" aria-hidden="true"></i> Số Tài Khoản: 0761-4031437</li>
-          <li><i class="fa fa-user" aria-hidden="true"></i> CTK: Triệu Xuân Thiện</li>
-
-
-        </ul>
-
-        <div class="clearfix"></div>
-
-      </div>
-      <div class="col-md-3 col-sm-3 footer-address wow fadeIn" data-wow-delay=".4s">
-        <h2 style="text-transform;">Cửa Hàng</h2>
-        <ul>
-          <li><i class="fa fa-map-marker" aria-hidden="true"></i> 127/2/77  Bình Lợi, Phường 13, Bình Thạnh, HCM </li>
+      <div class="col-md-3 col-sm-3 wow fadeIn footer-address" data-wow-delay=".3s">       
+        <h2 style="text-transform; margin-left: 26px;">Liên hệ</h2>
+        <ul style="margin-left: 12px ">
+          <li><i class="fa fa-map-marker" aria-hidden="true"></i> 127/2/77 Bình Lợi, P.13, Bình Thạnh</li>
+          <li style="margin-left: 41px;">Hồ Chí Minh </li>
           <li><i class="fa fa-phone" aria-hidden="true"></i> 0935060818</li>
-          <li><i class="fa fa-envelope-o" aria-hidden="true"></i> <a href="instagram.com/sagittarius_bijou">instagram.com/sagittarius_bijou</a></li>
-          <li><i class="fa fa-clock-o" aria-hidden="true"></i> 9:00pm - 5:00pm<br>
-          Sunday Closed </li>
+          <li><i class="fa fa-clock-o" aria-hidden="true"></i> 9:00 AM - 9:00 PM <br> </li>
+          <li><i class="fa fa-asterisk" aria-hidden="true"></i> Tư vấn miễn phí <br> </li>
         </ul>
         <div class="clearfix"></div>
+
       </div>
-
-
-      <div class="col-md-12 col-sm-12 footer-address wow fadeIn" data-wow-delay=".4s">
-      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.5054610524935!2d106.69585261457188!3d10.77254509232414!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752f3f3129e64d%3A0x8d6b2d79522c7f30!2zQ2jhu6MgQuG6v24gVGjDoG5o!5e0!3m2!1svi!2sid!4v1531477913149" width="100%" height="400" frameborder="0" style="border:0" allowfullscreen></iframe>
-        <div class="clearfix"></div>
+      <div class="col-md-3 col-sm-3 wow fadeIn footer-address" data-wow-delay=".4s">
+         <ul style="margin-left: 12px ">
+           <div class="col-md-12 col-sm-12 footer-address wow fadeIn" data-wow-delay=".4s">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d19187.28594518461!2d106.70251474263925!3d10.826581343659488!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xadc56f4c6fbaeeda!2sSagittB!5e0!3m2!1sen!2sid!4v1544457730563" width="100%" height="230" frameborder="0" style="border:0" allowfullscreen></iframe>
+              <div class="clearfix"></div>
+          </div>
+          </ul>
       </div>
     </div>
     <div class="clearfix"></div>
