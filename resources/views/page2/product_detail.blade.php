@@ -65,57 +65,139 @@
     <div class="clearfix"> </div>
     <!--Left side -->
     <div class="col-md-3 col-sm-3 div-none2 wow fadeInLeft">
-      <div class="cat-div">
+      <div class="cat-div" data-bind="with: masterViewModel">
        <div class="col-md-12 col-sm-12 col-xs-4">
-        <p>Xem màu sắc hợp phong thủy, hợp tuổi</p>
+        <p>Xem can chi</p>
       </div>
-
-      <div class="col-md-12 col-sm-12">
-        <div class="form-group">
-          <input type="number" placeholder="Năm sinh" class="form-control input-sm" data-bind="value: Nam">
+        <div class="form-horizontal">
+      <div class="form-group">
+        <div class="col-sm-12">
+          <select class="form-control" style="padding-bottom:0px; padding-top:0px; border: solid 1px #abadb3; height: 35px;line-height: 35px;"
+          data-bind="options: HoursRange, optionsCaption:'-- Chọn giờ --', optionsText: 'value', optionsValue: 'id', value: Hour_master"> </select>
         </div>
       </div>
-      <div class="col-md-12 col-sm-12">
-        <div class="form-group">
-          <div class="secure">
-            <a href="#" data-bind="click: getPhongThuy" style="height:35px; line-height: 35px;
-            border-radius: 7px;">XEM</a>
-          </div>
-         <!-- <button style="background:#DDCA22; color: #1e1c1c; font-weight: bold;" type="button" class="btn" data-bind="click: getPhongThuy">XEM</button> -->
-       </div>
-     </div>
-     <div class="clearfix"></div>
-     <div data-bind="with: phongThuy" >
-    <div class="clearfix"></div>
-    <hr>
-
-    <div class="col-md-12 col-sm-12 col-xs-12">
-      <p><span style="font-weight: bold;">Mệnh:</span>&nbsp;<span data-bind="text: Menh"></span></p>
-      <p><span style="font-weight: bold;">Tương sinh:</span>&nbsp;<span data-bind="text: TuongSinh"></span></p>
-      <p><span style="font-weight: bold;">Hòa hợp:</span>&nbsp;<span data-bind="text: HoaHop"></span></p>
-      <p><span style="font-weight: bold;">Chế khắc:</span>&nbsp;<span data-bind="text: CheKhac"></span></p>
-      <p><span style="font-weight: bold;">Bị khắc:</span>&nbsp;<span data-bind="text: BiKhac"></span></p>
-    </div>
-
-    <div class="clearfix"></div>
-    <hr>
-    <div class="col-md-6 col-sm-12" >
       <div class="form-group">
-            <button type="button" class="btn btnpr">
-               <span style="text-align: center; font-size: 12px;">Xem thêm</span>
-             </button>
+        <div class="col-sm-12" >
+          <input type="text" readonly placeholder="Ngày tháng năm" id="sFromDate2_master" class="form-control mydatepicker" data-bind="event :{change: changeSFromDate2 }">
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-sm-12">
+          <button type="button" class="btn btn-default button-1" style="font-weight: bold; border-radius: 6px;" data-bind="click: calculateCanchi">Kết quả</button>
+        </div>
+      </div>
+      <!-- ko if: IsShowMoreButton() == true -->
+    <div class="form-group">
+      <div class="col-md-12 col-sm-12 col-xs-12">
+        <p><span style="font-weight: bold;">Giờ: </span>&nbsp;<span data-bind="text: HourCanchi_master"></span></p>
+        <p><span style="font-weight: bold;">Ngày: </span>&nbsp;<span data-bind="text: DayCanchi_master"></span></p>
+        <p><span style="font-weight: bold;">Tháng: </span>&nbsp;<span data-bind="text: MonthCanchi_master"></span></p>
+        <p><span style="font-weight: bold;">Năm: </span>&nbsp;<span data-bind="text: YearCanchi_master"></span></p>
       </div>
     </div>
-    <div class="col-md-6 col-sm-12" >
-      <div class="form-group">
-            <button type="button" class="btn btnpr" >
-               <span style="text-align: center; font-size: 12px;">Tư vấn</span>
-             </button>
+
+    <div class="form-group">
+      <div class="col-md-6 col-xs-12">
+          <a data-bind="attr:{href: FilterProduct_master()+'/'+LunarYearTag_master()}" target="_blank" class="btn btn-default button-1" style="font-weight: bold; border-radius: 6px; color: #fff; font-size:10px;">Xem s/p liên quan</a>
+      </div>
+        <!-- ko if: IsShowLogin_master() == false && IsShowRegister_master() == false-->
+      <div class="col-md-6 col-xs-12">
+          <a href="#" data-bind="click: TuVanButton" class="btn btn-default button-1" style="font-weight: bold; border-radius: 6px; color: #fff; font-size:10px;">Tư vấn miễn phí</a>
+      </div>
+        <!-- /ko -->
+
+    </div>
+
+      <!-- ko if: IsShowRegister_master() == true -->
+    <form class="form-horizontal">
+     <!-- ko if: NotifyCreateUserErrors_master().length > 0 -->
+     <div class="alert alert-danger">
+          <!-- ko foreach: NotifyCreateUserErrors_master -->
+          <span data-bind="text: $data"></span>
+          <!-- /ko -->
+        </div>
+      <!-- /ko -->
+       <!-- ko if: NotifyCreateUserSuccess_master -->
+     <div class="alert alert-success">
+          <span data-bind="text: NotifyCreateUserSuccess_master"></span>
+          <hr/>
+          <a href="https://www.facebook.com/messages/t/SagittB" target="_blank" style="font-weight: bold;">*Ghi chú: Bấm vào đây nếu hệ thống không chuyển tới trang tư vấn.</a>
+        </div>
+      <!-- /ko -->
+
+    <div class="form-group">
+      <div class="col-sm-12">
+        <input type="email" class="form-control"  placeholder="Email*" data-bind="value: Email_master"/>
       </div>
     </div>
-    <div class="clearfix"></div>
+    <div class="form-group">
+      <div class="col-sm-12">
+        <input type="email" class="form-control"  placeholder="Số điện thoại" data-bind="value: Phone_master"/>
+      </div>
     </div>
+    <div class="form-group">
+      <div class="col-sm-12">
+        <input type="password" class="form-control"  placeholder="Mật khẩu*" data-bind="value: Password_master"/>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="col-sm-12">
+        <button type="submit" class="btn btn-default button-1" style=" font-weight: bold;
+         border-radius: 6px; " data-bind="click: createUser_master_tuvan">Đăng ký tài khoản</button>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-sm-12">
+        <div class="boder3"></div>
+        <p><a href="#" data-bind="click: ShowLoginModal_master">Đăng nhập</a></p>
+        <div class="boder3"></div>
+      </div>
+    </div>
+  </form>
+<!-- /ko -->
+
+<!-- ko if: IsShowLogin_master() == true -->
+
+  <form class="form-horizontal">
+    <!-- ko if: NotifyErrors_master().length > 0 -->
+      <div class="alert alert-danger">
+        <!-- ko foreach: NotifyErrors_master -->
+        <span data-bind="text: $data"></span>
+        <!-- /ko -->
+      </div>
+    <!-- /ko -->
+    <div class="form-group">
+      <div class="col-sm-12">
+        <input type="email" class="form-control" placeholder="Email" data-bind="value: userEmail_master"/>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-sm-12">
+        <input type="password" class="form-control"  placeholder="Mật khẩu" data-bind="value: userPassword_master"/>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-sm-12">
+        <button type="button" class="btn btn-default button-1" style=" font-weight: bold; border-radius: 6px;" data-bind="click: login_master_tuvan">Đăng Nhập</button>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-sm-12">
+        <div class="boder3"></div>
+        <p><a href="#" data-bind="click: ShowRegisterModal_master">
+        Đăng Ký Tài Khoản</a></p>
+        <div class="boder3"></div>
+      </div>
+    </div>
+  </form>
+    <!-- /ko -->
+
+    <!-- /ko -->
+      </div>
+      <div class="clearfix"></div>
   </div>
+
   <div class="cat-div">
     <h2>Sản phẩm liên quan</h2>
     <div id="carousel-example-generic2" class="carousel slide" data-ride="carousel">
@@ -189,7 +271,7 @@
     <div class="col-md-4">
      <span style="float: left;" data-bind="text: '&nbsp' + KieudayName()"></span>
      <div class="form-group">
-      <select id="checkout-country" class="js-countries" data-bind="options: Kieudays, optionsText: $data, optionsValue: $data, value: KieudayId">
+      <select id="checkout-country" class="js-countries" data-bind="options: Kieudays, optionsText: 'name', optionsValue: 'id', value: KieudayId">
       </select>
     </div>
   </div>
@@ -212,10 +294,11 @@
            <li><a href="#" data-bind="click: addToCart"> <i class="fa fa-shopping-cart" aria-hidden="true"></i> THÊM GIỎ HÀNG </a></li>
          </ul>
        </div>
+         <!-- ko if: IsCustom() == true -->
        <div class="share-icon" >
         <a href="#" data-toggle="modal" data-target="#modalDesignProduct">  <i class="fa fa-puzzle-piece" aria-hidden="true"></i> <br>TỰ THIẾT KẾ</a>
         </div>
-
+        <!-- /ko -->
        <div class="socialmedia">
          <ul>
            <li><a href="#" data-bind="click: addToWishList"> <!-- ko if: IsInWishList() == true -->
@@ -226,7 +309,7 @@
                 <!-- /ko --></a>
             </li>
            <li><a href="#" title="Hồ điều ước">  <i class="fa fa-gift" aria-hidden="true"></i></a> </li>
-           <li style="width: 80px;"><a href="#"><i class="fa fa-question" aria-hidden="true"></i>&nbsp;TƯ VẤN</a> </li>
+           <li style="width: 80px;"><a href="https://www.facebook.com/messages/t/SagittB" target="_blank"><i class="fa fa-question" aria-hidden="true"></i>&nbsp;TƯ VẤN</a> </li>
 
          </ul>
        </div>
@@ -246,6 +329,7 @@
   <div class="inner-div">
     <div class="col-md-12 col-sm-12 product-info">
       <h2>Thông tin sản phẩm</h2>
+        <p><img src="{{asset('images/products/line.jpg')}}"  alt="" title="" style="width: 287px; height: 1px;"></p>
       <!-- <h6>SKU - 12458AF6</h6> -->
       <p data-bind="html: Description"></p>
       <p><img src="{{asset('images/products/line.jpg')}}"  alt="" title=""></p>
@@ -261,71 +345,7 @@
 <div class="row">
   <div class="col-md-3 col-sm-3 div-none">
     <div class="row">
-      <div class="col-sm-6 wow fadeIn">
-        <div class="cat-div">
-         <div class="col-md-12 col-sm-12 col-xs-4">
-          <p>Xem màu sắc hợp phong thủy, hợp tuổi</p>
-        </div>
 
-        <div class="col-md-8 col-sm-8 col-xs-4">
-          <div class="form-group">
-            <input type="number" placeholder="Năm sinh" class="form-control input-sm" data-bind="value: Nam">
-          </div>
-        </div>
-        <div class="col-md-4 col-sm-4 col-xs-4 icon-div">
-          <div class="form-group">
-            <div class="secure">
-              <a href="#" data-bind="click: getPhongThuy" style="height:35px; line-height: 35px;">XEM</a>
-            </div>
-         </div>
-       </div>
-       <div class="clearfix"></div>
-       <div data-bind="with: phongThuy" >
-      <div class="clearfix"></div>
-      <hr>
-      <div class="col-md-12 col-sm-12 col-xs-12">
-        <p><span style="font-weight: bold;">Mệnh:</span>&nbsp;<span data-bind="text: Menh"></span></p>
-        <p><span style="font-weight: bold;">Tương sinh:</span>&nbsp;<span data-bind="text: TuongSinh"></span></p>
-        <p><span style="font-weight: bold;">Hòa hợp:</span>&nbsp;<span data-bind="text: HoaHop"></span></p>
-        <p><span style="font-weight: bold;">Chế khắc:</span>&nbsp;<span data-bind="text: CheKhac"></span></p>
-        <p><span style="font-weight: bold;">Bị khắc:</span>&nbsp;<span data-bind="text: BiKhac"></span></p>
-      </div>
-
-      <div class="clearfix"></div>
-      <hr>
-      <div class="col-md-6 col-sm-6  col-xs-6" >
-        <!-- <div class="form-group">
-              <button type="button" class="btn btn-primary" style="font-weight:bold;white-space:normal;display:inline-flex;margin-left: auto;
-    margin-right: auto;
-    display: table;">
-                 <span style="text-align: center; font-size: 12px;">Sản phẩm liên quan </span>
-               </button>
-        </div> -->
-        <div class="form-group">
-              <button type="button" class="btn btnpr">
-                 <span style="text-align: center; font-size: 12px;">Xem thêm</span>
-               </button>
-        </div>
-      </div>
-      <div class="col-md-6 col-sm-6  col-xs-6" >
-        <!-- <div class="form-group">
-              <button type="button" class="btn btn-primary" style="font-weight:bold;white-space:normal;display:inline-flex;margin-left: auto;
-    margin-right: auto;
-    display: table;">
-                 <span style="text-align: center; font-size: 12px;">Bạn cần tư vấn </span>
-               </button>
-        </div> -->
-        <div class="form-group">
-              <button type="button" class="btn btnpr">
-                 <span style="text-align: center; font-size: 12px;">Tư vấn</span>
-               </button>
-        </div>
-      </div>
-
-      <div class="clearfix"></div>
-      </div>
-    </div>
-  </div>
   <div class="col-sm-6 wow fadeIn">
     <div class="cat-div">
       <h2>Sản phẩm liên quan</h2>
@@ -461,8 +481,6 @@
 
                      </div>
                  </div>
-
-
                </div>
          </div>
           </div>
@@ -519,17 +537,10 @@
                           <button type="button" data-bind="click: AddCharm" class="btn btn-default form-control" style="background:#dfb859; color: #fff; font-weight: bold;">+ CHARM</button>
                        </div>
                    </div>
-
-
                  </div>
              </div>
          </div>
-
          </div>
-
-
-
-
          <div class="row">
              <!-- ko if: Pieces().length > 0 -->
             <div class="col-md-12">
@@ -552,11 +563,11 @@
          </div>
        </div>
 
-      <div class="row">
-              <div class="col-md-3">
+        <div class="row">
+          <div class="col-md-3">
                 <span style="float: left;" data-bind="text: '&nbsp;' + KieudayName()"></span>
                 <div class="form-group">
-                  <select id="checkout-country" class="js-countries" data-bind="options: Kieudays, optionsText: $data, optionsValue: $data, value: CustomKieudayId">
+                  <select id="checkout-country" class="js-countries" data-bind="options: Kieudays, optionsText: 'name', optionsValue: 'id', value: CustomKieudayId">
                   </select>
                 </div>
             </div>
@@ -576,7 +587,7 @@
               <span style="color: #DDCA22; font-size: 16px;font-weight: bold;" data-bind="text: Pieces().length + ' hạt - ' + formatMoney(CustomPrice())"></span>
               </label>
             </div>
-      </div>
+        </div>
 
        </div>
        <div class="modal-footer">
@@ -606,6 +617,7 @@
     var options = {};
     data.Product = <?php echo json_encode($Product); ?>;
     data.Pieces = <?php echo json_encode($Pieces); ?>;
+    data.CurrentUser = <?php echo json_encode(Auth::check() ? Auth::user() : null); ?>;
 
     data.Charms = <?php echo json_encode($Charms); ?>;
 
@@ -619,6 +631,9 @@
     options.AddToCart = <?php echo json_encode(url('addToCart')); ?>;
     options.AddToWishList = <?php echo json_encode(url('addToWishList')); ?>;
     options.GetPhongThuy = <?php echo json_encode(url('getPhongThuy')); ?>;
+    options.FilterProduct_master = <?php echo json_encode(url('filter')); ?>;
+    options.Login_master = <?php echo json_encode(url('login')); ?>;
+    options.CreateUser_master = <?php echo json_encode(url('createUser')); ?>;
 
     data.API_URLs = options;
     ko.applyBindings(SingleViewModel(data), document.getElementById("page-single"));

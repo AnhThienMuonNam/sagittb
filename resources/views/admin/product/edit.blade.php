@@ -107,13 +107,6 @@ Admin - Cập nhật Sản phẩm
                                   style="resize: vertical; width: 100%; height: 100px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;" data-bind="value: metaDescription"></textarea>
                 </div>
 
-
-                <div class="form-group">
-                 <label>Topic</label>
-                   <select class="form-control" data-bind="options: topics, optionsText: 'line1', optionsValue: 'id', value: topicId, optionsCaption: '-- Chọn Topic --'">
-                 </select>
-               </div>
-
                   <div class="form-group">
                   <label for="exampleInputEmail1">Hình ảnh*</label>
                     <input type="file" id="uploadFile"  class="form-control-file" name="uploadFile"  data-bind="event: { change: uploadImages }">
@@ -163,8 +156,6 @@ Admin - Cập nhật Sản phẩm
     data.Product = <?php echo json_encode($Product); ?>;
     data.Categories = <?php echo json_encode($Categories); ?>;
     data.Pieces = <?php echo json_encode($Pieces); ?>;
-    data.Topics = <?php echo json_encode($Topics); ?>;
-
 
     options.ImagePath = <?php echo json_encode(asset('/images')); ?>;
     options.UploadImage = <?php echo json_encode(url('/admin/product/uploadImage')); ?>;

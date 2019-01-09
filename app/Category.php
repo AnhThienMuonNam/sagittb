@@ -20,14 +20,14 @@ class Category extends Model
   		return $this->hasMany('App\Size_Hat','category_id', 'id');
   	}
 
-    public function size_vongs()
-  	{
-  		return $this->hasMany('App\Size_Vong','category_id', 'id');
-  	}
-
   	public function charms()
   	{
   		return $this->hasMany('App\Charm','category_id', 'id');
+  	}
+
+    public function kieudays()
+  	{
+  		return $this->hasMany('App\Kieuday','category_id', 'id');
   	}
 
 }

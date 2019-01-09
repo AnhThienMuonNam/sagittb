@@ -84,8 +84,6 @@
   data.Category = <?php echo json_encode($Category); ?>;
   data.Products = <?php echo json_encode($Products); ?>;
 
-  data.Pieces = <?php echo json_encode($Pieces); ?>;
-
   options.ImagePath = <?php echo json_encode(asset('/images')); ?>;
   options.PublicPath = <?php echo json_encode(url('')); ?>;
 

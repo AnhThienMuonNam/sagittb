@@ -30,11 +30,11 @@
         <!-- /ko -->
         <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
           <div class="panel panel-default">
-            <div class="panel-heading panel-bg" role="tab" id="headingOne">
+            <div class="panel-heading panel-bg" role="tab" id="headingOne" style="border-radius: 10px ">
               <h4 class="panel-title"> <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">Thông Tin Tài Khoản</a> </h4>
             </div>
             <div id="collapseOne" style="width: 100%;" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
-              <div class="panel-body form-horizontal">
+              <div class="panel-body form-horizontal" style="border-radius: 10px">
                     <div class="form-group">
                         <label class="control-label col-sm-2" for="email">Email</label>
                         <div class="col-sm-10">
@@ -110,7 +110,7 @@
                     </div>
                     <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-10">
-                            <button type="button" class="btn btn-default" style="color: black;" data-bind="click: openPopupGetOTPForUpdateInfo">Cập Nhật</button>
+                            <button type="button" class="btn btn-default" style="color: black; border-radius: 8px;" data-bind="click: openPopupGetOTPForUpdateInfo">Cập Nhật</button>
                         </div>
                     </div>
               </div>
@@ -119,11 +119,11 @@
 
           <div class="clearfix"></div>
           <div class="panel panel-default">
-            <div class="panel-heading panel-bg" role="tab" id="headingTwo">
+            <div class="panel-heading panel-bg" role="tab" id="headingTwo" style="border-radius: 10px">
               <h4 class="panel-title"> <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">Đổi Mật Khẩu</a> </h4>
             </div>
             <div id="collapseTwo" style="width: 100%;" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
-              <div class="panel-body form-horizontal">
+              <div class="panel-body form-horizontal" style="border-radius: 10px">
                         <div class="form-group">
                             <label class="control-label col-sm-2" for="pwd">Mật khẩu cũ*</label>
                             <div class="col-sm-10">
@@ -137,15 +137,15 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-sm-2" for="pwd">Mật khẩu mới x2*</label>
+                            <label class="control-label col-sm-2" for="pwd">Nhập lại mật khẩu</label>
                             <div class="col-sm-10">
-                                <input type="password" class="form-control" placeholder="Mật khẩu mới x2"  data-bind="value: NewPasswordx2">
+                                <input type="password" class="form-control" placeholder="Nhập lại mật khẩu"  data-bind="value: NewPasswordx2">
                             </div>
                         </div>
 
                         <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-10">
-                                <button type="button" class="btn btn-default" style="color: black;"  data-bind="click: openPopupGetOTPForChangePassword">Đổi mật khẩu</button>
+                                <button type="button" class="btn btn-default" style="color: black; border-radius: 8px;"  data-bind="click: openPopupGetOTPForChangePassword">Đổi mật khẩu</button>
                             </div>
                         </div>
 

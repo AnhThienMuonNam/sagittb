@@ -25,7 +25,6 @@ class Product extends Model
         return $this->hasMany('App\Wish_List','user_id', 'id');
 	}
 
-
   public function piece()
   {
     return $this->belongsTo('App\Piece','piece_id', 'id');

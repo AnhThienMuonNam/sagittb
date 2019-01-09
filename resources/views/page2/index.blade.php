@@ -36,7 +36,7 @@
                 <h4>{{$item->line1}}</h4>
                 <h3>{{$item->line2}}</h3>
                 <h5>{{$item->line3}}</h5>
-                <p class="shopbt"><a href="product.html" class="hvr-icon-wobble-horizontal">XEM NGAY </a></p>
+                <p class="shopbt"><a href="{{url($item->url)}}" class="hvr-icon-wobble-horizontal">XEM NGAY</a></p>
               </div>
               <img src = "{{asset('images/'.$item->image)}}"  alt="" title="" />
             </div>
@@ -76,27 +76,27 @@
     <div class="clearfix"></div>
   </section>
   <!-- Jewelleries for every Occasion-->
-  <!-- <section class="content-section text-center product-bg">
+  <section class="content-section text-center product-bg">
     <div class="col-md-8 col-center">
       <div class="title-heading  wow fadeInUp">
-        <h3>Jewelleries for every Occasion</h3>
+        <h3>BLOG <a href="{{url('blog')}}" target="_blank" style="font-size:12px; font-style: italic;">(Xem thêm)</a></h3>
       </div>
     </div>
     <div class="clearfix"></div>
     <div class="img-div3">
-      <div class="col-md-6 col-sm-6 wow fadeInLeft"> <a href="product.html" class="right-img">
-        <div><img src="images/products/2.jpg" class="img-responsive grayscale" alt="" title=""></div>
+      @foreach($NewestBlogs as $item)
+
+      <div class="col-md-6 col-sm-6 wow fadeInLeft"> <a href="{{url('blog/'.$item->alias.'/'.$item->id)}}" class="right-img">
+        <div><img src="{{asset('images/'.$item->image)}}" class="img-responsive grayscale" alt="" title="{{$item->name}}"></div>
         </a>
         <div class="clearfix"></div>
       </div>
-      <div class="col-md-6 col-sm-6 wow fadeInRight"> <a href="product.html" class="right-img">
-        <div><img src="images/products/1.jpg" class="img-responsive grayscale" alt="" title=""></div>
-        </a> </div>
-      <div class="clearfix"></div>
+      @endforeach
+
     </div>
     <div class="clearfix"></div>
     <div class="clearfix"></div>
-  </section> -->
+  </section>
   <!--best of our store-->
   <section class="content-section">
     <div class="best-div">
@@ -204,36 +204,33 @@
     </div>
   </section>
 
-
   <!--latest jewellery collection-->
-  @if(Auth::check())
   <section class="bg-2 content-section" style="background: #f4f4f4;">
-    <h2 class="text-center  wow fadeInDown" style="text-transform: lowercase;">SẢN PHẨM YÊU THÍCH <a href="{{url('user/wish-list')}}" style="font-size:12px; font-style: italic;">(Xem thêm)</a></h2>
+    <h2 class="text-center  wow fadeInDown">INSTAGRAM <a href="https://www.instagram.com/sagittb_com/" target="_blank" style="font-size:12px; font-style: italic;">(Xem thêm)</a></h2>
     <div class="clearfix"></div>
     <div class="section">
       <link rel="stylesheet" type="text/css" href="{{asset('css/set2.css')}}" />
       <div id="masonry-7" class="masonry one_column full-width">
         <div class="content img-div">
           <ul>
-          @foreach($ProductsInWistlist as $item)
+            @foreach($ObjIns as $item)
             <li class="wow fadeIn">
               <div class="grid">
-                <figure class="effect-apollo"> <img alt="" title="" src="{{asset('images/'.preg_replace('/^([^,]*).*$/', '$1', $item->images))}}" style="display: table-cell; margin: 0 auto; max-height: 400px;"/>
+                <figure class="effect-apollo"> <img alt="" style="max-height:280px;" src="{{$item->images->standard_resolution->url}}"   />
                   <figcaption>
-                    <h2>{{$item->name}}</h2>
-                    <p>{{str_limit($item->description, 25)}}</p>
-                    <a href="{{url('san-pham/'.$item->alias.'/'.$item->id)}}">View more</a> </figcaption>
+                    <!-- <h2>Jewelry <span>Store</span></h2> -->
+                    <p>{{$item->caption->text}} </p>
+                    <a href="{{$item->link}}">View more</a> </figcaption>
                 </figure>
               </div>
             </li>
-          @endforeach
+            @endforeach
 
           </ul>
         </div>
       </div>
     </div>
   </section>
-  @endif
   <div class="clearfix"></div>
 
 
@@ -248,4 +245,13 @@
 
 @section('script')
 <script type="text/javascript" src="{{asset('js/scrolltopcontrol.js')}}"></script>
+<script type="text/javascript">
+ $(document).ready(function() {
+
+  var data = <?php echo json_encode($ObjIns); ?>;
+  console.log(data);
+
+});
+
+</script>
 @endsection

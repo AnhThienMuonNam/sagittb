@@ -65,20 +65,6 @@ Admin - Cập nhật Danh mục
               </label>
             </div>
 
-
-
-            <div class="form-group" data-bind="style: { display: IsCustom() == true ? 'block' : 'none' }">
-
-
-
-              <label>Kiểu dây</label>
-              <input type="text" class="form-control"  data-bind="value: KieudayName" placeholder="Tên mục kiểu dây">
-
-              <select id="kieudaysList" data-bind="event: { change: changeKieuday }" class="form-control select2" multiple="multiple" data-placeholder="Thêm thẻ cho sản phẩm" style="width: 100%;">
-              </select>
-              <input type="hidden" name="Tags" data-bind="value: Kieudays">
-            </div>
-
             <div class="form-group" data-bind="style: { display: IsCustom() == true ? 'block' : 'none' }">
               <label>Kích thước vòng tay/dây chuyền</label>
               <input type="text" class="form-control"  data-bind="value: SizeVongName" placeholder="Tên mục ">
@@ -90,6 +76,23 @@ Admin - Cập nhật Danh mục
             </div>
 
             <div class="form-group" data-bind="style: { display: IsCustom() == true ? 'block' : 'none' }">
+              <label for="exampleInputEmail1">Kiểu dây <span style="cursor: pointer; font-style: italic;" data-bind="click: addKieuday">(Thêm)</span></label>
+              <input type="text" class="form-control"  data-bind="value: KieudayName" placeholder="Tên mục ">
+
+              <ul class="list-group">
+                <!-- ko foreach: Kieudays -->
+               <li class="list-group-item">
+                 <span>Tên</span>
+                 <input type="text" data-bind="value: name" placeholder="Tên">&nbsp;
+                  <span>Giá tiền</span>
+                 <input type="number" data-bind="value: value" placeholder="Giá tiền">
+                 <span style="cursor: pointer;" title="Xoá" data-bind="click: $parent.removeKieuday">  <i class="fa fa-trash-o"></i>  </span>
+              </li>
+              <!-- /ko -->
+              </ul>
+            </div>
+
+            <div class="form-group" data-bind="style: { display: IsCustom() == true ? 'block' : 'none' }">
               <label for="exampleInputEmail1">Size hạt/đá/mặt dây chuyền <span style="cursor: pointer; font-style: italic;" data-bind="click: addSizeHat">(Thêm)</span></label>
               <input type="text" class="form-control"  data-bind="value: SizeHatName" placeholder="Tên mục ">
 
@@ -97,9 +100,9 @@ Admin - Cập nhật Danh mục
                 <!-- ko foreach: SizeHats -->
                <li class="list-group-item">
                  <span>Kích thước</span>
-                 <input type="text" data-bind="value: name" placeholder="Tên danh mục">&nbsp;
-                  <span>Giá trị</span>
-                 <input type="number" data-bind="value: value" placeholder="Tên danh mục">
+                 <input type="text" data-bind="value: name" placeholder="Kích thước">&nbsp;
+                  <span>Giá tiền</span>
+                 <input type="number" data-bind="value: value" placeholder="Giá tiền">
                  <span style="cursor: pointer;" title="Xoá" data-bind="click: $parent.removeSizeHat">  <i class="fa fa-trash-o"></i>  </span>
               </li>
               <!-- /ko -->

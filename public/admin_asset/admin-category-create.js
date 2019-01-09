@@ -65,10 +65,6 @@ var CategoryModel = function (parent){
     self.SizeHats = ko.observableArray([]);
     self.SizeVongs = ko.observableArray([]);
 
-    self.changeKieuday = function(){
-       self.Kieudays($('#kieudaysList').val());
-    };
-
     self.changeSizeVong = function(){
        self.SizeVongs($('#sizeVongsList').val());
     };
@@ -84,10 +80,9 @@ var CategoryModel = function (parent){
            kieuday_name: ko.utils.unwrapObservable(this.KieudayName),
            image: ko.utils.unwrapObservable(this.Image),
 
-           kieudays: ko.utils.unwrapObservable(this.Kieudays().length > 0 ? this.Kieudays().toString() : ''),
            sizevongs: ko.utils.unwrapObservable(this.SizeVongs().length > 0 ? this.SizeVongs().toString() : ''),
+           kieudays: ko.utils.unwrapObservable(this.Kieudays),
            sizehats: ko.utils.unwrapObservable(this.SizeHats)
-
        };
 
        return model;
@@ -103,6 +98,18 @@ var CategoryModel = function (parent){
 
    self.removeSizeHat = function(item){
      self.SizeHats.remove(item);
+   };
+
+   self.addKieuday = function(){
+     var newObject = {
+        name:'',
+        value:null
+     };
+     self.Kieudays.push(newObject);
+   };
+
+   self.removeKieuday = function(item){
+     self.Kieudays.remove(item);
    };
 
    self.uploadImages = function(){
@@ -135,5 +142,4 @@ var CategoryModel = function (parent){
        },
     });
 };
-
 }

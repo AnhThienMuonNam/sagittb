@@ -64,15 +64,44 @@ Route::group([ 'prefix' => 'admin', 'middleware'=>'adminLogin' ] , function() {
 
 	Route::get('user', 'AdminController@getAllUsers');
 	Route::group([ 'prefix' => 'user' ] , function() {
-		// Route::get('create', 'AdminController@createView');
-		// Route::post('create', 'AdminController@create');
-
 		Route::get('edit/{Id}', 'AdminController@editUserView');
 		Route::post('editPost/{Id}', 'AdminController@editUserPost');
 
 		Route::post('changePasswordPost/{Id}', 'AdminController@changePasswordPost');
 		Route::post('search', 'AdminController@searchUser');
 	});
+
+	Route::get('blog', 'AdminController@getAllBlogs');
+	Route::group([ 'prefix' => 'blog' ] , function() {
+		Route::get('create', 'AdminController@createBlogView');
+		Route::post('createPost', 'AdminController@createBlog');
+
+		Route::get('edit/{Id}', 'AdminController@editBlogView');
+		Route::post('editPost', 'AdminController@editBlog');
+
+		Route::post('delete', 'AdminController@deleteBlog');
+
+		Route::post('uploadImage', 'AdminController@uploadProductImage');
+		Route::post('deleteImage', 'AdminController@deleteProductImage');
+
+		Route::post('search', 'AdminController@searchBlog');
+
+	});
+
+	Route::get('topic', 'AdminController@getAllTopics');
+	Route::group([ 'prefix' => 'topic' ] , function() {
+		Route::get('create', 'AdminController@createTopicView');
+		Route::post('createPost', 'AdminController@createTopic');
+
+		Route::get('edit/{Id}', 'AdminController@editTopicView');
+		Route::post('editPost', 'AdminController@editTopic');
+
+		Route::post('delete', 'AdminController@deleteTopic');
+
+		Route::post('uploadImage', 'AdminController@uploadProductImage');
+		Route::post('deleteImage', 'AdminController@deleteProductImage');
+	});
+
 });
 Route::get('/', 'HomeController@page02');
 Route::get('danh-muc/{Alias}/{Id}', 'HomeController@categoryView');
@@ -80,7 +109,7 @@ Route::get('danh-muc/{Alias}/{Id}', 'HomeController@categoryView');
 
 Route::get('san-pham/{Alias}/{Id}', 'HomeController@product_detail');
 Route::get('cart', 'HomeController@cart');
-Route::get('checkout', 'HomeController@checkoutView');
+
 Route::post('checkoutPost', 'HomeController@checkoutPost');
 
 Route::post('filterProducts', 'HomeController@filterProducts');
@@ -99,13 +128,11 @@ Route::post('sendEmailResetPassword','UserController@sendEmailResetPassword');
 Route::get('reset-password/{token}','UserController@resetPasswordPageGet');
 Route::post('resetPasswordPagePost','UserController@resetPasswordPagePost');
 
-
-
 Route::post('addToWishList', 'HomeController@addToWishList');
 
 Route::post('getPhongThuy', 'HomeController@getPhongThuy');
 
-Route::get('user', 'UserController@getAll'); //will be replace to getUser
+Route::get('user', 'UserController@getAll');
 Route::group([ 'prefix' => 'user' ] , function() {
 	Route::get('orders', 'UserController@ordersView');
 	Route::post('getOrders', 'UserController@getOrders');
@@ -113,11 +140,9 @@ Route::group([ 'prefix' => 'user' ] , function() {
 	Route::get('wish-list', 'UserController@getWishList');
 	Route::post('filterWishList', 'UserController@filterWishList');
 
-
 	Route::get('profile', 'UserController@getProfile');
 	Route::post('updateUser', 'UserController@updateUser');
 	Route::post('changePassWord', 'UserController@changePassWord');
-
 
 	// Route::post('create', 'UserController@create');
 
@@ -129,14 +154,16 @@ Route::group([ 'prefix' => 'user' ] , function() {
 
 });
 
-
 Route::get('about-us','IntroController@aboutUs');
 Route::get('shipping-policy','IntroController@shippingPolicy');
 Route::get('guarantee-policy','IntroController@guaranteePolicy');
 Route::get('jewellery-care','IntroController@jewelleryCare');
 
-
 Route::get('order/{orderCode}', 'UserController@getOrderDetailByCode');
 
 Route::get('thank-you', 'HomeController@thankYouPage');
-//end shop trang suc
+
+Route::get('filter/{tag}', 'HomeController@filterPage');
+
+Route::get('blog', 'HomeController@blogView');
+Route::get('blog/{Alias}/{Id}', 'HomeController@blogDetailView');

@@ -19,7 +19,7 @@
           <ul>
             <li><a href="{{url('')}}">TRANG CHỦ</a>
             <li>/</li>
-            <li>Danh sách yêu thích</li>
+            <li>Danh sách sản phẩm</li>
           </ul>
         </div>
       </div>
@@ -78,6 +78,8 @@
             <div class="clearfix"></div>
             <div class="row">
               <div class="col-md-12 col-sm-12 name-pro" data-bind="text: $data.name"></div>
+              <div class="col-md-12 col-sm-12 name-pro" data-bind="text: $data.category.name" style="font-style: italic; font-size: 10px;"></div>
+
               <div class="clearfix"></div>
 
 
