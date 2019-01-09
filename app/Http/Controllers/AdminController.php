@@ -3,20 +3,18 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Category;
 use Illuminate\Support\Facades\Auth;
-use App\User;
-
-use Mail;
-use Excel;
-use DateTime;
 use Illuminate\Support\Facades\DB;
 
 use Hash;
+use Mail;
+use Excel;
+use DateTime;
 
+use App\User;
+use App\Category;
 use App\Product;
 use App\Kieuday;
-
 use App\Order;
 use App\Order_Status;
 use App\Charm;
@@ -27,18 +25,17 @@ use App\Size_Vong;
 use App\Size_Hat;
 use App\Piece;
 use App\Topic;
-
+use App\Blog;
 
 class AdminController extends Controller
 {
-    //shop trang suc
- 	public function loginView()
+ 	  public function loginView()
     {
     	if(!Auth::check()){
-		return view('admin.login');
-		}else{
-			return redirect('admin/order');
-		}
+		      return view('admin.login');
+      } else {
+			     return redirect('admin/order');
+		  }
     }
 
     public function login(Request $request)
@@ -54,6 +51,7 @@ class AdminController extends Controller
             if(Auth::attempt(['email'=>$request->Email,'password'=>$request->Password]))
             {
                 $user->otp = null;
+                $user->is_get_otp = true;
                 $user->save();
                 return response()->json(['IsSuccess'=>true]);
             }
@@ -88,14 +86,16 @@ class AdminController extends Controller
 
     public function logout()
     {
-		Auth::logout();
-		return redirect('admin/login');
+      Auth::user()->is_get_otp = false;
+      Auth::user()->save();
+  		Auth::logout();
+  		return redirect('admin/login');
     }
 
- 	public function getAllCategories()
+ 	  public function getAllCategories()
     {
-		$result = Category::all();
-		return view('admin.category.index',['categories'=>$result]);
+  		$result = Category::where('is_deleted',0)->get();
+  		return view('admin.category.index',['categories'=>$result]);
     }
 
     public function createCategoryView()
@@ -116,7 +116,7 @@ class AdminController extends Controller
         $category->alias = $this->changeTitle($model->name);
         $category->is_active = $model->is_active;
         $category->is_custom = $model->is_custom;
-        $category->kieudays = $model->kieudays;
+
         $category->sizevongs = $model->sizevongs;
         $category->image = $model->image;
 
@@ -124,9 +124,7 @@ class AdminController extends Controller
         $category->sizevong_name = $model->sizevong_name;
         $category->kieuday_name = $model->kieuday_name;
 
-
         $category->save();
-
 
         if($model->sizehats){
             foreach($model->sizehats as $key => $item)
@@ -139,7 +137,16 @@ class AdminController extends Controller
               }
           }
 
-
+          if($model->kieudays){
+              foreach($model->kieudays as $key => $item)
+              {
+                  $obj = new Kieuday;
+                  $obj->name = $item['name'];
+                  $obj->value = $item['value'];
+                  $obj->category_id = $category->id;
+                  $obj->save();
+                }
+            }
 
          return response()->json(['IsSuccess' => true]);
     }
@@ -148,6 +155,7 @@ class AdminController extends Controller
     {
         $category = Category::find($Id);
         $category->sizeHats = Size_Hat::where('category_id', $Id)->get();
+        $category->kieudays = Kieuday::where('category_id', $Id)->get();
 
         return view('admin.category.edit',['category'=>$category]);
     }
@@ -166,7 +174,7 @@ class AdminController extends Controller
         $category->alias = $this->changeTitle($model->name);
 	      $category->is_active = $model->is_active;
         $category->is_custom = $model->is_custom;
-        $category->kieudays = $model->kieudays;
+
         $category->sizevongs = $model->sizevongs;
 
         $category->size_hat_name = $model->size_hat_name;
@@ -175,6 +183,12 @@ class AdminController extends Controller
 
         $Size_Hats =   Size_Hat::where('category_id',$model->id)->get();
         foreach($Size_Hats as $item)
+        {
+          $item->delete();
+        }
+
+        $Kieudays =   Kieuday::where('category_id',$model->id)->get();
+        foreach($Kieudays as $item)
         {
           $item->delete();
         }
@@ -191,6 +205,17 @@ class AdminController extends Controller
               }
           }
 
+          if($model->kieudays){
+              foreach($model->kieudays as $key => $item)
+              {
+                  $obj = new Kieuday;
+                  $obj->name = $item['name'];
+                  $obj->value = $item['value'];
+                  $obj->category_id = $model->id;
+                  $obj->save();
+                }
+            }
+
     		$category->save();
     		return response()->json(['IsSuccess' => true]);
 		// return redirect('admin/category/edit/'.$Id)->with('message','Sửa thành công');
@@ -202,7 +227,6 @@ class AdminController extends Controller
         $Products = Product::with('category')->where('is_deleted',0)->get();
         $Categories = Category::where('is_deleted',0)->get();
 
-         // $result=Flowers::all()->load('Category');
         return view('admin.product.index',['Products'=>$Products, 'Categories'=>$Categories ]);
     }
 
@@ -211,7 +235,6 @@ class AdminController extends Controller
         $result = Product::with('category')->where('is_deleted',0);
         if($request->sKeyword){
             $result = $result->where('name','like','%'.$request->sKeyword.'%')->orwhere('alias','like','%'.$request->sKeyword.'%');
-
         }
 
         if($request->sCategoryId){
@@ -220,7 +243,6 @@ class AdminController extends Controller
         if($request->sIsActive != null){
             $result = $result->where('is_active',$request->sIsActive);
         }
-
 
         $result = $result->orderBy('created_at', 'desc')->get();
 
@@ -232,10 +254,8 @@ class AdminController extends Controller
         $Product = Product::find($Id);
         $Categories = Category::where('is_deleted',0)->get();
         $Pieces = Piece::where('is_deleted',0)->get();
-        $Topics = Topic::where('is_deleted',0)->get();
 
-
-        return view('admin.product.edit',['Product'=>$Product,'Categories'=>$Categories, 'Pieces'=>$Pieces, 'Topics'=>$Topics]);
+        return view('admin.product.edit',['Product'=>$Product,'Categories'=>$Categories, 'Pieces'=>$Pieces]);
     }
 
     public function editProduct(Request $request)
@@ -268,7 +288,6 @@ class AdminController extends Controller
         $model->category_id = $request->category_id;
 
         $model->piece_id = $request->piece_id;
-        $model->topic_id = $request->topic_id;
         $model->quantity_of_pieces = $request->quantity_of_pieces;
 
         $model->images = $request->images;
@@ -304,10 +323,8 @@ class AdminController extends Controller
     {
         $Categories = Category::where('is_deleted',0)->get();
         $Pieces = Piece::where('is_deleted',0)->get();
-        $Topics = Topic::where('is_deleted',0)->get();
 
-
-        return view('admin.product.create',['Categories'=>$Categories, 'Pieces'=>$Pieces, 'Topics'=>$Topics]);
+        return view('admin.product.create',['Categories'=>$Categories, 'Pieces'=>$Pieces]);
     }
 
    public function createProduct(Request $request)
@@ -339,7 +356,6 @@ class AdminController extends Controller
         $model->category_id = $request->category_id;
 
         $model->piece_id = $request->piece_id;
-        $model->topic_id = $request->topic_id;
         $model->quantity_of_pieces = $request->quantity_of_pieces;
 
         $model->images = $request->images;
@@ -359,14 +375,15 @@ class AdminController extends Controller
         return response()->json(['IsSuccess' => true]);
     }
 
+    //change to common
     public function uploadProductImage(Request $request)
     {
         $imageName = time() . '.' . $request->uploadFile->getClientOriginalExtension();
         $request->uploadFile->move(public_path().'/images/', $imageName);
         return $imageName;
-
     }
 
+    //change to common
     public function deleteProductImage(Request $request)
     {
         $image_path = public_path().'/images/'.$request->deleteFile;
@@ -379,7 +396,6 @@ class AdminController extends Controller
         $imageName = time() . '.' . $request->uploadFile->getClientOriginalExtension();
         $request->uploadFile->move(public_path().'/images/', $imageName);
         $response = $imageName;
-
 
         if($request->categoryId)
         {
@@ -480,69 +496,64 @@ class AdminController extends Controller
 
 
 
-
     public function register(Request $request)
     {
-		$this->validate($request,[
-			'Name'=>'required|min:3|max:100',
-			'Email'=>'required|unique:users',
-			'Password'=>'required|min:6',
-			'Password_confirmation'=>'required|same:Password',
-		],[
-			'Name.required'=>'Bạn chưa nhập họ tên',
-			'Name.min'=>'Họ tên phải nhiều hơn 3 ký tự',
-			'Name.max'=>'Họ tên phải ít hơn 100 ký tự',
-			'Email.required'=>'Bạn chưa nhập email',
-			'Email.unique'=>'Email đã tồn tại',
-			'Password.required'=>'Bạn chưa nhập mật khẩu',
-			'Password_confirmation.required'=>'Bạn chưa nhập xác nhận mật khẩu',
-			'Password_confirmation.same' => 'Mật khẩu không trùng nhau'
-		]);
-		////
+    		$this->validate($request,[
+    			'Name'=>'required|min:3|max:100',
+    			'Email'=>'required|unique:users',
+    			'Password'=>'required|min:6',
+    			'Password_confirmation'=>'required|same:Password',
+    		],[
+    			'Name.required'=>'Bạn chưa nhập họ tên',
+    			'Name.min'=>'Họ tên phải nhiều hơn 3 ký tự',
+    			'Name.max'=>'Họ tên phải ít hơn 100 ký tự',
+    			'Email.required'=>'Bạn chưa nhập email',
+    			'Email.unique'=>'Email đã tồn tại',
+    			'Password.required'=>'Bạn chưa nhập mật khẩu',
+    			'Password_confirmation.required'=>'Bạn chưa nhập xác nhận mật khẩu',
+    			'Password_confirmation.same' => 'Mật khẩu không trùng nhau'
+    		]);
+    		////
 
-		$model = new User;
-		$model->name = $request->Name;
-		$model->email = $request->Email;
-		$model->password = bcrypt($request->Password);
-		$model->PhoneNumber = $request->PhoneNumber;
-		$model->IsAdmin = 0;
-		$model->Gender = 0;
-		$model->save();
+    		$model = new User;
+    		$model->name = $request->Name;
+    		$model->email = $request->Email;
+    		$model->password = bcrypt($request->Password);
+    		$model->PhoneNumber = $request->PhoneNumber;
+    		$model->IsAdmin = 0;
+    		$model->Gender = 0;
+    		$model->save();
     }
 
-
-
-
-
- 	public function create(Request $request)
+ 	  public function create(Request $request)
     {
-		$this->validate($request,[
-			'Name'=>'required|min:3|max:100',
-			'Email'=>'required|unique:users',
-			'Password'=>'required|min:6',
-			'Password_confirmation'=>'required|same:Password',
-		],[
-			'Name.required'=>'Bạn chưa nhập họ tên',
-			'Name.min'=>'Họ tên phải nhiều hơn 3 ký tự',
-			'Name.max'=>'Họ tên phải ít hơn 100 ký tự',
-			'Email.required'=>'Bạn chưa nhập email',
-			'Email.unique'=>'Email đã tồn tại',
-			'Password.required'=>'Bạn chưa nhập mật khẩu',
-			'Password_confirmation.required'=>'Bạn chưa nhập xác nhận mật khẩu',
-			'Password_confirmation.same' => 'Mật khẩu không trùng nhau'
-		]);
-		$model=new User;
-		$model->Name=$request->Name;
-		$model->email=$request->Email;
-		$model->password=bcrypt($request->Password);
-		$model->PhoneNumber=$request->PhoneNumber;
+  		$this->validate($request,[
+  			'Name'=>'required|min:3|max:100',
+  			'Email'=>'required|unique:users',
+  			'Password'=>'required|min:6',
+  			'Password_confirmation'=>'required|same:Password',
+  		],[
+  			'Name.required'=>'Bạn chưa nhập họ tên',
+  			'Name.min'=>'Họ tên phải nhiều hơn 3 ký tự',
+  			'Name.max'=>'Họ tên phải ít hơn 100 ký tự',
+  			'Email.required'=>'Bạn chưa nhập email',
+  			'Email.unique'=>'Email đã tồn tại',
+  			'Password.required'=>'Bạn chưa nhập mật khẩu',
+  			'Password_confirmation.required'=>'Bạn chưa nhập xác nhận mật khẩu',
+  			'Password_confirmation.same' => 'Mật khẩu không trùng nhau'
+  		]);
+  		$model=new User;
+  		$model->Name=$request->Name;
+  		$model->email=$request->Email;
+  		$model->password=bcrypt($request->Password);
+  		$model->PhoneNumber=$request->PhoneNumber;
 
-		$model->IsAdmin = $request->IsAdmin;
-		$model->Gender = 0;
+  		$model->IsAdmin = $request->IsAdmin;
+  		$model->Gender = 0;
 
-		$model->save();
+  		$model->save();
 
-		return redirect('admin/user/create')->with('message','Thêm thành công');
+  		return redirect('admin/user/create')->with('message','Thêm thành công');
     }
 
 
@@ -550,10 +561,10 @@ class AdminController extends Controller
 
     public function loginPageView(){
     	if(!Auth::check()){
-   		return view('page.login');
-   	}else{
-   		return redirect('');
-   	}
+   		   return view('page.login');
+     	} else {
+   		   return redirect('');
+     	}
     }
 
      public function loginPage(Request $request){
@@ -580,7 +591,7 @@ class AdminController extends Controller
 
 
 
-	public function profilePageView()
+	   public function profilePageView()
     {
     	$cities = Cities::all();
     	$user = Auth::user()->load('District');
@@ -713,9 +724,6 @@ class AdminController extends Controller
 
 
 
-
-
-
     public function getAllUsers(){
         $Users = User::with('city')->orderBy('name', 'desc')->get();
         $Cities = City::all();
@@ -724,26 +732,26 @@ class AdminController extends Controller
 
     public function searchUser(Request $request)
     {
-		$result = User::with('city')->orderBy('name', 'desc');
-		if($request->Keyword){
-            $result = $result->where('name','like','%'.$request->Keyword.'%')
-                            ->orwhere('email','like','%'.$request->Keyword.'%')
-                            ->orwhere('phone','like','%'.$request->Keyword.'%');
+  		$result = User::with('city')->orderBy('name', 'desc');
+  		if($request->Keyword){
+              $result = $result->where('name','like','%'.$request->Keyword.'%')
+                              ->orwhere('email','like','%'.$request->Keyword.'%')
+                              ->orwhere('phone','like','%'.$request->Keyword.'%');
 
-		}
+  		}
 
-		if($request->IsAdmin != null){
-			$result = $result->where('is_admin',$request->IsAdmin);
-        }
+  		if($request->IsAdmin != null){
+  			$result = $result->where('is_admin',$request->IsAdmin);
+          }
 
-        if($request->CityId){
-			$result = $result->where('city_id',$request->CityId);
-		}
+          if($request->CityId){
+  			$result = $result->where('city_id',$request->CityId);
+  		}
 
-		// $result=$result->skip(0)->take(10)->get();
-		$result = $result->get();
+  		// $result=$result->skip(0)->take(10)->get();
+  		$result = $result->get();
+  		return response()->json(['Users' => $result]);
 
-		return response()->json(['Users' => $result]);
     }
 
 
@@ -788,7 +796,7 @@ class AdminController extends Controller
             'NewPasswordx2.required' => 'Bạn chưa nhập xác nhận mật khẩu mới',
             'NewPasswordx2.same' => 'Mật khẩu mới không trùng nhau'
         ]);
-		// bcrypt($request->Password);
+		    // bcrypt($request->Password);
 		  $current_password = Auth::User()->password;
         if(Hash::check($request->OldPassword, $current_password))
         {
@@ -804,6 +812,171 @@ class AdminController extends Controller
         }
     }
 
-//end common function
+    //end common function
 
+    //Blog
+    public function getAllBlogs()
+    {
+      $result = Blog::where('is_deleted',0)->get();
+      return view('admin.blog.index',['blogs'=>$result]);
+    }
+
+    public function editBlogView($Id)
+    {
+       $blog = Blog::find($Id);
+
+       return view('admin.blog.edit',['blog'=>$blog]);
+    }
+
+    public function createBlogView()
+    {
+      return view('admin.blog.create');
+    }
+
+    public function createBlog(Request $request)
+    {
+        $this->validate($request,[
+                                    'name'=>'required|max:100',
+                                    'content'=>'required',
+                                    'image'=>'required'
+                                ],
+            [
+                'name.required'=>'Bạn chưa nhập tên bài viết',
+                'name.max'=>'Tên bài viết phải ít hơn 100 ký tự',
+                'content.required'=>'Nội dung bài viết phải không được để trống',
+                'image.required'=>'Hình ảnh không được để trống',
+            ]);
+
+        $model = new Blog;
+        $model->name = $request->name;
+        $model->alias = $this->changeTitle($request->name);
+        $model->tags = $request->tags;
+        $model->description = $request->description;
+        $model->meta_description=$request->meta_description;
+        $model->image = $request->image;
+        $model->is_active = $request->is_active;
+        $model->content = $request->content;
+
+        $model->save();
+
+        return response()->json(['IsSuccess' => true]);
+    }
+
+    public function editBlog(Request $request)
+    {
+      try {
+        $this->validate($request,[
+                                    'name'=>'required|max:100',
+                                    'content'=>'required',
+                                    'image'=>'required'
+                                ],
+            [
+                'name.required'=>'Bạn chưa nhập tên bài viết',
+                'name.max'=>'Tên bài viết phải ít hơn 100 ký tự',
+                'content.required'=>'Nội dung bài viết phải không được để trống',
+                'image.required'=>'Hình ảnh không được để trống',
+            ]);
+
+        $model = Blog::find($request->id);
+        $model->name = $request->name;
+        $model->alias = $this->changeTitle($request->name);
+        $model->tags = $request->tags;
+        $model->description = $request->description;
+        $model->meta_description=$request->meta_description;
+
+        $model->is_active = $request->is_active;
+        $model->content = $request->content;
+
+        //images
+        // if($model->image){
+        //         $image_path = public_path().'/images/'.$model->image;
+        //         unlink($image_path);
+        // }
+        $model->image = $request->image;
+        $model->save();
+
+        return response()->json(['IsSuccess' => true]);
+      } catch (Exception $e) {
+        return response()->json(['IsSuccess' => false]);
+      }
+    }
+    //End BLog
+
+    //Topics
+
+    public function getAllTopics()
+    {
+      $result = Topic::where('is_deleted',0)->get();
+      return view('admin.topic.index',['topics'=>$result]);
+    }
+
+
+      public function createTopicView()
+      {
+        return view('admin.topic.create');
+      }
+
+      public function createTopic(Request $request)
+      {
+          $this->validate($request,[
+                                      'line1'=>'required',
+                                      'line2'=>'required',
+                                      'line3'=>'required',
+                                      'image'=>'required',
+                                  ],
+              [
+                  'line1.required'=>'Bạn chưa nhập dòng 1',
+                  'line2.required'=>'Bạn chưa nhập dòng 2',
+                  'line3.required'=>'Bạn chưa nhập dòng 3',
+                  'image.required'=>'Bạn chưa chọn Hình ảnh',
+              ]);
+
+          $model = new Topic;
+          $model->line1 = $request->line1;
+          $model->line2 = $request->line2;
+          $model->line3 = $request->line3;
+          $model->url = $request->url;
+          $model->image = $request->image;
+          $model->is_active = $request->is_active;
+          $model->save();
+
+          return response()->json(['IsSuccess' => true]);
+      }
+
+
+      public function editTopicView($Id)
+      {
+        $blog = Topic::find($Id);
+
+        return view('admin.topic.edit',['Topic'=>$blog]);
+      }
+
+      public function editTopic(Request $request)
+      {
+          $this->validate($request,[
+                                      'line1'=>'required',
+                                      'line2'=>'required',
+                                      'line3'=>'required',
+                                      'image'=>'required',
+                                  ],
+              [
+                  'line1.required'=>'Bạn chưa nhập dòng 1',
+                  'line2.required'=>'Bạn chưa nhập dòng 2',
+                  'line3.required'=>'Bạn chưa nhập dòng 3',
+                  'image.required'=>'Bạn chưa chọn Hình ảnh',
+              ]);
+
+          $model = Topic::find($request->id);
+          $model->line1 = $request->line1;
+          $model->line2 = $request->line2;
+          $model->line3 = $request->line3;
+          $model->url = $request->url;
+          $model->image = $request->image;
+          $model->is_active = $request->is_active;
+          $model->save();
+
+          return response()->json(['IsSuccess' => true]);
+      }
+
+    //EndTopic
 }

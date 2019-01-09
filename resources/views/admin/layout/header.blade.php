@@ -12,7 +12,7 @@
   <!-- Font Awesome -->
   <link rel="stylesheet" href="{{asset('css/font-awesome.min.css')}}">
   <!-- Ionicons -->
- 
+
   <!-- Theme style -->
   <link rel="stylesheet" href="{{asset('css/AdminLTE.min.css')}}">
   <!-- AdminLTE Skins. Choose a skin from the css/skins
@@ -30,6 +30,9 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
+
+
+
 <div class="wrapper">
 
   <header class="main-header">
@@ -68,7 +71,7 @@
                 </div>
                 <div class="pull-right">
                   <a href="{{url('admin/logout')}}" class="btn btn-default btn-flat">Đăng xuất</a>
-                </div>  
+                </div>
               </li>
             </ul>
           </li>
@@ -127,25 +130,37 @@
           </a>
           <ul class="treeview-menu">
             <li id="tabUserList"><a href="{{url('admin/user')}}"><i class="fa fa-circle"></i> Danh sách Tài khoản</a></li>
-            <!-- <li id="tabUserCreate"><a href="{{url('admin/user/create')}}"><i class="fa fa-circle"></i> Tạo Tài khoản</a></li> -->
           </ul>
         </li>
-        <li id="treeSetting" class="treeview">
+
+        <li id="treeBlog" class="treeview">
           <a href="#">
-            <i class="fa fa-cog"></i> <span>Cài đặt</span>
+            <i class="fa fa-id-card"></i> <span>Blog</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
           <ul class="treeview-menu">
-            <li id="tabSettingBank"><a href="{{url('admin/bank')}}"><i class="fa fa-circle"></i> Tài khoản ngân hàng</a></li>
+            <li id="tabBlogList"><a href="{{url('admin/blog')}}"><i class="fa fa-circle"></i> Danh sách Blog</a></li>
+            <li id="tabBlogCreate"><a href="{{url('admin/blog/create')}}"><i class="fa fa-circle"></i> Tạo Blog</a></li>
+          </ul>
+        </li>
+        <li id="treeSetting" class="treeview">
+          <a href="#">
+            <i class="fa fa-cog"></i> <span>Khác</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li id="tabSettingTopic"><a href="{{url('admin/topic')}}"><i class="fa fa-circle"></i>Topic</a></li>
 
-            <li id="tabSettingSlide"><a href="{{url('admin/slide')}}"><i class="fa fa-circle"></i> Slide trang chủ</a></li>
-           
+            <!-- <li id="tabSettingSlide"><a href="{{url('admin/slide')}}"><i class="fa fa-circle"></i> Slide trang chủ</a></li>
+
              <li id="tabSettingStore"><a href="{{url('admin/store')}}"><i class="fa fa-circle"></i> Cửa hàng</a></li>
 
                <li id="tabSettingFeedback"><a href="{{url('admin/feedback')}}"><i class="fa fa-circle"></i> Đánh giá</a></li>
-               
+
                 <li id="tabSettingLogo"><a href="{{url('admin/logo')}}"><i class="fa fa-circle"></i> Logo</a></li>
 
                  <li id="tabSettingAboutUs"><a href="{{url('admin/aboutus')}}"><i class="fa fa-circle"></i> Về chúng tôi</a></li>
@@ -158,7 +173,7 @@
 
                  <li id="tabSettingPolicyb"><a href="{{url('admin/policyb')}}"><i class="fa fa-circle"></i> Chính sách đại lý</a></li>
 
-                 <li id="tabSettingSeo"><a href="{{url('admin/seo')}}"><i class="fa fa-circle"></i> Cấu hình SEO</a></li>
+                 <li id="tabSettingSeo"><a href="{{url('admin/seo')}}"><i class="fa fa-circle"></i> Cấu hình SEO</a></li> -->
           </ul>
         </li>
       </ul>

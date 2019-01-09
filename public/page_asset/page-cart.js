@@ -78,10 +78,10 @@ var FormViewModel = function(data) {
                 data: self.checkoutViewModel().toJSON(),
                 success: function(response){
                     if(response.IsSuccess == true){
-                        var msg = 'Chúc mừng bạn đã đặt hàng thành công. Một mail thông báo đã được gửi vào email của bạn. <br>Đơn hàng của bạn có mã là '+ response.OrderId +'. <br><strong>Xin cám ơn!</strong>';
-                        self.NotifySuccess(msg);
-                        self.Carts([]);
-                        $("html, body").animate({ scrollTop: 0 }, "slow");
+                        // var msg = 'Chúc mừng bạn đã đặt hàng thành công. Một mail thông báo đã được gửi vào email của bạn. <br>Đơn hàng của bạn có mã là '+ response.OrderId +'. <br><strong>Xin cám ơn!</strong>';
+                        // self.NotifySuccess(msg);
+                        // self.Carts([]);
+                        // $("html, body").animate({ scrollTop: 0 }, "slow");
                         window.location.replace(data.API_URLs.ThankYou);
                     }
                 },

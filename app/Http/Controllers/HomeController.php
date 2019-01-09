@@ -11,12 +11,10 @@ use Mail;
 use App\Category;
 use App\Product;
 use App\Size;
-
 use App\Kieuday;
 use App\Order;
 use App\Order_Detail;
 use App\Sub_Order_Detail;
-
 use App\Charm;
 use App\Wish_List;
 use App\City;
@@ -27,9 +25,7 @@ use App\Topic;
 use App\Bank;
 use App\Piece;
 use App\Size_Hat;
-
-
-
+use App\Blog;
 use Session;
 
 
@@ -40,38 +36,50 @@ class HomeController extends Controller
     //shop trang suc
     public function page02()
     {
-        $HotProducts = Product::with('category')
+        $HotProducts = Product::select('id','name','alias','price','images')
                                 ->where('is_hot',1)
                                 ->where('is_deleted',0)
                                 ->where('is_active',1)->inRandomOrder()
                                 ->skip(0)->take(8)->get();
 
-        $BestProducts = Product::with('category')
+        $BestProducts = Product::select('id','name','alias','price','images')
                                 ->withCount('order_details')
                                 ->where('is_deleted',0)
                                 ->where('is_active',1)
                                 ->orderBy('order_details_count', 'desc')
                                 ->skip(0)->take(8)->get();
 
-        $productIdsInWishlist = Auth::check() ? Wish_List::where('user_id',Auth::User()->id)->select('product_id')->get() : [];
-        $ProductsInWistlist = Product::with('piece')->with('category')
-                                    ->whereIn('id',$productIdsInWishlist)->orderBy('name','desc')
-                                    ->where('is_deleted',0)
-                                    ->skip(0)->take(8)->get();
+        $NewestBlogs = Blog::select('id','image','alias','name')
+                      ->where('is_deleted',0)
+                      ->where('is_active',1)
+                      ->orderBy('created_at', 'DESC')
+                      ->skip(0)->take(2)
+                      ->get();
 
-        $Topics = Topic::all();
+        // $productIdsInWishlist = Auth::check() ? Wish_List::where('user_id',Auth::User()->id)->select('product_id')->get() : [];
+        // $ProductsInWistlist = Product::with('piece')->with('category')
+        //                             ->whereIn('id',$productIdsInWishlist)->orderBy('name','desc')
+        //                             ->where('is_deleted',0)
+        //                             ->skip(0)->take(8)->get();
+        $jsonIns = file_get_contents('https://api.instagram.com/v1/users/self/media/recent/?access_token=2096254071.1febbc9.6ec04b1bc6394da5a549d46265600d62&count=8');
+        $objIns = json_decode($jsonIns);
+
+        $Topics = Topic::select('line1','line2','line3','image','url')
+                        ->where('is_deleted',0)
+                        ->where('is_active',1)->get();
 
         return view('page2.index',[ 'HotProducts'=>$HotProducts,
                                     'BestProducts'=>$BestProducts,
                                     'Topics'=>$Topics,
-                                    'ProductsInWistlist'=>$ProductsInWistlist
+                                    'ObjIns'=>$objIns->data,
+                                    'NewestBlogs'=>$NewestBlogs,
                                     ]);
     }
 
     public function categoryView($Alias, $Id)
     {
         $Category = Category::find($Id);
-        $Products = Product::with('piece')
+        $Products = Product::select('id','name','alias','price','images')
                             ->where('category_id',$Id)
                             ->where('is_deleted',0)
                             ->where('is_active',1)
@@ -80,10 +88,7 @@ class HomeController extends Controller
                             ->take($this->pageSize)
                             ->get();
 
-
-        $Pieces = Piece::where('is_deleted',0)->where('is_active',1)->get();
-
-        return view('page2.category',['Category'=>$Category,'Products'=>$Products, 'Pieces'=>$Pieces]);
+        return view('page2.category',['Category'=>$Category,'Products'=>$Products]);
     }
 
 
@@ -92,7 +97,7 @@ class HomeController extends Controller
       if(!$request->categoryId){
         return response()->json(['Products'=>[]]);
       }
-        $Products = Product::with('piece')
+        $Products = Product::select('id','name','alias','price','images')
                             ->where('category_id',$request->categoryId)
                             ->where('is_deleted',0)
                             ->where('is_active',1)
@@ -115,12 +120,10 @@ class HomeController extends Controller
 
     function seeMoreProducts(Request $request)
     {
-
-        $currentPage = $request->CurrentPage ? $request->CurrentPage : 1;
-        $MoreProducts = Product::with('piece')
+        $currentPage = $request->currentPage ? $request->currentPage : 1;
+        $MoreProducts = Product::select('id','name','alias','price','images')
                             ->where('category_id',$request->categoryId)
                             ->where('is_deleted',0)->where('is_active',1)
-                            ->whereIn('piece_id', $request->listPieces)
                             ->orderBy('name', 'asc')
                             ->skip($this->pageSize*$currentPage)->take($this->pageSize);
 
@@ -134,9 +137,6 @@ class HomeController extends Controller
             $MoreProducts = $MoreProducts->orderBy('price', 'desc')->get();
         }
 
-
-      // $category=Categories::find($Id);
-
       return response()->json(['MoreProducts'=>$MoreProducts]);
     }
 
@@ -144,18 +144,27 @@ class HomeController extends Controller
      public function product_detail($Alias, $Id)
      {
          $Product = Product::with('category')->with('piece')->where('id',$Id)->first();
-         $Product->category->size_hats = Size_Hat::where('is_deleted', 0)->where('is_active', 1)->where('category_id', $Product->category_id)->get();
+         $Product->category->size_hats = Size_Hat::where('is_deleted', 0)
+                                                  ->where('is_active', 1)
+                                                  ->where('category_id', $Product->category_id)
+                                                  ->get();
+
+        $Product->category->kieudays = Kieuday::where('is_deleted', 0)
+                                                 ->where('is_active', 1)
+                                                 ->where('category_id', $Product->category_id)
+                                                 ->get();
          $Charms = Charm::all();
          $Pieces = Piece::where('is_deleted', 0)->where('is_active', 1)->get();
 
          $IsInWishList = false;
          if(Auth::check() && Wish_List::where('product_id',$Id)->where('user_id', Auth::user()->id)->count()>0){
-           $IsInWishList = true;
+            $IsInWishList = true;
          }
 
          $Images = explode(',', $Product->images);
 
-         $RelatedProducts = Product::where('id','!=',$Product->id)
+         $RelatedProducts = Product::select('id','name','alias','price','images')
+                                    ->where('id','!=',$Product->id)
                                     ->where('category_id',$Product->category_id)
                                     ->inRandomOrder()
                                     ->skip(0)->take(3)->get();
@@ -379,15 +388,6 @@ class HomeController extends Controller
                                 'PaymentMethods'=>$PaymentMethods ]);
     }
 
-
-    public function checkoutView()
-    {
-        $Carts = Session::has('myCart') ? Session::get('myCart') : null;
-        $Sizes = Size::all();
-        return view('page2.checkout',['Carts'=>$Carts,'Sizes'=>$Sizes ]);
-    }
-
-
     public function loginPage(Request $request)
     {
         $this->validate($request,['email'=>'required', 'password'=>'required'],[
@@ -396,9 +396,6 @@ class HomeController extends Controller
         ]);
         if(Auth::attempt(['email'=>$request->email,'password'=>$request->password]))
         {
-          	// $user = User::where('email',$request->email)->first();
-            // $user->ip = long2ip(request()->ip());
-            // $user->save();
             return response()->json(['IsSuccess'=>true]);
         }
         else
@@ -409,6 +406,8 @@ class HomeController extends Controller
 
     public function logoutPage()
     {
+        Auth::user()->is_get_otp = false;
+        Auth::user()->save();
         Auth::logout();
         return 1;
     }
@@ -549,9 +548,95 @@ class HomeController extends Controller
       return response()->json(['PhongThuy'=>$PhongThuy, 'IsSuccess'=>true]);
     }
 
-  public function thankYouPage()
+    public function thankYouPage()
     {
         return view('page2.thankyou');
     }
+
+    public function filterPage(Request $request)
+    {
+        $tag = $request->tag;
+
+        $Products = Product::with('piece')->with('category')
+                             ->where('tags', 'LIKE', '%'.$tag.',%')
+                             ->orWhere('tags', 'LIKE', '%,'.$tag.',%')
+                             ->orWhere('tags', 'LIKE', '%,'.$tag.'%')
+                             ->orWhere('tags', $tag)
+                             ->where('is_deleted',0)->get();
+
+        $Categories = Category::where('is_deleted',0)->where('is_active',1)->get();
+
+
+        return view('page2.user.wish_list',['Products'=>$Products,'Categories'=>$Categories]);
+      }
+
+      public function blogView()
+      {
+        $blogs = Blog::select('id','image','description','alias','created_at','name')
+                      ->where('is_deleted',0)
+                      ->where('is_active',1)
+                      ->orderBy('created_at', 'DESC')
+                      ->skip(0)->take(2)
+                      ->get();
+
+        $oldBlogs = Blog::select('id','image','description','alias','created_at','name')
+                        ->where('is_deleted',0)
+                        ->where('is_active',1)
+                        ->orderBy('created_at', 'DESC')
+                        ->skip(2)->take(6)
+                        ->get();
+
+        $popularPosts = Blog::select('id','image','description','alias','created_at','name')
+                              ->where('is_deleted',0)
+                              ->where('is_active',1)
+                              ->orderBy('views', 'DESC')
+                              ->skip(0)->take(3)
+                              ->get();
+
+          return view('page2.blog', ['blogs'=>$blogs,'oldBlogs'=>$oldBlogs,'popularPosts'=>$popularPosts]);
+      }
+
+
+    public function blogDetailView($Alias, $Id) {
+            $blog = Blog::find($Id);
+            $doesExist = false;
+            $Time = strtotime("now");
+            $storedItem = [
+              'id'=>$Id,
+              'time'=>$Time
+              ];
+              $currentCart = Session::has('viewCount') ? Session::get('viewCount') : null;
+              if($currentCart)
+              {
+                foreach($currentCart as $key => $item)
+                {
+                  if ($Id == $item['id']){
+                      $doesExist = true;
+                      if ($Time - $item['time'] > 1000){
+                          $blog->increment('views');
+                          $currentCart[$key]['time'] = $Time;
+                      }
+                  }
+                }
+
+                if($doesExist == false){
+                    $blog->increment('views');
+                    array_push($currentCart, $storedItem);
+                }
+              } else {
+                  $blog->increment('views');
+                  $currentCart = array($storedItem);
+              }
+              Session::put('viewCount',$currentCart);
+              $blog->save();
+              $popularPosts = Blog::select('id','image','description','alias','created_at','name')
+                                  ->where('is_deleted',0)
+                                  ->where('is_active',1)
+                                  ->orderBy('views', 'DESC')
+                                  ->skip(0)->take(3)
+                                  ->get();
+
+              return view('page2.blog_detail',['blog'=>$blog, 'popularPosts'=>$popularPosts]);
+        }
 
 }

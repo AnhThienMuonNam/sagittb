@@ -22,164 +22,20 @@ use Hash;
 
 class UserController extends Controller
 {
-    //reset password
-    public function forgotPasswordView()
-    {
-		return view('forgotPassword');
-    }
-
-    //end reset password
-
- 	  public function loginView()
-    {
-    	   if(!Auth::check()) {
-		          return view('admin.login');
-	       } else {
-			        return redirect('admin/order');
-		     }
-    }
-
-    public function login(Request $request)
-    {
-		$this->validate($request,['Email'=>'required', 'Password'=>'required'],[
-			'Email.required'=>'Bạn chưa nhập email',
-			'Password.required'=>'Bạn chưa nhập mật khẩu',
-		]);
-		if(Auth::attempt(['email'=>$request->Email,'password'=>$request->Password]))
-		{
-			return redirect('admin/order');
-		}
-		else
-		{
-			return redirect('admin/login');
-		}
-
-    }
-
-    public function register(Request $request)
-    {
-		$this->validate($request,[
-			'Name'=>'required|min:3|max:100',
-			'Email'=>'required|unique:users',
-			'Password'=>'required|min:6',
-			'Password_confirmation'=>'required|same:Password',
-		],[
-			'Name.required'=>'Bạn chưa nhập họ tên',
-			'Name.min'=>'Họ tên phải nhiều hơn 3 ký tự',
-			'Name.max'=>'Họ tên phải ít hơn 100 ký tự',
-			'Email.required'=>'Bạn chưa nhập email',
-			'Email.unique'=>'Email đã tồn tại',
-			'Password.required'=>'Bạn chưa nhập mật khẩu',
-			'Password_confirmation.required'=>'Bạn chưa nhập xác nhận mật khẩu',
-			'Password_confirmation.same' => 'Mật khẩu không trùng nhau'
-		]);
-		////
-
-		$model = new User;
-		$model->name = $request->Name;
-		$model->email = $request->Email;
-		$model->password = bcrypt($request->Password);
-		$model->PhoneNumber = $request->PhoneNumber;
-		$model->IsAdmin = 0;
-		$model->Gender = 0;
-		$model->save();
-    }
-
-
- 	public function logout()
-    {
-		Auth::logout();
-		return redirect('admin/login');
-    }
-
-
- 	public function create(Request $request)
-    {
-		$this->validate($request,[
-			'Name'=>'required|min:3|max:100',
-			'Email'=>'required|unique:users',
-			'Password'=>'required|min:6',
-			'Password_confirmation'=>'required|same:Password',
-		],[
-			'Name.required'=>'Bạn chưa nhập họ tên',
-			'Name.min'=>'Họ tên phải nhiều hơn 3 ký tự',
-			'Name.max'=>'Họ tên phải ít hơn 100 ký tự',
-			'Email.required'=>'Bạn chưa nhập email',
-			'Email.unique'=>'Email đã tồn tại',
-			'Password.required'=>'Bạn chưa nhập mật khẩu',
-			'Password_confirmation.required'=>'Bạn chưa nhập xác nhận mật khẩu',
-			'Password_confirmation.same' => 'Mật khẩu không trùng nhau'
-		]);
-		$model=new User;
-		$model->Name=$request->Name;
-		$model->email=$request->Email;
-		$model->password=bcrypt($request->Password);
-		$model->PhoneNumber=$request->PhoneNumber;
-
-		$model->IsAdmin = $request->IsAdmin;
-		$model->Gender = 0;
-
-		$model->save();
-
-		return redirect('admin/user/create')->with('message','Thêm thành công');
-    }
-
-
-    //
-
-    public function loginPageView(){
-    	if(!Auth::check()){
-   		return view('page.login');
-   	}else{
-   		return redirect('');
-   	}
-    }
-
-     public function loginPage(Request $request){
-   		$this->validate($request,['Email'=>'required', 'Password'=>'required'],[
-			'Email.required'=>'Bạn chưa nhập email',
-			'Password.required'=>'Bạn chưa nhập mật khẩu',
-		]);
-		if(Auth::attempt(['email'=>$request->Email,'password'=>$request->Password]))
-		{
-			return redirect('');
-		}
-		else
-		{
-			return redirect('login')->with(['message'=>'Đăng nhập không thành công. Sai địa chỉ email hoặc mật khẩu','failed'=>'false']);
-		}
-
-    }
-
-    public function logoutPage()
-    {
-		Auth::logout();
-		return redirect('');
-    }
-
-
-
-
-
-
-
-
-
-
     //shop trang suc
     public function ordersView()
     {
-		$OrderStatues = Order_Status::all();
-		return view('page2.user.order',['OrderStatues'=>$OrderStatues]);
-	}
+  		$OrderStatues = Order_Status::all();
+  		return view('page2.user.order',['OrderStatues'=>$OrderStatues]);
+   }
 
-	public function getOrders(Request $request)
+	  public function getOrders(Request $request)
     {
-		$Orders = Order::with('order_status')->where('order_status_id',$request->orderStatusId)
-						->where('customer_email',Auth::user()->email)
-						->orderBy('created_at','desc')
-						->get();
-		return response()->json(['Orders' => $Orders,'isSuccess'=>true]);
+  		$Orders = Order::with('order_status')->where('order_status_id',$request->orderStatusId)
+  						->where('customer_email',Auth::user()->email)
+  						->orderBy('created_at','desc')
+  						->get();
+  		return response()->json(['Orders' => $Orders,'isSuccess'=>true]);
     }
 
  	  public function getOrderDetail($orderId)
@@ -336,29 +192,20 @@ class UserController extends Controller
 	public function createUser(Request $request)
     {
 		$this->validate($request,[
-			'Name'=>'required|max:100',
 			'Email'=>'required|unique:users',
-			'Phone'=>'required|unique:users',
 			'Password'=>'required|min:6|max:20',
-			'Passwordx2'=>'required|same:Password',
 		],[
-			'Name.required'=>'Bạn chưa nhập họ tên',
-			'Name.max'=>'Họ tên phải ít hơn 100 ký tự',
 			'Email.required'=>'Bạn chưa nhập email',
 			'Email.unique'=>'Email đã tồn tại',
-			'Phone.required'=>'Bạn chưa nhập số điện thoại',
-			'Phone.unique'=>'Số điện thoại đã tồn tại',
 			'Password.required'=>'Bạn chưa nhập mật khẩu',
 			'Password.min' => 'Mật khẩu mới phải lớn hơn hoặc bằng 6 ký tự',
 			'Password.max' => 'Mật khẩu mới phải nhỏ hơn hoặc bằng 20 ký tự',
-			'Passwordx2.required'=>'Bạn chưa nhập xác nhận mật khẩu',
-			'Passwordx2.same' => 'Mật khẩu không trùng nhau'
 		]);
 
 		$model = new User;
-		$model->name = $request->Name;
+		$model->name = $request->Email;
 		$model->email = $request->Email;
-		$model->phone = $request->Phone;
+		$model->phone = $request->Phone == null ? 0 : $request->Phone;
 		$model->password = bcrypt($request->Password);
 		$model->save();
 

@@ -23,8 +23,7 @@ Admin - Danh sách Danh mục
           <div class="box">
             <div class="box-header">
               <h3 class="box-title">Danh sách Danh mục</h3>
-
-
+            
             <!-- /.box-header -->
             <div class="box-body table-responsive no-padding">
               <table class="table table-hover">
