@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="">
   <meta name="author" content="">
-  <link rel="icon" type="image/png" href="{{asset('public/favicon.png')}}">
+  <link rel="icon" type="image/png" href="http://sagittb.com/public/favicon.png">
   <title>SagittB Trang sức đá quý phong thủy, thuần tự nhiên</title>
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
