@@ -266,7 +266,7 @@ class AdminController extends Controller
                                     'price'=>'required|numeric|min:1000',
                                     'category_id'=>'required',
                                     'piece_id'=>'required',
-                                    'description'=>'max:500'
+                                    'description'=>'max:1990'
                                 ],
             [
                 'name.required'=>'Bạn chưa nhập tên sản phẩm',
@@ -275,7 +275,7 @@ class AdminController extends Controller
                 'price.min'=>'Giá sản phẩm phải lớn hơn 1000 (một ngàn)',
                 'category_id.required'=>'Bạn chưa chọn danh mục',
                 'piece_id.required'=>'Bạn chưa chọn hạt',
-                'description.max'=>'Mô tả phải ít hơn 500 ký tự'
+                'description.max'=>'Mô tả phải ít hơn 1990 ký tự'
             ]);
 
         $model = Product::find($request->id);
@@ -334,7 +334,7 @@ class AdminController extends Controller
                                     'price'=>'required|numeric|min:1000',
                                     'category_id'=>'required',
                                     'piece_id'=>'required',
-                                    'description.max'=>'Mô tả phải ít hơn 500 ký tự'
+                                    'description'=>'max:1990'
                                 ],
             [
                 'name.required'=>'Bạn chưa nhập tên sản phẩm',
@@ -343,7 +343,7 @@ class AdminController extends Controller
                 'price.min'=>'Giá sản phẩm phải lớn hơn 1000 (một ngàn)',
                 'category_id.required'=>'Bạn chưa chọn danh mục',
                 'piece_id.required'=>'Bạn chưa chọn hạt',
-                'description.max'=>'Mô tả phải ít hơn 500 ký tự'
+                'description.max'=>'Mô tả phải ít hơn 1990 ký tự'
             ]);
 
         $model = new Product;
@@ -919,16 +919,10 @@ class AdminController extends Controller
       public function createTopic(Request $request)
       {
           $this->validate($request,[
-                                      'line1'=>'required',
-                                      'line2'=>'required',
-                                      'line3'=>'required',
-                                      'image'=>'required',
+                                      'image'=>'required'
                                   ],
               [
-                  'line1.required'=>'Bạn chưa nhập dòng 1',
-                  'line2.required'=>'Bạn chưa nhập dòng 2',
-                  'line3.required'=>'Bạn chưa nhập dòng 3',
-                  'image.required'=>'Bạn chưa chọn Hình ảnh',
+                  'image.required'=>'Bạn chưa chọn Hình ảnh'
               ]);
 
           $model = new Topic;
@@ -954,16 +948,10 @@ class AdminController extends Controller
       public function editTopic(Request $request)
       {
           $this->validate($request,[
-                                      'line1'=>'required',
-                                      'line2'=>'required',
-                                      'line3'=>'required',
-                                      'image'=>'required',
+                                      'image'=>'required'
                                   ],
               [
-                  'line1.required'=>'Bạn chưa nhập dòng 1',
-                  'line2.required'=>'Bạn chưa nhập dòng 2',
-                  'line3.required'=>'Bạn chưa nhập dòng 3',
-                  'image.required'=>'Bạn chưa chọn Hình ảnh',
+                  'image.required'=>'Bạn chưa chọn Hình ảnh'
               ]);
 
           $model = Topic::find($request->id);
