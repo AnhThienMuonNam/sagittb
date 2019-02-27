@@ -25,5 +25,10 @@ class IntroController extends Controller
         return view('page2.intro.guarantee_policy');
     }
 
+     public function jewelleryCare()
+    {
+        return view('page2.intro.jewellery_care');
+    }
+
 
 }
