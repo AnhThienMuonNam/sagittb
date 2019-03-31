@@ -17,12 +17,12 @@ use App\City;
 use App\Bank;
 use App\Piece;
 use App\Size_Hat;
+use App\Lichsu_Tracuu;
 
 use Hash;
 
 class UserController extends Controller
 {
-    //shop trang suc
     public function ordersView()
     {
   		$OrderStatues = Order_Status::all();
@@ -94,7 +94,7 @@ class UserController extends Controller
 	public function getProfile()
   {
     if(Auth::check()){
-	      $User = Auth::user()->load('city');
+	      $User = Auth::user()->load('city')->load('lichsu_tracuus');
 	   	  $Cities = City::all();
         return view('page2.user.profile',['Cities'=>$Cities, 'User'=>$User]);
       }
@@ -170,8 +170,8 @@ class UserController extends Controller
         ],[
             'OldPassword.required' => 'Bạn chưa nhập mật khẩu cũ',
             'NewPassword.required' => 'Bạn chưa nhập mật khẩu mới',
-			'NewPassword.min' => 'Mật khẩu mới phải lớn hơn hoặc bằng 6 ký tự',
-			'NewPassword.max' => 'Mật khẩu mới phải nhỏ hơn hoặc bằng 20 ký tự',
+      			'NewPassword.min' => 'Mật khẩu mới phải lớn hơn hoặc bằng 6 ký tự',
+      			'NewPassword.max' => 'Mật khẩu mới phải nhỏ hơn hoặc bằng 20 ký tự',
             'NewPasswordx2.required' => 'Bạn chưa nhập xác nhận mật khẩu mới',
             'NewPasswordx2.same' => 'Mật khẩu mới không trùng nhau'
         ]);
@@ -189,7 +189,7 @@ class UserController extends Controller
         }
 	}
 
-	public function createUser(Request $request)
+	 public function createUser(Request $request)
     {
 		$this->validate($request,[
 			'Email'=>'required|unique:users',
@@ -237,7 +237,7 @@ class UserController extends Controller
     }
 
 
-	public function resetPasswordPageGet($token)
+    public function resetPasswordPageGet($token)
     {
     	$user = User::where('remember_token',$token)->first();
     	if($user === null){
@@ -271,6 +271,13 @@ class UserController extends Controller
     	}
     }
 
-    //end shop trang suc
-
+    public function saveLichSuTraCuu(Request $request){
+      if(Auth::check()) {
+        $model = new Lichsu_Tracuu;
+        $model->tra_cuu = $request->tra_cuu;
+        $model->ket_qua = $request->ket_qua;
+        $model->user_id = Auth::User()->id;
+        $model->save();
+      }
+    }
 }

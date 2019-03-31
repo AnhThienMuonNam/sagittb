@@ -413,7 +413,8 @@ class AdminController extends Controller
 
     public function getAllOrders()
     {
-        $Orders = Order::with('order_status')
+        $Orders = Order::where('order_status_id',1)
+                        ->with('order_status')
                         ->with('order_details')
                         ->orderBy('created_at', 'desc')
                         ->get();
@@ -429,36 +430,91 @@ class AdminController extends Controller
 
     public function searchOrder(Request $request)
     {
-		$result = Order::with('order_status')->with('order_details')->orderBy('created_at', 'desc');
+    		$result = Order::with('order_status')->with('order_details')->orderBy('created_at', 'desc');
 
-		if($request->Keyword){
-            $result = $result->where('customer_name','like','%'.$request->Keyword.'%')
-                            ->orwhere('customer_email','like','%'.$request->Keyword.'%')
-                            ->orwhere('customer_phone','like','%'.$request->Keyword.'%');
+    		if($request->Keyword){
+                $result = $result->where('customer_name','like','%'.$request->Keyword.'%')
+                                ->orwhere('customer_email','like','%'.$request->Keyword.'%')
+                                ->orwhere('customer_phone','like','%'.$request->Keyword.'%');
 
-        }
+            }
 
-        if($request->Id){
-            $result = $result->where('id',$request->Id);
-		}
+            if($request->Id){
+                $result = $result->where('id',$request->Id);
+    		}
 
 
-		if($request->OrderStatusId){
-			$result = $result->where('order_status_id',$request->OrderStatusId);
-		}
-		if($request->Fromdate != null){
-			$result = $result->whereDate('created_at','>=', new DateTime($request->Fromdate));
-		}
-		if($request->Todate != null){
-			$result = $result->whereDate('created_at','<=', new DateTime($request->Todate));
-        }
-        if($request->CityId){
-            $result = $result->where('customer_city_id',$request->CityId);
-		}
+    		if($request->OrderStatusId){
+    			$result = $result->where('order_status_id',$request->OrderStatusId);
+    		}
+    		if($request->Fromdate != null){
+    			$result = $result->whereDate('created_at','>=', new DateTime($request->Fromdate));
+    		}
+    		if($request->Todate != null){
+    			$result = $result->whereDate('created_at','<=', new DateTime($request->Todate));
+            }
+            if($request->CityId){
+                $result = $result->where('customer_city_id',$request->CityId);
+    		}
 
-		$result = $result->get();
+    		$result = $result->get();
 
-		return response()->json(['Orders' => $result]);
+    		return response()->json(['Orders' => $result]);
+    }
+
+    public function viewExpiredOrder(Request $request){
+        $days_ago = date('Y-m-d', strtotime('-14 days'));
+
+        $Orders = Order::where('is_paid',0)
+                        ->where('order_status_id','<',7)
+                        ->where('payment_method_id',2)
+                        ->where('is_remind',1)
+                        ->whereDate('created_at', '<', $days_ago)
+                        ->with('order_status')
+                        ->with('order_details')
+                        ->orderBy('created_at', 'desc')
+                        ->get();
+
+
+        return response()->json(['Orders' => $Orders]);
+    }
+
+
+    public function viewRemindOrder(Request $request){
+        $days_ago = date('Y-m-d', strtotime('-7 days'));
+
+        $Orders = Order::where('payment_method_id',2)
+                        ->where('is_paid',0)
+                        ->where('is_remind',0)
+                        ->whereDate('created_at', '<', $days_ago)
+                        ->with('order_status')
+                        ->with('order_details')
+                        ->orderBy('created_at', 'desc')
+                        ->get();
+
+
+      	return response()->json(['Orders' => $Orders]);
+    }
+
+    public function sendEmailRemindOrder(Request $request){
+      $order = Order::where('id',$request->Id)
+                    ->with('order_details')
+                    ->first();
+
+      $orderId = $order->id;
+      $CustomerEmail = $order->customer_email;
+      $created_at = $order->created_at;
+
+      $contentEmail = [ 'order' => $order ];
+
+      Mail::send('page2.layout.template.remind_order', ['contentEmail' => $contentEmail], function($message) use ($CustomerEmail, $orderId, $created_at){
+            $message->to($CustomerEmail, 'Customer')->subject('SaggitB - (Nhắc lại) Thanh toán đơn hàng số: '.$orderId.' '.' đặt vào '.$created_at);
+          });
+
+      $order->is_remind = 1;
+      $order->save();
+
+      return response()->json(['IsSuccess' => true]);
     }
 
     public function orderDetailView(Request $request, $Id)

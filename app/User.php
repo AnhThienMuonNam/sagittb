@@ -31,6 +31,10 @@ class User extends Authenticatable
     {
     }
 
+    public function lichsu_tracuus()
+    {
+        return $this->hasMany('App\Lichsu_Tracuu','user_id', 'id');
+    }
 
     public function wish_lists()
     {
@@ -42,5 +46,5 @@ class User extends Authenticatable
         return $this->belongsTo('App\City','city_id', 'id');
     }
 
-    
+
 }

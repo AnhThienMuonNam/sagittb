@@ -80,8 +80,12 @@ Admin - Danh sách Đơn hàng
               </div>
               <!-- /.box-body -->
               <div class="box-footer">
-                <button class="btn btn-info pull-right" data-bind="click: search">Tìm Kiếm</button>
-                 <button class="btn btn-default pull-right" data-bind="click: exportOrder">Xuất Excel</button>
+                  <!-- <button class="btn btn-default pull-right" data-bind="click: exportOrder">Xuất Excel</button> -->
+                  <button class="btn btn-default pull-right" data-bind="click: viewExpiredOrder">Đơn hàng quá hạn</button>
+                  <button class="btn btn-default pull-right" data-bind="click: viewRemindOrder">Đơn hàng nhắc nhở</button>
+
+                  <button class="btn btn-info pull-right" data-bind="click: search">Tìm Kiếm</button>
+
               </div>
               <!-- /.box-footer -->
             </form>
@@ -100,13 +104,14 @@ Admin - Danh sách Đơn hàng
                   <tr>
                     <th>ID</th>
                     <th>Khách hàng</th>
-                    <th>SĐT khách</th>
-                    <th>Email khách</th>
+                    <th>SĐT</th>
+                    <th>Email</th>
                     <!-- <th>Tình trạng thanh toán</th> -->
-                    <th>Trạng thái đơn hàng</th>
+                    <th>Trạng thái</th>
                     <th>Ngày đặt</th>
-                    <th>Số lượng sản phẩm</th>
-                    <th>Tổng tiền đơn hàng</th>
+                    <th>S.lg sản phẩm</th>
+                    <th>Tổng tiền</th>
+                    <th></th>
                     <th></th>
                   </tr>
                 </thead>
@@ -122,8 +127,13 @@ Admin - Danh sách Đơn hàng
                         <td data-bind="text: $root.formatMoney($data.original_price)"></td>
                        <td>
                             <a data-bind="attr: { href: 'order/detail/' + id }"  title="Cập nhật" class="text-yellow"><i class="fa fa-pencil"></i></a>
-                           <!--  <a href="#" data-bind="click: $root.removeFlower"  title="Xóa" class="text-danger"><i class="fa fa-trash-o"></i></a> -->
                         </td>
+                        <td>
+                            <!-- ko if: $root.IsViewRemindButtonClick -->
+                             <a href="#" data-bind="click: $root.sendEmailRemindOrder"  title="Gửi nhắc nhở" class="text-danger">Gửi nhắc nhở</a>
+                             <!-- /ko -->
+
+                         </td>
                     </tr>
                 </tbody>
               </table>
@@ -165,6 +175,9 @@ $(document).ready(function() {
 
     options.SearchOrder = <?php echo json_encode(url('/admin/order/search')); ?>;
     options.ExportOrder = <?php echo json_encode(url('/admin/order/exportOrder')); ?>;
+    options.ViewRemindOrder = <?php echo json_encode(url('/admin/order/viewRemindOrder')); ?>;
+    options.SendEmailRemindOrder = <?php echo json_encode(url('/admin/order/sendEmailRemindOrder')); ?>;
+    options.ViewExpiredOrder = <?php echo json_encode(url('/admin/order/viewExpiredOrder')); ?>;
 
     data.Orders = <?php echo json_encode($Orders); ?>;
     data.OrderStatues = <?php echo json_encode($OrderStatues); ?>;

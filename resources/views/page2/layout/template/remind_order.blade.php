@@ -1,7 +1,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>Thông tin Đơn hàng</title>
+    <title>Thanh toán Đơn hàng</title>
 </head>
 
 <body>
@@ -22,83 +22,15 @@
         </div>
         <div style="background-repeat:no-repeat; padding-top:20px;">
             <p>Xin chào <span style=" color:#0d7caa; font-weight:bold;">{{$contentEmail['order']->customer_name}}</span></p>
-            Cảm ơn bạn đã tin tưởng chọn sử dụng sản phẩm của SagittB. Chúng tôi gửi đến bạn thông tin chi tiết đơn hàng mà bạn vừa đặt:
+            SagittB gửi email này để nhắc bạn thanh toán đơn hàng mã: {{$contentEmail['order']->id}}, được đặt vào lúc: {{$contentEmail['order']->created_at}}
+            <br />
+             <p>Số tiền bạn cần thanh toán: <b>{{$contentEmail['order']->original_price}}</b></p>
+            <a href="{{url('order/'.$contentEmail['order']->random_code)}}">Bấm vào đây để xem chi tiết >>></a>
+            <div style=" padding-bottom:10px; padding-top: 10px"><span style=" color:#0d7caa; font-weight:bold;text-decoration:underline;"> Hướng dẫn thanh toán đơn hàng:</span>
 
-            <div style="border-bottom: dashed 1px #CCC;line-height:20px; padding-bottom:10px;"><span style=" color:#0d7caa; font-weight:bold;text-decoration:underline;"> Thông Tin Sản phẩm:</span> <br />
-                <table width="100%">
-                  	@foreach($contentEmail['cart'] as $item)
-                    <tr>
-                        <td width="150px">
-                            Sản phẩm  x  Số.lg:
-                        </td>
-                        <td>
-                          {{$item['name']}}  x  {{$item['quanlity']}}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td width="150px">
-                            Đơn giá:
-                        </td>
-                        <td>
-                            {{number_format($item['price']/$item['quanlity'], 0, ',', '.').'(đ)'}}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td width="150px">
-                            Thành tiền:
-                        </td>
-                        <td>
-                        {{number_format($item['price'], 0, ',', '.').'(đ)'}}
-                        </td>
-                    </tr>
-                    <hr>
-                     @endforeach
-                </table>
             </div>
-            <div style="border-bottom: dashed 1px #CCC;line-height:20px; padding-bottom:10px; padding-top: 10px"><span style=" color:#0d7caa; font-weight:bold;text-decoration:underline;"> Thông Tin Giao Nhận:</span> <br />
-                <table width="100%">
-                    <tr>
-                        <td width="150px">
-                            Địa chỉ :
-                        </td>
-                        <td>
-                      {{$contentEmail['order']->customer_address}}, Quận/Huyện: {{$contentEmail['order']->customer_district}}, Tỉnh/Thành phố: {{$contentEmail['order']->customer_city}}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Tên người nhận :
-                        </td>
-                        <td>
-                      {{$contentEmail['order']->customer_name}}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Số điện thoại:
-                        </td>
-                        <td>
-                      {{$contentEmail['order']->customer_phone}}
-                        </td>
-                    </tr>
+              <div style="margin-bottom:20px;"><u>Thanh toán theo nội dung</u>  : SagittB don hang {{$contentEmail['order']->id}} - Tên - SĐT
 
-                    <tr>
-                        <td>
-                            Tình trạng thanh toán:
-                        </td>
-                        <td>
-                        Chưa thanh toán
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <a href="{{url('order/'.$contentEmail['order']->random_code)}}">Xem chi tiết >>></a>
-                        </td>
-                        <td>
-                      &nbsp;
-                        </td>
-                    </tr>
-                </table>
             </div>
             <div style="border-bottom: dashed 1px #CCC;line-height:20px; padding-bottom:10px; padding-top: 10px"><span style=" color:#0d7caa; font-weight:bold;text-decoration:underline;"> Thông Tin tài khoản Ngân Hàng:</span> <br />
                <table width="100%">
@@ -160,14 +92,9 @@
                    </tr>
                </table>
            </div>
-           <div style=" padding-bottom:10px; padding-top: 10px"><span style=" color:#0d7caa; font-weight:bold;text-decoration:underline;"> Hướng dẫn thanh toán đơn hàng:</span>
 
-           </div>
-             <div style="margin-bottom:20px;"><u>Thanh toán theo nội dung</u>  : SagittB don hang {orderId} - Tên - SĐT
-
-           </div>
            <div style = "color: red;">
-              <i>Chú ý </i> : Quý khách thanh toán chậm nhất là ngày <b>{date}</b> , qua thời gian này hệ thống sẽ tự động hủy đơn hàng của bạn
+              <i>Chú ý </i> : Quý khách thanh toán chậm nhất là ngày <b>5 (trừ thứ 7 và chủ nhật)</b> , qua thời gian này hệ thống sẽ tự động hủy đơn hàng của bạn
            </div>
             <div style="  border-bottom: dashed 1px #CCC; padding-bottom:10px;"></div>
             <div style="margin-bottom:20px;">Nếu có bất kỳ khó khăn nào trong quá trình sử dụng và quản lý dịch vụ, bộ phận hỗ trợ kĩ thuật của SagittB

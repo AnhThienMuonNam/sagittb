@@ -153,6 +153,36 @@
             </div>
           </div>
           <div class="clearfix"></div>
+          <div class="panel panel-default">
+            <div class="panel-heading panel-bg" role="tab" id="headingThree" style="border-radius: 10px">
+              <h4 class="panel-title"> <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">Lịch sử tra cứu tư vấn</a> </h4>
+            </div>
+            <div id="collapseThree" style="width: 100%;" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+              <div class="panel-body form-horizontal" style="border-radius: 10px">
+                <div class="table-responsive table-none wow fadeIn">
+                  <table class="table checkout-table">
+                    <tr class="table-h">
+                      <td>Thời gian</td>
+                      <td>Thời gian sinh</td>
+                      <td>Kết quả</td>
+                    </tr>
+                    <!-- ko foreach: Lichsu_TraCuus -->
+                    <tr>
+                      <td class="product-name"><span data-bind="text: created_at">
+                      </span></td>
+                      <td class="product-name"><span data-bind="text: tra_cuu">
+                      </span></td>
+                      <td class="product-name"><span data-bind="text: ket_qua">
+                      </span></td>
+                    </tr>
+                    <!-- /ko -->
+                  </table>
+                </div>
+
+               </div>
+            </div>
+          </div>
+          <div class="clearfix"></div>
         </div>
         <!-- panel-group -->
         <div class="clearfix"></div>
@@ -226,7 +256,7 @@
       options.PublicPath = <?php echo json_encode(url('')); ?>;
       options.UpdateUser = <?php echo json_encode(url('user/updateUser')); ?>;
       options.ChangePassWord = <?php echo json_encode(url('user/changePassWord')); ?>;
-  options.GetOTP = <?php echo json_encode(url('admin/getotp')); ?>;
+      options.GetOTP = <?php echo json_encode(url('admin/getotp')); ?>;
       data.API_URLs = options;
 
       ko.applyBindings(FormViewModel(data), document.getElementById("page-user-profile"));

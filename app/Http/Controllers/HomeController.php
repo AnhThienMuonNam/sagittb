@@ -447,7 +447,6 @@ class HomeController extends Controller
         $CustomerCityId = $request->CustomerCityId;
         $CustomerPaymentMethodId = $request->CustomerPaymentMethodId;
 
-
         $model = new Order;
         $model->customer_name = $CustomerName;
         $model->customer_email = $CustomerEmail;

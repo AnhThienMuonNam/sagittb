@@ -429,6 +429,9 @@
               <p><span style="font-weight: bold;">Ngày: </span>&nbsp;<span data-bind="text: DayCanchi_master"></span></p>
               <p><span style="font-weight: bold;">Tháng: </span>&nbsp;<span data-bind="text: MonthCanchi_master"></span></p>
               <p><span style="font-weight: bold;">Năm: </span>&nbsp;<span data-bind="text: YearCanchi_master"></span></p>
+              <p><span style="font-weight: bold;">---</span></p>
+              <p><span style="font-weight: bold;">Cung phi đối với Nam: </span><br /><span data-bind="text: CungphiNam_master"></span></p>
+              <p><span style="font-weight: bold;">Cung phi đối với Nữ: </span><br /><span data-bind="text: CungphiNu_master"></span></p>
             </div>
           </div>
 
@@ -875,6 +878,7 @@
   options.CreateUser_master = <?php echo json_encode(url('createUser')); ?>;
   options.SendEmailResetPassword = <?php echo json_encode(url('sendEmailResetPassword')); ?>;
   options.FilterProduct_master = <?php echo json_encode(url('filter')); ?>;
+  options.SaveLichSuTraCuu_master = <?php echo json_encode(url('saveLichSuTraCuu')); ?>;
 
   data.API_URLs = options;
 

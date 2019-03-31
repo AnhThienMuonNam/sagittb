@@ -1,8 +1,5 @@
 var FormViewModel = function(data) {
     self.PublicPath = ko.observable(data.API_URLs.PublicPath || null);
-
-
-
     self.Id = ko.observable(data.User.id || null);
     self.Name = ko.observable(data.User.name || null);
     self.Email = ko.observable(data.User.email || null);
@@ -11,6 +8,7 @@ var FormViewModel = function(data) {
     self.District = ko.observable(data.User.district || null);
     self.City = ko.observable(data.User.city ? data.User.city.name : null);
     self.CityId = ko.observable(data.User.city_id || null);
+    self.Lichsu_TraCuus = ko.observableArray(data.User.lichsu_tracuus || []);
 
     self.Cities = ko.observableArray(data.Cities || []);
     self.CityId.subscribe(function(value){

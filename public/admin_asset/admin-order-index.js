@@ -7,13 +7,15 @@ function FormViewModel(data) {
     // self.Categories = ko.observableArray(data.Categories || []);
     // self.CategoryId = ko.observable(null);
     self.Keyword = ko.observable(null);
-    self.OrderStatusId = ko.observable(null);
+    self.OrderStatusId = ko.observable(1);
     // self.PaymentMethodId = ko.observable(null);
     self.Fromdate = ko.observable(null);
     self.Todate = ko.observable(null);
     self.Id = ko.observable(null);
     self.CityId = ko.observable(null);
-  
+
+    self.IsViewRemindButtonClick = ko.observable(false);
+
     self.search = function() {
        $.ajaxSetup({
             headers: {'X-CSRF-Token': $('#_token').val()}
@@ -21,20 +23,20 @@ function FormViewModel(data) {
         $.ajax({
             url: data.API_URLs.SearchOrder,
             type: "POST",
-            data: {  
+            data: {
                     Keyword : self.Keyword(),
                     Id : self.Id(),
                     OrderStatusId : self.OrderStatusId(),
-                    // PaymentMethodId : self.PaymentMethodId(),
                     Fromdate : self.Fromdate(),
                     Todate : self.Todate(),
                     CityId : self.CityId(),
-                    }, 
+                    },
             beforeSend: function(){
                 NProgress.set(0.75);
             },
             success: function(response){
                 if(response){
+                  self.IsViewRemindButtonClick(false);
                     self.Orders(response.Orders);
                 }
             },
@@ -47,8 +49,8 @@ function FormViewModel(data) {
           },
         });
     };
-   
-   
+
+
     self.formatMoney = function(number) {
         var val=parseInt(number);
         return val.toFixed(0).replace(/./g, function(c, i, a) {
@@ -71,7 +73,7 @@ function FormViewModel(data) {
              cache: false,
             url: data.API_URLs.ExportOrder,
             type: "POST",
-            data: { 
+            data: {
                     sKeyword : self.Keyword(),
                     sPhone : self.Phone(),
                     // sPaymentMethodId : self.PaymentMethodId(),
@@ -79,10 +81,10 @@ function FormViewModel(data) {
                     sFromdate : self.Fromdate(),
                     sTodate : self.Todate(),
                     sIsPaid : self.IsPaid(),
-            }, 
+            },
             success: function(response){
                 var a = document.createElement("a");
-                a.href = response.file; 
+                a.href = response.file;
                 a.download = response.name;
                 document.body.appendChild(a);
                 a.click();
@@ -93,6 +95,83 @@ function FormViewModel(data) {
             },
         });
     };
-   
-}
 
+    self.viewExpiredOrder = function(){
+      $.ajaxSetup({
+           headers: {'X-CSRF-Token': $('#_token').val()}
+       });
+       $.ajax({
+           url: data.API_URLs.ViewExpiredOrder,
+           type: "POST",
+           beforeSend: function(){
+               NProgress.set(0.75);
+           },
+           success: function(response){
+               if(response){
+                   self.IsViewRemindButtonClick(false);
+                   self.Orders(response.Orders);
+               }
+           },
+           error: function(xhr, error){
+               console.log(xhr.responseText);
+           },
+           complete: function(){
+               NProgress.done();
+         },
+       });
+    }
+
+    self.viewRemindOrder = function(){
+      $.ajaxSetup({
+           headers: {'X-CSRF-Token': $('#_token').val()}
+       });
+       $.ajax({
+           url: data.API_URLs.ViewRemindOrder,
+           type: "POST",
+           beforeSend: function(){
+               NProgress.set(0.75);
+           },
+           success: function(response){
+               if(response){
+                   self.IsViewRemindButtonClick(true);
+                   self.Orders(response.Orders);
+               }
+           },
+           error: function(xhr, error){
+               console.log(xhr.responseText);
+               // alert("Something went wrong :(")
+           },
+           complete: function(){
+               NProgress.done();
+         },
+       });
+    }
+
+    self.sendEmailRemindOrder = function(obj){
+      $.ajaxSetup({
+           headers: {'X-CSRF-Token': $('#_token').val()}
+       });
+       $.ajax({
+           url: data.API_URLs.SendEmailRemindOrder,
+           type: "POST",
+           data: { Id : obj.id },
+           beforeSend: function(){
+               NProgress.set(0.75);
+           },
+
+           success: function(response){
+               if(response && response.IsSuccess == true){
+                   alertify.success('Đã gửi email nhắc nhở');
+                   self.Orders.remove(obj);
+               }
+           },
+           error: function(xhr, error){
+               console.log(xhr.responseText);
+               // alert("Something went wrong :(")
+           },
+           complete: function(){
+               NProgress.done();
+         },
+       });
+    }
+}

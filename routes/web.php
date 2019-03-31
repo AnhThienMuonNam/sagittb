@@ -57,6 +57,11 @@ Route::group([ 'prefix' => 'admin', 'middleware'=>'adminLogin' ] , function() {
 		Route::get('detail/{Id}', 'AdminController@orderDetailView');
 		Route::post('edit', 'AdminController@editOrder');
 
+		Route::post('viewRemindOrder', 'AdminController@viewRemindOrder');
+		Route::post('sendEmailRemindOrder', 'AdminController@sendEmailRemindOrder');
+		Route::post('viewExpiredOrder', 'AdminController@viewExpiredOrder');
+
+
 		//export
 		Route::post('exportOrder', 'AdminController@exportOrder');
 
@@ -124,6 +129,7 @@ Route::post('login', 'HomeController@loginPage');
 Route::post('logout', 'HomeController@logoutPage');
 Route::post('createUser', 'UserController@createUser');
 Route::post('sendEmailResetPassword','UserController@sendEmailResetPassword');
+Route::post('saveLichSuTraCuu','UserController@saveLichSuTraCuu');
 
 Route::get('reset-password/{token}','UserController@resetPasswordPageGet');
 Route::post('resetPasswordPagePost','UserController@resetPasswordPagePost');
@@ -143,6 +149,8 @@ Route::group([ 'prefix' => 'user' ] , function() {
 	Route::get('profile', 'UserController@getProfile');
 	Route::post('updateUser', 'UserController@updateUser');
 	Route::post('changePassWord', 'UserController@changePassWord');
+
+
 
 	// Route::post('create', 'UserController@create');
 

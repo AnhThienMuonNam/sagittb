@@ -60,6 +60,135 @@ var MasterViewModel = function(data) {
     },
   ];
 
+  var cungPhi = [
+    {
+      nam: {
+              so: 7,
+              cung: 'Đoài',
+              menh: 'Kim',
+              huong: 'Tây'
+            },
+      nu: {
+            so: 8,
+            cung: 'Cân',
+            menh: 'Thổ',
+            huong: 'Đông Bắc'
+          }
+    },
+    {
+      nam: {
+              so: 6,
+              cung: 'Càn',
+              menh: 'Kim',
+              huong: 'Tây Bắc'
+            },
+      nu: {
+            so: 9,
+            cung: 'Ly',
+            menh: 'Hoả',
+            huong: 'Nam'
+          }
+    },
+    {
+      nam: {
+              so: 5,
+              cung: 'Khôn',
+              menh: 'Thổ',
+              huong: 'Tây Nam'
+            },
+      nu: {
+            so: 1,
+            cung: 'Khảm',
+            menh: 'Thuỷ',
+            huong: 'Bắc'
+          }
+    },
+    {
+      nam: {
+            so: 4,
+            cung: 'Tôn',
+            menh: 'Mộc',
+            huong: 'Đông Nam'
+          },
+    nu: {
+          so: 2,
+          cung: 'Khôn',
+          menh: 'Thổ',
+          huong: 'Tây Nam'
+        }
+    },
+    {
+      nam: {
+            so: 3,
+            cung: 'Chân',
+            menh: 'Mộc',
+            huong: 'Đông'
+          },
+    nu: {
+          so: 3,
+          cung: 'Chân',
+          menh: 'Mộc',
+          huong: 'Đông'
+        }
+    },
+    {
+      nam: {
+            so: 2,
+            cung: 'Khôn',
+            menh: 'Thổ',
+            huong: 'Tây Nam'
+          },
+    nu: {
+          so: 4,
+          cung: 'Tôn',
+          menh: 'Mộc',
+          huong: 'Đông Nam'
+        }
+    },
+    {
+      nam: {
+            so: 1,
+            cung: 'Khảm',
+            menh: 'Thuỷ',
+            huong: 'Bắc'
+          },
+    nu: {
+          so: 5,
+          cung: 'Cân',
+          menh: 'Thổ',
+          huong: 'Đông Bắc'
+        }
+    },
+    {
+      nam: {
+            so: 9,
+            cung: 'Ly',
+            menh: 'Hoả',
+            huong: 'Nam'
+          },
+    nu: {
+          so: 6,
+          cung: 'Càn',
+          menh: 'Kim',
+          huong: 'Tây Bắc'
+        }
+    },
+    {
+      nam: {
+            so: 8,
+            cung: 'Cân',
+            menh: 'Thổ',
+            huong: 'Đông Bắc'
+          },
+    nu: {
+          so: 7,
+          cung: 'Đoài',
+          menh: 'Kim',
+          huong: 'Tây'
+        }
+    }
+  ];
+
   self.HoursRange = ko.observableArray(hoursRange);
 
   self.login_master = function() {
@@ -676,6 +805,9 @@ var MasterViewModel = function(data) {
   self.DayCanchi_master = ko.observable();
   self.MonthCanchi_master = ko.observable();
   self.YearCanchi_master = ko.observable();
+  self.CungphiNam_master = ko.observable();
+  self.CungphiNu_master = ko.observable();
+
   self.IsShowMoreButton = ko.observable(false);
 
   self.calculateCanchi = function() {
@@ -699,10 +831,49 @@ var MasterViewModel = function(data) {
       self.DayCanchi_master(dayCanchi);
       self.MonthCanchi_master(monthCanchi);
       self.YearCanchi_master(yearCanchi);
+
+      var yourCungphi = calculateCungphi(lunarYear);
+      self.CungphiNam_master('Cung ' + yourCungphi.nam.cung + ', Mệnh ' + yourCungphi.nam.menh +', Hướng ' + yourCungphi.nam.huong);
+      self.CungphiNu_master('Cung '+yourCungphi.nu.cung +', Mệnh '+yourCungphi.nu.menh+', Hướng '+yourCungphi.nu.huong);
+
       self.IsShowMoreButton(true);
       getLunarYearTag();
+      var tra_cuu = 'Giờ: ' + hoursRange[self.Hour_master()].value + ', Ngày ' + selectedDate.getDate()+' - Tháng '+selectedDate.getMonth() + ' - Năm '+selectedDate.getFullYear();
+      var ket_qua = 'Giờ: ' + self.HourCanchi_master()+', Ngày '+self.DayCanchi_master()+ ' - Tháng '+self.MonthCanchi_master()+' - Năm '+self.YearCanchi_master()+'. Cung phi đối với nam: '+self.CungphiNam_master()+', Cung phi đối với nữ: '+self.CungphiNu_master();
+      saveLichSuTraCuu(tra_cuu,ket_qua);
     }
   };
+
+  var saveLichSuTraCuu = function(tra_cuu, ket_qua){
+    if (data.CurrentUser) {
+      $.ajaxSetup({
+        headers: {
+          'X-CSRF-Token': $('#_token').val()
+        }
+      });
+      $.ajax({
+        url: data.API_URLs.SaveLichSuTraCuu_master,
+        type: "POST",
+        data: {
+          tra_cuu: tra_cuu,
+          ket_qua: ket_qua,
+        },
+        success: function(response) {
+
+        },
+        error: function(xhr, error) {
+
+        },
+
+      });
+    }
+  }
+
+  var calculateCungphi = function(lunarYear){
+    var y = lunarYear - 4;
+    var yourCungphi = cungPhi[y%9];
+    return yourCungphi;
+  }
 
   self.IsShowRegister_master = ko.observable(false);
   self.IsShowLogin_master = ko.observable(false);
