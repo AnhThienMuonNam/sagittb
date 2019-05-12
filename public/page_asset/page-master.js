@@ -254,6 +254,7 @@ var MasterViewModel = function(data) {
     });
   };
 
+  self.Name_master = ko.observable(null);
   self.Email_master = ko.observable(null);
   self.Phone_master = ko.observable(null);
   self.Password_master = ko.observable(null);
@@ -263,7 +264,7 @@ var MasterViewModel = function(data) {
   self.createUser_master = function() {
     self.NotifyCreateUserErrors_master.removeAll();
     self.NotifyCreateUserSuccess_master('');
-    if (!self.Email_master() || !self.Password_master()) {
+    if (!self.Email_master() || !self.Password_master() || !self.Name_master()) {
       self.NotifyCreateUserErrors_master.push('Bạn chưa nhập đủ thông tin bắt buộc*');
       return;
     }
@@ -280,12 +281,14 @@ var MasterViewModel = function(data) {
       },
       type: "POST",
       data: {
+        Name: self.Name_master(),
         Email: self.Email_master(),
         Phone: self.Phone_master(),
         Password: self.Password_master(),
       },
       success: function(response) {
         if (response.IsSuccess == true) {
+          self.Name_master('');
           self.Email_master('');
           self.Phone_master('');
           self.Password_master('');
@@ -811,6 +814,9 @@ var MasterViewModel = function(data) {
   self.IsShowMoreButton = ko.observable(false);
 
   self.calculateCanchi = function() {
+    if(!self.Date_master()) return;
+    if(self.Hour_master() < -1 || self.Hour_master() === undefined) return;
+
     var selectedDate = new Date(self.Date_master());
     if (selectedDate) {
       var hour_master_tmp = self.Hour_master();

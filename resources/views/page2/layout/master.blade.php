@@ -266,12 +266,12 @@
             </div>
             <div class="form-group">
               <div class="col-sm-12">
-                <input type="password" class="form-control"  placeholder="Mật khẩu" data-bind="value: userPassword_master"/>
+                <input type="password" class="form-control" placeholder="Mật khẩu" data-bind="value: userPassword_master"/>
               </div>
             </div>
             <div class="form-group">
               <div class="col-sm-12">
-                <button type="button" class="btn btn-default button-1" style=" font-weight: bold; border-radius: 6px;" data-bind="click: login_master">Đăng Nhập</button>
+                <button type="submit" class="btn btn-default button-1" style="font-weight: bold; border-radius: 6px;" data-bind="click: login_master">Đăng Nhập</button>
               </div>
             </div>
             <div class="form-group">
@@ -314,7 +314,11 @@
                 <span data-bind="text: NotifyCreateUserSuccess_master"></span>
               </div>
             <!-- /ko -->
-
+            <div class="form-group">
+              <div class="col-sm-12">
+                <input type="text" class="form-control"  placeholder="Họ tên*" data-bind="value: Name_master"/>
+              </div>
+            </div>
           <div class="form-group">
             <div class="col-sm-12">
               <input type="email" class="form-control"  placeholder="Email*" data-bind="value: Email_master"/>
@@ -322,7 +326,7 @@
           </div>
           <div class="form-group">
             <div class="col-sm-12">
-              <input type="email" class="form-control"  placeholder="Số điện thoại" data-bind="value: Phone_master"/>
+              <input type="text" class="form-control"  placeholder="Số điện thoại" data-bind="value: Phone_master"/>
             </div>
           </div>
           <div class="form-group">
@@ -591,16 +595,7 @@
     <div class="navbar-header"> <a class="navbar-brand" href="{{url('')}}"> <img class="img-responsive" alt="" title="" src="{{asset('images/logo.png')}}"> </a> </div>
     <span class="nav_trigger"><i class="fa fa-navicon"></i></span>
     <ul class="navbar-nav2">
-      <!-- <li class="search-div">
-        <div id="sb-search" class="sb-search">
-          <form>
-            <input class="sb-search-input"  style="border-radius: 7px;" placeholder="Tìm kiếm theo Tag" type="text" value="" name="search" id="search">
-            <a href="{{url('filter/')}}" class="sb-search-submit"></a>
-            <span class="sb-icon-search"></span>
-          </form>
-        </div>
-      </li> -->
-        <li><a href="#"  data-toggle="modal" data-dismiss="modal" data-target="#canchiModal"><i class="fa fa-calendar" aria-hidden="true"></i> Tư vấn</a> </li>
+      <li><a href="#"  data-toggle="modal" data-dismiss="modal" data-target="#canchiModal"><i class="fa fa-calendar" aria-hidden="true"></i> Tư vấn</a> </li>
       <li><a href="{{url('cart')}}"><i class="fa fa-shopping-cart" aria-hidden="true"></i> <!-- <span class="round" >7</span> --></a> </li>
       @if(Auth::check())
       <li>
@@ -616,7 +611,6 @@
       </div>
     </li>
     @endif
-
   </ul>
 </nav>
 </div>

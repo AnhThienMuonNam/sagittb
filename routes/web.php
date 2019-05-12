@@ -107,6 +107,10 @@ Route::group([ 'prefix' => 'admin', 'middleware'=>'adminLogin' ] , function() {
 		Route::post('deleteImage', 'AdminController@deleteProductImage');
 	});
 
+		Route::get('advisory', 'SettingController@getAdvisoryView');
+		Route::post('advisory', 'SettingController@getAdvisoryPost');
+
+
 });
 Route::get('/', 'HomeController@page02');
 Route::get('danh-muc/{Alias}/{Id}', 'HomeController@categoryView');

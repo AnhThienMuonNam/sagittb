@@ -225,31 +225,22 @@
               </div>
             </li>
             @endforeach
-
           </ul>
         </div>
       </div>
     </div>
   </section>
   <div class="clearfix"></div>
-
-
-
   <!--Popular Brands-->
-
-
   </section>
   <!--footer-->
   @endsection
-
 
 @section('script')
 <script type="text/javascript" src="{{asset('js/scrolltopcontrol.js')}}"></script>
 <script type="text/javascript">
  $(document).ready(function() {
 
-  var data = <?php echo json_encode($ObjIns); ?>;
-  console.log(data);
 
 });
 

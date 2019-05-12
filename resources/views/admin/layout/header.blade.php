@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title> @yield('headerTitle')</title>
+  <title> @yield('headerTitle') - SagittB</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <link rel="shortcut icon" href="https://www.w3schools.com/images/colorpicker.gif">
@@ -39,9 +39,9 @@
     <!-- Logo -->
     <a href="index2.html" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
-      <span class="logo-mini">HML</span>
+      <span class="logo-mini">SB</span>
       <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg">hoamelinh</span>
+      <span class="logo-lg">SagittB</span>
     </a>
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">
@@ -53,14 +53,15 @@
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <strong>
-              <span class="hidden-xs">Người dùng: {{Auth::user()->name}}</span></strong>
+              <span class="hidden-xs">{{Auth::user()->name}}</span></strong>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
               <li class="user-header">
                 <p>
                   {{Auth::user()->name}}
-                  <small>Member since: {{Auth::user()->created_at}}</small>
+                  <small>Id: {{Auth::user()->id}}</small>
+                  <small>Email: {{Auth::user()->email}}</small>
                 </p>
               </li>
               <!-- Menu Body -->
@@ -154,26 +155,7 @@
           </a>
           <ul class="treeview-menu">
             <li id="tabSettingTopic"><a href="{{url('admin/topic')}}"><i class="fa fa-circle"></i>Topic</a></li>
-
-            <!-- <li id="tabSettingSlide"><a href="{{url('admin/slide')}}"><i class="fa fa-circle"></i> Slide trang chủ</a></li>
-
-             <li id="tabSettingStore"><a href="{{url('admin/store')}}"><i class="fa fa-circle"></i> Cửa hàng</a></li>
-
-               <li id="tabSettingFeedback"><a href="{{url('admin/feedback')}}"><i class="fa fa-circle"></i> Đánh giá</a></li>
-
-                <li id="tabSettingLogo"><a href="{{url('admin/logo')}}"><i class="fa fa-circle"></i> Logo</a></li>
-
-                 <li id="tabSettingAboutUs"><a href="{{url('admin/aboutus')}}"><i class="fa fa-circle"></i> Về chúng tôi</a></li>
-
-                 <li id="tabSettingEvent"><a href="{{url('admin/event')}}"><i class="fa fa-circle"></i> Sự kiện</a></li>
-
-                 <li id="tabSettingGuide"><a href="{{url('admin/guide')}}"><i class="fa fa-circle"></i> Hướng dẫn mua hàng</a></li>
-
-                 <li id="tabSettingPolicy"><a href="{{url('admin/policy')}}"><i class="fa fa-circle"></i> Chính sách giao hàng</a></li>
-
-                 <li id="tabSettingPolicyb"><a href="{{url('admin/policyb')}}"><i class="fa fa-circle"></i> Chính sách đại lý</a></li>
-
-                 <li id="tabSettingSeo"><a href="{{url('admin/seo')}}"><i class="fa fa-circle"></i> Cấu hình SEO</a></li> -->
+            <li id="tabSettingAdvisory"><a href="{{url('admin/advisory')}}"><i class="fa fa-circle"></i>Tư vấn</a></li>
           </ul>
         </li>
       </ul>

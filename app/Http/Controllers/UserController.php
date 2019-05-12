@@ -192,9 +192,11 @@ class UserController extends Controller
 	 public function createUser(Request $request)
     {
 		$this->validate($request,[
+      'Name'=>'required',
 			'Email'=>'required|unique:users',
 			'Password'=>'required|min:6|max:20',
 		],[
+      'Name.required'=>'Bạn chưa nhập Họ tên',
 			'Email.required'=>'Bạn chưa nhập email',
 			'Email.unique'=>'Email đã tồn tại',
 			'Password.required'=>'Bạn chưa nhập mật khẩu',
@@ -203,11 +205,17 @@ class UserController extends Controller
 		]);
 
 		$model = new User;
-		$model->name = $request->Email;
+		$model->name = $request->Name;
 		$model->email = $request->Email;
 		$model->phone = $request->Phone == null ? 0 : $request->Phone;
 		$model->password = bcrypt($request->Password);
 		$model->save();
+
+    $CustomerEmail = $model->email;
+    $ContentEmail = [ 'user' => $model ];
+    Mail::send('page2.layout.template.register_user', ['contentEmail' => $ContentEmail], function($message) use ($CustomerEmail){
+          $message->to($CustomerEmail, 'Customer')->subject('SagittB - Đăng ký tài khoản thành công');
+        });
 
 		return response()->json(['IsSuccess'=>true]);
 	}

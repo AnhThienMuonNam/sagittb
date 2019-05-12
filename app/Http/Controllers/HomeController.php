@@ -56,11 +56,6 @@ class HomeController extends Controller
                       ->skip(0)->take(2)
                       ->get();
 
-        // $productIdsInWishlist = Auth::check() ? Wish_List::where('user_id',Auth::User()->id)->select('product_id')->get() : [];
-        // $ProductsInWistlist = Product::with('piece')->with('category')
-        //                             ->whereIn('id',$productIdsInWishlist)->orderBy('name','desc')
-        //                             ->where('is_deleted',0)
-        //                             ->skip(0)->take(8)->get();
         $jsonIns = file_get_contents('https://api.instagram.com/v1/users/self/media/recent/?access_token=2096254071.1febbc9.6ec04b1bc6394da5a549d46265600d62&count=8');
         $objIns = json_decode($jsonIns);
 
@@ -483,7 +478,7 @@ class HomeController extends Controller
                         ];
 
         Mail::send('page2.layout.template.order_info', ['contentEmail' => $contentEmail], function($message) use ($CustomerEmail, $orderId, $created_at){
-              $message->to($CustomerEmail, 'Customer')->subject('Đặt hàng thành công đơn hàng số: '.$orderId.' '.' vào '.$created_at);
+              $message->to($CustomerEmail, 'Customer')->subject('SagittB - Đặt hàng thành công đơn hàng số: '.$orderId.' '.' vào '.$created_at);
         });
 
         $request->session()->forget('myCart');

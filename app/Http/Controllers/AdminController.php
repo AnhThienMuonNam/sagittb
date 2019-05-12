@@ -218,7 +218,6 @@ class AdminController extends Controller
 
     		$category->save();
     		return response()->json(['IsSuccess' => true]);
-		// return redirect('admin/category/edit/'.$Id)->with('message','Sửa thành công');
     }
 
 
@@ -508,7 +507,7 @@ class AdminController extends Controller
       $contentEmail = [ 'order' => $order ];
 
       Mail::send('page2.layout.template.remind_order', ['contentEmail' => $contentEmail], function($message) use ($CustomerEmail, $orderId, $created_at){
-            $message->to($CustomerEmail, 'Customer')->subject('SaggitB - (Nhắc lại) Thanh toán đơn hàng số: '.$orderId.' '.' đặt vào '.$created_at);
+            $message->to($CustomerEmail, 'Customer')->subject('SagittB - (Nhắc lại) Thanh toán đơn hàng số: '.$orderId.' '.' đặt vào '.$created_at);
           });
 
       $order->is_remind = 1;
@@ -611,7 +610,6 @@ class AdminController extends Controller
 
   		return redirect('admin/user/create')->with('message','Thêm thành công');
     }
-
 
     //
 
