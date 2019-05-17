@@ -6,15 +6,9 @@ var CategoryViewModel = function(data) {
                                             { id:4, name:'Giá tăng dần' }
                                         ]);
     self.optionSortId = ko.observable(1);
-
     self.category= ko.observable(data.Category || []);
-
-
-
     self.ImagePath = ko.observable(data.API_URLs.ImagePath || null);
     self.PublicPath = ko.observable(data.API_URLs.PublicPath || null);
-
-
     self.CurrentPage = ko.observable(1);
     self.getFirstImage = function(stringPath){
         var result="";
@@ -36,13 +30,6 @@ var CategoryViewModel = function(data) {
         }
         return result;
     };
-
-
-
-
-
-
-
 
     self.formatMoney = function(number) {
         var val=parseInt(number);

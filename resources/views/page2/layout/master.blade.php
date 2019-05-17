@@ -233,7 +233,7 @@
 <!--scrolltop-->
 </head>
 <body>
-  <!-- <div id="preloader"></div> -->
+  <div id="preloader"></div>
   <!--modal popup-->
 
 <!--modal popup-->

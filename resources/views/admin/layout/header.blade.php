@@ -154,6 +154,7 @@
             </span>
           </a>
           <ul class="treeview-menu">
+            <li id="tabSettingPiece"><a href="{{url('admin/piece')}}"><i class="fa fa-circle"></i>Hạt</a></li>
             <li id="tabSettingTopic"><a href="{{url('admin/topic')}}"><i class="fa fa-circle"></i>Topic</a></li>
             <li id="tabSettingAdvisory"><a href="{{url('admin/advisory')}}"><i class="fa fa-circle"></i>Tư vấn</a></li>
           </ul>

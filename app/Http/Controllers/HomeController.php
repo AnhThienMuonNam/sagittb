@@ -36,11 +36,9 @@ class HomeController extends Controller
     //shop trang suc
     public function page02()
     {
-        $HotProducts = Product::select('id','name','alias','price','images')
-                                ->where('is_hot',1)
-                                ->where('is_deleted',0)
-                                ->where('is_active',1)->inRandomOrder()
-                                ->skip(0)->take(8)->get();
+        $Topics = Topic::select('line1','line2','line3','image','url')
+                        ->where('is_deleted',0)
+                        ->where('is_active',1)->get();
 
         $BestProducts = Product::select('id','name','alias','price','images')
                                 ->withCount('order_details')
@@ -48,6 +46,18 @@ class HomeController extends Controller
                                 ->where('is_active',1)
                                 ->orderBy('order_details_count', 'desc')
                                 ->skip(0)->take(8)->get();
+
+        return view('page2.index',['Topics'=>$Topics, 'BestProducts'=>$BestProducts ]);
+    }
+
+    public function getHotProducts(Request $request){
+        $HotProducts = Product::select('id','name','alias','price','images')
+                                ->where('is_hot',1)
+                                ->where('is_deleted',0)
+                                ->where('is_active',1)->inRandomOrder()
+                                ->skip(0)->take(8)->get();
+
+
 
         $NewestBlogs = Blog::select('id','image','alias','name')
                       ->where('is_deleted',0)
@@ -59,16 +69,10 @@ class HomeController extends Controller
         $jsonIns = file_get_contents('https://api.instagram.com/v1/users/self/media/recent/?access_token=2096254071.1febbc9.6ec04b1bc6394da5a549d46265600d62&count=8');
         $objIns = json_decode($jsonIns);
 
-        $Topics = Topic::select('line1','line2','line3','image','url')
-                        ->where('is_deleted',0)
-                        ->where('is_active',1)->get();
-
-        return view('page2.index',[ 'HotProducts'=>$HotProducts,
-                                    'BestProducts'=>$BestProducts,
-                                    'Topics'=>$Topics,
-                                    'ObjIns'=>$objIns->data,
-                                    'NewestBlogs'=>$NewestBlogs,
-                                    ]);
+      return response()->json(['HotProducts'=>$HotProducts,
+                              
+                              'ObjIns'=>$objIns->data,
+                              'NewestBlogs'=>$NewestBlogs ]);
     }
 
     public function categoryView($Alias, $Id)

@@ -179,3 +179,6 @@ Route::get('filter/{tag}', 'HomeController@filterPage');
 
 Route::get('blog', 'HomeController@blogView');
 Route::get('blog/{Alias}/{Id}', 'HomeController@blogDetailView');
+
+//Index page
+Route::post('getHotProducts', 'HomeController@getHotProducts');

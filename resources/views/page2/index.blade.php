@@ -24,9 +24,10 @@
  @endsection
 
 @section('content')
+  <div id="page-single">
  <!--slider-->
   <section>
-    <div class = 'fluidHeight'>
+    <div class ='fluidHeight'>
       <div class = 'sliderContainer'>
         <div class = 'iosSlider'>
           <div class = 'slider'>
@@ -46,28 +47,32 @@
       </div>
     </div>
   </section>
+
   <!-- Popular Collections-->
-  <section  class="content-section specific-module tetpbg">
+  <section class="content-section specific-module tetpbg">
     <div class="div-center">
       <div class="specific-content">
         <h1 class="title-h wow fadeInDown" style="text-transform: none;">Sản phẩm mới</h1>
+        <!-- ko if: IsShowLoading() == true -->
+      <div style="text-align: center;"> <img src="{{asset('images/default/loading.gif')}}" > </div>
+      <!-- /ko -->
+
       </div>
       <div class="flex-sp-moi" style="display: flex; align-items: center; flex-wrap: wrap;">
-        @foreach($HotProducts as $item)
+
+          <!-- ko foreach: HotProducts -->
         <div class="col-md-3 col-sm-3 col-xs-6 text-center wow fadeIn" style="float: none">
-          <div class="box-css"> <a href="{{url('san-pham/'.$item->alias.'/'.$item->id)}}">
-            <img src="{{asset('images/'.preg_replace('/^([^,]*).*$/', '$1', $item->images))}}" class="img-responsive" alt="" style="display: table-cell; margin: 0 auto;max-height: 285px;min-width: 50px;">
+          <div class="box-css"> <a data-bind="attr:{href: PublicPath()+'/san-pham/'+$data.alias+'/'+$data.id}">
+            <img data-bind="attr: { src: ImagePath() + '/' + getFirstImage($data.images) }" class="img-responsive" alt="" style="display: table-cell; margin: 0 auto;max-height: 285px;min-width: 50px;">
             <div class="opacitybox white">
               <div class="boxcontent">
-                <h4 class="white">{{$item->name}}</h4>
-
-                  <h3 class="white">{{number_format($item->price, 0, ',', '.').'(đ)'}}</h3> </div>
-
+                <h4 class="white" data-bind="text: $data.name"></h4>
+                  <h3 class="white" data-bind="text: formatMoney($data.price)"></h3> </div>
             </div>
             </a>
           </div>
         </div>
-        @endforeach
+          <!-- /ko -->
       </div>
       <div class="clearfix"></div>
       <!-- <div class="View-all  wow fadeInDown"><a href="#">XEM THÊM >>><i class="fa fa-long-arrow-right" aria-hidden="true"></i></a></div> -->
@@ -81,54 +86,52 @@
       <div class="title-heading  wow fadeInUp">
         <h3>BLOG <a href="{{url('blog')}}" target="_blank" style="font-size:12px; font-style: italic;">(Xem thêm)</a></h3>
       </div>
+      <!-- ko if: IsShowLoading() == true -->
+    <div style="text-align: center;"> <img src="{{asset('images/default/loading.gif')}}" > </div>
+    <!-- /ko -->
     </div>
     <div class="clearfix"></div>
     <div class="img-div3">
-      @foreach($NewestBlogs as $item)
-
-      <div class="col-md-6 col-sm-6 wow fadeInLeft"> <a href="{{url('blog/'.$item->alias.'/'.$item->id)}}" class="right-img">
-        <div><img src="{{asset('images/'.$item->image)}}" class="img-responsive grayscale" alt="" title="{{$item->name}}"></div>
+        <!-- ko foreach: NewestBlogs -->
+      <div class="col-md-6 col-sm-6 wow fadeInLeft"> <a data-bind="attr:{href: PublicPath()+'/blog/'+$data.alias+'/'+$data.id}" class="right-img">
+        <div><img data-bind="attr: { src: ImagePath() + '/' + $data.image, title: $data.name}" class="img-responsive grayscale" alt=""></div>
         </a>
         <div class="clearfix"></div>
       </div>
-      @endforeach
-
+      <!-- /ko -->
     </div>
     <div class="clearfix"></div>
     <div class="clearfix"></div>
   </section>
+
   <!--best of our store-->
-  <section class="content-section">
-    <div class="best-div">
-        <div class="best-of-our-store">
-          <h2 class="wow fadeInUp"  style="text-transform: none;">Bán nhiều nhất</h2>
-          <div class="owl-carousel owl-theme wow fadeIn">
-             @foreach($BestProducts as $item)
-            <div class="item img-title">
-              <div class="owl-item-boder">
-                <div class="hover-div">
-                  <div class="our-store"> <a href="{{url('san-pham/'.$item->alias.'/'.$item->id)}}"><img src="{{asset('images/search.svg')}}" width="35"></a> </div>
-                  <img src="{{asset('images/'.preg_replace('/^([^,]*).*$/', '$1', $item->images))}}" alt="" title="" class="img-responsive" style="display: table-cell; margin: 0 auto;max-height: 285px; min-width: 50px;">
-                <!--   <div class="round-circles">Top sale</div> -->
-                </div>
-              </div>
-              <h4><a href="{{url('san-pham/'.$item->alias.'/'.$item->id)}}">{{$item->name}}</a></h4>
-              <p class="price">
-
-                <span>{{number_format($item->price, 0, ',', '.').'(đ)'}}</span>
-
-                &nbsp;&nbsp;<samp><!-- $56.00 --></samp></p>
-            </div>
-            @endforeach
-          </div>
-        </div>
-
-      <div class="clearfix"></div>
-    </div>
-    <div class="clearfix"></div>
-  </section>
+   <section class="content-section">
+     <div class="best-div">
+         <div class="best-of-our-store">
+           <h2 class="wow fadeInUp"  style="text-transform: none;">Bán nhiều nhất</h2>
+           <div class="owl-carousel owl-theme wow fadeIn">
+              @foreach($BestProducts as $item)
+             <div class="item img-title">
+               <div class="owl-item-boder">
+                 <div class="hover-div">
+                   <div class="our-store"> <a href="{{url('san-pham/'.$item->alias.'/'.$item->id)}}"><img src="{{asset('images/search.svg')}}" width="35"></a> </div>
+                   <img src="{{asset('images/'.preg_replace('/^([^,]*).*$/', '$1', $item->images))}}" alt="" title="" class="img-responsive" style="display: table-cell; margin: 0 auto;max-height: 285px; min-width: 50px;">
+                 <!--   <div class="round-circles">Top sale</div> -->
+                 </div>
+               </div>
+               <h4><a href="{{url('san-pham/'.$item->alias.'/'.$item->id)}}">{{$item->name}}</a></h4>
+               <p class="price">
+                 <span>{{number_format($item->price, 0, ',', '.').'(đ)'}}</span>
+                 &nbsp;&nbsp;<samp></samp></p>
+             </div>
+             @endforeach
+           </div>
+         </div>
+       <div class="clearfix"></div>
+     </div>
+     <div class="clearfix"></div>
+   </section>
   <!--shop by category-->
-
 
   <section class="content-section" style="background: #f4f4f4;padding-bottom: 0px;">
       <div class="best-div" style="background: #f4f4f4;">
@@ -137,17 +140,14 @@
             <div class="popular-brands footer-logos content-section categoryImageIndex" style="background: #f4f4f4;">
             <div id="owl-demo" class="owl-carousel owl-carousel-2 wow fadeInDown">
                 @foreach($MenuCategories as $item)
-
-
-              <div class="item">
-                  <figure class="effect-moses" >
-                <a href="{{url('danh-muc/'.$item->alias.'/'.$item->id)}}">
-                  <img src="{{asset('images/'.$item->image)}}" alt="" title=""/>
-                </a>
-                  </figure>
-                  <h4 class="category-in_cusom_h4"><a style="color: #fff;" href="{{url('danh-muc/'.$item->alias.'/'.$item->id)}}">{{$item->name}}</a></h4>
-              </div>
-
+                  <div class="item">
+                      <figure class="effect-moses" >
+                    <a href="{{url('danh-muc/'.$item->alias.'/'.$item->id)}}">
+                      <img src="{{asset('images/'.$item->image)}}" alt="" title=""/>
+                    </a>
+                      </figure>
+                      <h4 class="category-in_cusom_h4"><a style="color: #fff;" href="{{url('danh-muc/'.$item->alias.'/'.$item->id)}}">{{$item->name}}</a></h4>
+                  </div>
                 @endforeach
             </div>
           </div>
@@ -207,42 +207,53 @@
   <!--latest jewellery collection-->
   <section class="bg-2 content-section" style="background: #f4f4f4;">
     <h2 class="text-center  wow fadeInDown">INSTAGRAM <a href="https://www.instagram.com/sagittb_com/" target="_blank" style="font-size:12px; font-style: italic;">(Xem thêm)</a></h2>
+    <!-- ko if: IsShowLoading() == true -->
+  <div style="text-align: center;"> <img src="{{asset('images/default/loading.gif')}}" > </div>
+  <!-- /ko -->
     <div class="clearfix"></div>
     <div class="section">
       <link rel="stylesheet" type="text/css" href="{{asset('css/set2.css')}}" />
       <div id="masonry-7" class="masonry one_column full-width">
         <div class="content img-div">
           <ul>
-            @foreach($ObjIns as $item)
+            <!-- ko foreach: ObjIns -->
             <li class="wow fadeIn">
               <div class="grid">
-                <figure class="effect-apollo"> <img alt="" style="max-height:280px;" src="{{$item->images->standard_resolution->url}}"   />
+                <figure class="effect-apollo"> <img alt="" style="max-height:280px;" data-bind="attr: { src: $data.images.standard_resolution.url }"  />
                   <figcaption>
-                    <!-- <h2>Jewelry <span>Store</span></h2> -->
-                    <p>{{$item->caption->text}} </p>
-                    <a href="{{$item->link}}">View more</a> </figcaption>
+                    <p data-bind="text: $data.caption.text"></p>
+                    <a data-bind="attr: { href: $data.link }">View more</a> </figcaption>
                 </figure>
               </div>
             </li>
-            @endforeach
+            <!-- /ko -->
           </ul>
         </div>
       </div>
     </div>
   </section>
+  </div>
   <div class="clearfix"></div>
-  <!--Popular Brands-->
-  </section>
-  <!--footer-->
-  @endsection
+
+@endsection
 
 @section('script')
+<script src="{{asset('page_asset/page-index.js')}}"></script>
+
 <script type="text/javascript" src="{{asset('js/scrolltopcontrol.js')}}"></script>
+
 <script type="text/javascript">
- $(document).ready(function() {
+  $(document).ready(function() {
+    var data = {};
+    var options = {};
 
+    options.ImagePath = <?php echo json_encode(asset('/images')); ?>;
+    options.PublicPath = <?php echo json_encode(url('')); ?>;
+    options.GetHotProducts = <?php echo json_encode(url('getHotProducts')); ?>;
 
-});
+    data.API_URLs = options;
+    ko.applyBindings(IndexViewModel(data), document.getElementById("page-single"));
 
+  });
 </script>
 @endsection
