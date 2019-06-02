@@ -1,7 +1,7 @@
 @extends('admin.layout.header')
 
 @section('headerTitle')
-Admin - Danh sách Topic
+Topic
 @endsection
 
 @section('content')
@@ -22,14 +22,14 @@ Admin - Danh sách Topic
         <div class="col-xs-12">
           <div class="box">
             <div class="box-header">
-              <h3 class="box-title">Danh sách Topic</h3>
               <div class="box-tools">
                   <div class="input-group input-group-sm" style="width: 150px;">
                       <div class="input-group-btn">
-                          <a href="{{url('admin/topic/create')}}" class="btn btn-default" >Thêm Topic</a>
+                          <a href="{{url('admin/topic/create')}}" class="btn btn-default">Thêm Topic</a>
                       </div>
                   </div>
                 </div>
+            </div>
             <!-- /.box-header -->
             <div class="box-body table-responsive no-padding">
               <table class="table table-hover">
@@ -51,11 +51,10 @@ Admin - Danh sách Topic
                         <td data-bind="text: line2"></td>
                         <td data-bind="text: line3"></td>
                         <td data-bind="text: url"></td>
-
                         <td data-bind="text: is_active ? 'Yes' : 'No'"></td>
                         <td>
-                            <a data-bind="attr: { href: 'topic/edit/' + id }"  title="Sửa" class="text-yellow"><i class="fa fa-pencil" style="font-size: 20px;"></i></a>&nbsp;
-                            <a href="#" data-bind="click: $root.removeTopic"  title="Xóa" class="text-danger"><i class="fa fa-trash-o" style="font-size: 20px;"></i></a>
+                            <a data-bind="attr: { href: 'topic/edit/' + id }"  title="Sửa" class="text-yellow"><i class="fa fa-pencil fa-2x"></i></a>&nbsp;
+                            <a href="#" data-bind="click: $root.removeTopic"  title="Xóa" class="text-danger"><i class="fa fa-trash-o fa-2x"></i></a>
                         </td>
                     </tr>
                 </tbody>
@@ -74,7 +73,7 @@ Admin - Danh sách Topic
 @endsection
 
 @section('script')
-<script src="{{asset('admin_asset/admin_setting/admin-topic-index.js')}}"></script>
+<script src="{{asset('admin_asset/admin_setting/topic/index.js')}}"></script>
 
 <script type="text/javascript">
 $(document).ready(function() {

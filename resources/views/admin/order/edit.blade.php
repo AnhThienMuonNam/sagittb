@@ -1,6 +1,6 @@
 @extends('admin.layout.header')
 @section('headerTitle')
-Admin - Cập nhật Đơn hàng
+Cập nhật Đơn hàng
 @endsection
 
 @section('css')
@@ -13,9 +13,8 @@ Admin - Cập nhật Đơn hàng
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Đơn hàng
+      Cập nhật Đơn hàng
       </h1>
-
     </section>
 
     <!-- Main content -->
@@ -181,11 +180,10 @@ Admin - Cập nhật Đơn hàng
 @endsection
 
 @section('script')
-<script src="{{asset('admin_asset/admin-order-edit.js')}}"></script>
+<script src="{{asset('admin_asset/order/edit.js')}}"></script>
 <script>
   $(document).ready(function() {
     $('#treeOrder').addClass("active");
-    document.getElementById("tabOrderList").classList.add("active");
     var data = {};
     var options = {};
 

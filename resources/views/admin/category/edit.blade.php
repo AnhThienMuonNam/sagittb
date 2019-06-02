@@ -1,6 +1,6 @@
 @extends('admin.layout.header')
 @section('headerTitle')
-Admin - Cập nhật Danh mục
+Cập nhật Danh mục
 @endsection
 
 @section('css')
@@ -23,7 +23,7 @@ Admin - Cập nhật Danh mục
   <!-- Content Header (Page header) -->
   <section class="content-header">
     <h1>
-      Danh mục
+      Cập nhật Danh mục
     </h1>
   </section>
 
@@ -34,12 +34,7 @@ Admin - Cập nhật Danh mục
       <div class="col-md-12">
         <!-- general form elements -->
         <div class="box box-primary">
-          <div class="box-header with-border">
-            <h3 class="box-title">Cập nhật Danh mục</h3>
-          </div>
-          <!-- /.box-header -->
           <!-- form start -->
-
          <!-- ko if: $root.NotifyErrors -->
           <div class="alert alert-danger">
             <span data-bind="text: $root.NotifyErrors"></span>
@@ -144,7 +139,7 @@ Admin - Cập nhật Danh mục
 
   @section('script')
   <script src="{{asset('js/select2.full.min.js')}}"></script>
-  <script src="{{asset('admin_asset/admin-category-edit.js')}}"></script>
+  <script src="{{asset('admin_asset/category/edit.js')}}"></script>
 
   <script type="text/javascript">
    $(document).ready(function() {
@@ -157,7 +152,7 @@ Admin - Cập nhật Danh mục
     data.category = <?php echo json_encode($category); ?> ;
 
     options.ImagePath = <?php echo json_encode(asset('/images')); ?>;
-    options.UploadImage = <?php echo json_encode(url('/admin/category/uploadImage')); ?>;
+    options.UploadImage = <?php echo json_encode(url('/admin/uploadImage')); ?>;
     options.EditCategory = <?php echo json_encode(url('/admin/category/editPost')); ?>;
     data.API_URLs = options;
     ko.applyBindings(new FormViewModel(data));

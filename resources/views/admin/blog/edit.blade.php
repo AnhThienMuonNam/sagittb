@@ -1,6 +1,6 @@
 @extends('admin.layout.header')
 @section('headerTitle')
-Admin - Cập nhật Bài viết
+Cập nhật Bài viết
 @endsection
 
 @section('css')
@@ -23,7 +23,7 @@ Admin - Cập nhật Bài viết
   <!-- Content Header (Page header) -->
   <section class="content-header">
     <h1>
-    Bài viết
+  Cập nhật Bài viết
     </h1>
   </section>
 
@@ -34,12 +34,6 @@ Admin - Cập nhật Bài viết
       <div class="col-md-12">
         <!-- general form elements -->
         <div class="box box-primary">
-          <div class="box-header with-border">
-            <h3 class="box-title">Cập nhật Bài viết</h3>
-          </div>
-          <!-- /.box-header -->
-          <!-- form start -->
-
          <!-- ko if: $root.NotifyErrors -->
           <div class="alert alert-danger">
             <span data-bind="text: $root.NotifyErrors"></span>
@@ -117,7 +111,7 @@ Admin - Cập nhật Bài viết
   <script src="{{asset('js/select2.full.min.js')}}"></script>
   <script src="{{asset('js/ckeditor/ckeditor.js')}}"></script>
   <script src="{{asset('js/ckfinder/ckfinder.js')}}"></script>
-  <script src="{{asset('admin_asset/admin-blog-edit.js')}}"></script>
+  <script src="{{asset('admin_asset/blog/edit.js')}}"></script>
 
   <script type="text/javascript">
    $(document).ready(function() {
@@ -129,7 +123,7 @@ Admin - Cập nhật Bài viết
     var options = {};
       data.blog = <?php echo json_encode($blog); ?> ;
     options.ImagePath = <?php echo json_encode(asset('/images')); ?>;
-    options.UploadImage = <?php echo json_encode(url('/admin/blog/uploadImage')); ?>;
+    options.UploadImage = <?php echo json_encode(url('/admin/uploadImage')); ?>;
       options.EditBlog = <?php echo json_encode(url('/admin/blog/editPost')); ?>;
     data.API_URLs = options;
     ko.applyBindings(new FormViewModel(data));

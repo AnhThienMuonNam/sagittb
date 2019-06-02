@@ -1,7 +1,7 @@
 @extends('admin.layout.header')
 
 @section('headerTitle')
-Admin - Danh sách Đơn hàng
+Danh sách Đơn hàng
 @endsection
 
 @section('css')
@@ -19,17 +19,13 @@ Admin - Danh sách Đơn hàng
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Đơn hàng
+      Danh sách Đơn hàng
       </h1>
     </section>
 
     <!-- Main content -->
     <section class="content">
        <div class="box box-info">
-            <div class="box-header with-border">
-              <h3 class="box-title">Tìm kiếm Đơn hàng</h3>
-            </div>
-            <!-- /.box-header -->
             <!-- form start -->
             <form class="form-horizontal">
               <div class="box-body">
@@ -80,13 +76,13 @@ Admin - Danh sách Đơn hàng
               </div>
               <!-- /.box-body -->
               <div class="box-footer">
-                  <!-- <button class="btn btn-default pull-right" data-bind="click: exportOrder">Xuất Excel</button> -->
-                  <button class="btn btn-default pull-right" data-bind="click: viewExpiredOrder">Đơn hàng quá hạn</button>
-                  <button class="btn btn-default pull-right" data-bind="click: viewRemindOrder">Đơn hàng nhắc nhở</button>
-
-                  <button class="btn btn-info pull-right" data-bind="click: search">Tìm Kiếm</button>
-
+                <div class="pull-right">
+                  <button class="btn btn-default" data-bind="click: viewExpiredOrder">Đơn hàng quá hạn</button>
+                  <button class="btn btn-default" data-bind="click: viewRemindOrder">Đơn hàng nhắc nhở</button>
+                  <button class="btn btn-info" data-bind="click: search">Tìm Kiếm</button>
+                </div>
               </div>
+
               <!-- /.box-footer -->
             </form>
           </div>
@@ -94,10 +90,6 @@ Admin - Danh sách Đơn hàng
       <div class="row">
         <div class="col-xs-12">
           <div class="box">
-            <div class="box-header">
-              <h3 class="box-title">Danh sách đơn hàng</h3>
-            </div>
-            <!-- /.box-header -->
             <div class="box-body table-responsive no-padding">
               <table class="table table-hover">
                 <thead>
@@ -126,7 +118,7 @@ Admin - Danh sách Đơn hàng
                         <td data-bind="text: $data.order_details ? $data.order_details.length : '0'"></td>
                         <td data-bind="text: $root.formatMoney($data.original_price)"></td>
                        <td>
-                            <a data-bind="attr: { href: 'order/detail/' + id }"  title="Cập nhật" class="text-yellow"><i class="fa fa-pencil"></i></a>
+                            <a data-bind="attr: { href: 'order/detail/' + id }"  title="Cập nhật" class="text-yellow"><i class="fa fa-pencil fa-2x"></i></a>
                         </td>
                         <td>
                             <!-- ko if: $root.IsViewRemindButtonClick -->
@@ -159,13 +151,11 @@ Admin - Danh sách Đơn hàng
 @endsection
 
 @section('script')
-<script src="{{asset('admin_asset/admin-order-index.js')}}"></script>
+<script src="{{asset('admin_asset/order/index.js')}}"></script>
 
 <script type="text/javascript">
 $(document).ready(function() {
     $('#treeOrder').addClass("active");
-    document.getElementById("tabOrderList").classList.add("active");
-
     $('.mydatepicker').datepicker({
       autoclose: true
     })

@@ -1,6 +1,6 @@
 @extends('admin.layout.header')
 @section('headerTitle')
-Admin - Tạo Blog
+Thêm Bài viết
 @endsection
 
 @section('css')
@@ -23,7 +23,7 @@ Admin - Tạo Blog
   <!-- Content Header (Page header) -->
   <section class="content-header">
     <h1>
-    Bài viết
+  Thêm Bài viết
     </h1>
   </section>
 
@@ -34,10 +34,6 @@ Admin - Tạo Blog
       <div class="col-md-12">
         <!-- general form elements -->
         <div class="box box-primary">
-          <div class="box-header with-border">
-            <h3 class="box-title">Tạo Blog</h3>
-          </div>
-          <!-- /.box-header -->
           <!-- form start -->
 
          <!-- ko if: $root.NotifyErrors -->
@@ -114,7 +110,7 @@ Admin - Tạo Blog
   <script src="{{asset('js/select2.full.min.js')}}"></script>
   <script src="{{asset('js/ckeditor/ckeditor.js')}}"></script>
   <script src="{{asset('js/ckfinder/ckfinder.js')}}"></script>
-  <script src="{{asset('admin_asset/admin-blog-create.js')}}"></script>
+  <script src="{{asset('admin_asset/blog/create.js')}}"></script>
 
   <script type="text/javascript">
    $(document).ready(function() {
@@ -126,7 +122,7 @@ Admin - Tạo Blog
     var options = {};
 
     options.ImagePath = <?php echo json_encode(asset('/images')); ?>;
-    options.UploadImage = <?php echo json_encode(url('/admin/blog/uploadImage')); ?>;
+    options.UploadImage = <?php echo json_encode(url('/admin/uploadImage')); ?>;
     options.CreateBlog = <?php echo json_encode(url('/admin/blog/createPost')); ?>;
     data.API_URLs = options;
     ko.applyBindings(new FormViewModel(data));

@@ -174,7 +174,11 @@ class AdminController extends Controller
         $category->alias = $this->changeTitle($model->name);
 	      $category->is_active = $model->is_active;
         $category->is_custom = $model->is_custom;
-
+        if($category->image != $model->image){
+              $image_path_to_remove = public_path().'/images/'.$category->image;
+              unlink($image_path_to_remove);
+              $category->image = $model->image;
+        }
         $category->sizevongs = $model->sizevongs;
 
         $category->size_hat_name = $model->size_hat_name;
@@ -218,6 +222,14 @@ class AdminController extends Controller
 
     		$category->save();
     		return response()->json(['IsSuccess' => true]);
+    }
+
+    public function deleteCategory(Request $request)
+    {
+      $model = Category::find($request->id);
+      $model->is_deleted = 1;
+      $model->save();
+      return response()->json(['IsSuccess' => true]);
     }
 
 
@@ -374,40 +386,12 @@ class AdminController extends Controller
         return response()->json(['IsSuccess' => true]);
     }
 
-    //change to common
-    public function uploadProductImage(Request $request)
+    public function deleteProduct(Request $request)
     {
-        $imageName = time() . '.' . $request->uploadFile->getClientOriginalExtension();
-        $request->uploadFile->move(public_path().'/images/', $imageName);
-        return $imageName;
-    }
-
-    //change to common
-    public function deleteProductImage(Request $request)
-    {
-        $image_path = public_path().'/images/'.$request->deleteFile;
-        unlink($image_path);
-    }
-
-
-    public function uploadCategoryImage(Request $request)
-    {
-        $imageName = time() . '.' . $request->uploadFile->getClientOriginalExtension();
-        $request->uploadFile->move(public_path().'/images/', $imageName);
-        $response = $imageName;
-
-        if($request->categoryId)
-        {
-            $category = Category::find($request->categoryId);
-            if($category->image){
-                $image_path = public_path().'/images/'.$category->image;
-                unlink($image_path);
-            }
-
-            $category->image = $imageName;
-            $category->save();
-        }
-        return $response;
+      $model = Product::find($request->id);
+      $model->is_deleted = 1;
+      $model->save();
+      return response()->json(['IsSuccess' => true]);
     }
 
     public function getAllOrders()
@@ -868,7 +852,6 @@ class AdminController extends Controller
 
     //end common function
 
-    //Blog
     public function getAllBlogs()
     {
       $result = Blog::where('is_deleted',0)->get();
@@ -940,13 +923,11 @@ class AdminController extends Controller
 
         $model->is_active = $request->is_active;
         $model->content = $request->content;
-
-        //images
-        // if($model->image){
-        //         $image_path = public_path().'/images/'.$model->image;
-        //         unlink($image_path);
-        // }
-        $model->image = $request->image;
+        if($model->image != $request->image){
+              $image_path_to_remove = public_path().'/images/'.$model->image;
+              unlink($image_path_to_remove);
+              $model->image = $request->image;
+        }
         $model->save();
 
         return response()->json(['IsSuccess' => true]);
@@ -954,7 +935,14 @@ class AdminController extends Controller
         return response()->json(['IsSuccess' => false]);
       }
     }
-    //End BLog
+
+    public function deleteBlog(Request $request)
+    {
+      $model = Blog::find($request->id);
+      $model->is_deleted = 1;
+      $model->save();
+      return response()->json(['IsSuccess' => true]);
+    }
 
     //Topics
 
@@ -1018,6 +1006,14 @@ class AdminController extends Controller
           $model->save();
 
           return response()->json(['IsSuccess' => true]);
+      }
+
+      public function deleteTopic(Request $request)
+      {
+        $model = Topic::find($request->id);
+        $model->is_deleted = 1;
+        $model->save();
+        return response()->json(['IsSuccess' => true]);
       }
 
     //EndTopic

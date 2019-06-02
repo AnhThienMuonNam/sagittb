@@ -1,6 +1,6 @@
 @extends('admin.layout.header')
 @section('headerTitle')
-Admin - Tạo Danh mục
+Thêm Danh mục
 @endsection
 
 @section('css')
@@ -23,7 +23,7 @@ Admin - Tạo Danh mục
   <!-- Content Header (Page header) -->
   <section class="content-header">
     <h1>
-      Danh mục
+    Thêm Danh mục
     </h1>
   </section>
 
@@ -34,12 +34,7 @@ Admin - Tạo Danh mục
       <div class="col-md-12">
         <!-- general form elements -->
         <div class="box box-primary">
-          <div class="box-header with-border">
-            <h3 class="box-title">Tạo Danh mục</h3>
-          </div>
-          <!-- /.box-header -->
           <!-- form start -->
-
          <!-- ko if: $root.NotifyErrors -->
           <div class="alert alert-danger">
             <span data-bind="text: $root.NotifyErrors"></span>
@@ -147,7 +142,7 @@ Admin - Tạo Danh mục
 
   @section('script')
   <script src="{{asset('js/select2.full.min.js')}}"></script>
-  <script src="{{asset('admin_asset/admin-category-create.js')}}"></script>
+  <script src="{{asset('admin_asset/category/create.js')}}"></script>
 
   <script type="text/javascript">
    $(document).ready(function() {

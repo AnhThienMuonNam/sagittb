@@ -20,6 +20,9 @@ Route::get('admin/logout','AdminController@logout');
 Route::post('admin/getotp','AdminController@getotp');
 
 Route::group([ 'prefix' => 'admin', 'middleware'=>'adminLogin' ] , function() {
+	Route::post('uploadImage', 'SettingController@uploadSingleImage');
+	Route::post('deleteImage', 'SettingController@deleteSingleImage');
+
 	Route::get('category', 'AdminController@getAllCategories');
 	Route::group([ 'prefix' => 'category' ] , function() {
 		Route::get('create', 'AdminController@createCategoryView');
@@ -29,8 +32,6 @@ Route::group([ 'prefix' => 'admin', 'middleware'=>'adminLogin' ] , function() {
 		Route::post('editPost', 'AdminController@editCategory');
 
 		Route::post('delete', 'AdminController@deleteCategory');
-
-		Route::post('uploadImage', 'AdminController@uploadCategoryImage');
 	});
 
 
@@ -43,12 +44,7 @@ Route::group([ 'prefix' => 'admin', 'middleware'=>'adminLogin' ] , function() {
 		Route::post('editPost', 'AdminController@editProduct');
 
 		Route::post('delete', 'AdminController@deleteProduct');
-
-		Route::post('uploadImage', 'AdminController@uploadProductImage');
-		Route::post('deleteImage', 'AdminController@deleteProductImage');
-
 		Route::post('search', 'AdminController@searchProduct');
-
 	});
 
 	Route::get('order', 'AdminController@getAllOrders');
@@ -61,10 +57,7 @@ Route::group([ 'prefix' => 'admin', 'middleware'=>'adminLogin' ] , function() {
 		Route::post('sendEmailRemindOrder', 'AdminController@sendEmailRemindOrder');
 		Route::post('viewExpiredOrder', 'AdminController@viewExpiredOrder');
 
-
-		//export
 		Route::post('exportOrder', 'AdminController@exportOrder');
-
 	});
 
 	Route::get('user', 'AdminController@getAllUsers');
@@ -86,11 +79,7 @@ Route::group([ 'prefix' => 'admin', 'middleware'=>'adminLogin' ] , function() {
 
 		Route::post('delete', 'AdminController@deleteBlog');
 
-		Route::post('uploadImage', 'AdminController@uploadProductImage');
-		Route::post('deleteImage', 'AdminController@deleteProductImage');
-
 		Route::post('search', 'AdminController@searchBlog');
-
 	});
 
 	Route::get('topic', 'AdminController@getAllTopics');
@@ -102,19 +91,27 @@ Route::group([ 'prefix' => 'admin', 'middleware'=>'adminLogin' ] , function() {
 		Route::post('editPost', 'AdminController@editTopic');
 
 		Route::post('delete', 'AdminController@deleteTopic');
-
-		Route::post('uploadImage', 'AdminController@uploadProductImage');
-		Route::post('deleteImage', 'AdminController@deleteProductImage');
 	});
 
 		Route::get('advisory', 'SettingController@getAdvisoryView');
 		Route::post('advisory', 'SettingController@getAdvisoryPost');
 
-
+		Route::get('piece', 'SettingController@getAllPieces');
+		Route::group([ 'prefix' => 'piece' ] , function() {
+			Route::post('createPost', 'SettingController@createPiece');
+			Route::post('editPost', 'SettingController@editPiece');
+			Route::post('delete', 'SettingController@deletePiece');
+		});
+		Route::get('charm', 'SettingController@getAllCharms');
+		Route::group([ 'prefix' => 'charm' ] , function() {
+			Route::post('createPost', 'SettingController@createCharm');
+			Route::post('editPost', 'SettingController@editCharm');
+			Route::post('delete', 'SettingController@deleteCharm');
+		});
+		Route::get('cleanup', 'SettingController@getCleanup');
 });
 Route::get('/', 'HomeController@page02');
 Route::get('danh-muc/{Alias}/{Id}', 'HomeController@categoryView');
-
 
 Route::get('san-pham/{Alias}/{Id}', 'HomeController@product_detail');
 Route::get('cart', 'HomeController@cart');

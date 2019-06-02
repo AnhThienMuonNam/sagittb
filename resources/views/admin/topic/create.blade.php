@@ -1,6 +1,6 @@
 @extends('admin.layout.header')
 @section('headerTitle')
-Admin - Tạo Topic
+Thêm Topic
 @endsection
 
 @section('css')
@@ -15,7 +15,7 @@ Admin - Tạo Topic
   <!-- Content Header (Page header) -->
   <section class="content-header">
     <h1>
-    Topic
+  Thêm Topic
     </h1>
   </section>
 
@@ -26,12 +26,6 @@ Admin - Tạo Topic
       <div class="col-md-12">
         <!-- general form elements -->
         <div class="box box-primary">
-          <div class="box-header with-border">
-            <h3 class="box-title">Tạo Topic</h3>
-          </div>
-          <!-- /.box-header -->
-          <!-- form start -->
-
          <!-- ko if: $root.NotifyErrors -->
           <div class="alert alert-danger">
             <span data-bind="text: $root.NotifyErrors"></span>
@@ -97,7 +91,7 @@ Admin - Tạo Topic
   @endsection
 
   @section('script')
-  <script src="{{asset('admin_asset/admin_setting/admin-topic-create.js')}}"></script>
+  <script src="{{asset('admin_asset/admin_setting/topic/create.js')}}"></script>
 
   <script type="text/javascript">
    $(document).ready(function() {
@@ -108,7 +102,7 @@ Admin - Tạo Topic
     var options = {};
 
     options.ImagePath = <?php echo json_encode(asset('/images')); ?>;
-    options.UploadImage = <?php echo json_encode(url('/admin/topic/uploadImage')); ?>;
+    options.UploadImage = <?php echo json_encode(url('/admin/uploadImage')); ?>;
     options.CreateTopic = <?php echo json_encode(url('/admin/topic/createPost')); ?>;
     data.API_URLs = options;
     ko.applyBindings(new FormViewModel(data));

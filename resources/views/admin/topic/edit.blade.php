@@ -1,6 +1,6 @@
 @extends('admin.layout.header')
 @section('headerTitle')
-Admin - Cập nhật Topic
+Cập nhật Topic
 @endsection
 
 @section('css')
@@ -15,7 +15,7 @@ Admin - Cập nhật Topic
   <!-- Content Header (Page header) -->
   <section class="content-header">
     <h1>
-    Topic
+  Cập nhật Topic
     </h1>
   </section>
 
@@ -26,12 +26,6 @@ Admin - Cập nhật Topic
       <div class="col-md-12">
         <!-- general form elements -->
         <div class="box box-primary">
-          <div class="box-header with-border">
-            <h3 class="box-title">Cập nhật Topic</h3>
-          </div>
-          <!-- /.box-header -->
-          <!-- form start -->
-
          <!-- ko if: $root.NotifyErrors -->
           <div class="alert alert-danger">
             <span data-bind="text: $root.NotifyErrors"></span>
@@ -97,7 +91,7 @@ Admin - Cập nhật Topic
   @endsection
 
   @section('script')
-  <script src="{{asset('admin_asset/admin_setting/admin-topic-edit.js')}}"></script>
+  <script src="{{asset('admin_asset/admin_setting/topic/edit.js')}}"></script>
 
   <script type="text/javascript">
    $(document).ready(function() {
@@ -109,7 +103,7 @@ Admin - Cập nhật Topic
     data.Topic = <?php echo json_encode($Topic); ?> ;
 
     options.ImagePath = <?php echo json_encode(asset('/images')); ?>;
-    options.UploadImage = <?php echo json_encode(url('/admin/topic/uploadImage')); ?>;
+    options.UploadImage = <?php echo json_encode(url('/admin/uploadImage')); ?>;
     options.EditTopic = <?php echo json_encode(url('/admin/topic/editPost')); ?>;
     data.API_URLs = options;
     ko.applyBindings(new FormViewModel(data));

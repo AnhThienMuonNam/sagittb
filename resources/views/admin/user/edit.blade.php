@@ -1,6 +1,6 @@
 @extends('admin.layout.header')
 @section('headerTitle')
-Admin - Cập nhật tài khoản
+Cập nhật tài khoản
 @endsection
 @section('content')
 
@@ -9,7 +9,7 @@ Admin - Cập nhật tài khoản
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Tài khoản
+        Cập nhật tài khoản
       </h1>
     </section>
 
@@ -20,10 +20,6 @@ Admin - Cập nhật tài khoản
         <div class="col-md-12">
           <!-- general form elements -->
           <div class="box box-primary">
-            <div class="box-header with-border">
-              <h3 class="box-title">Cập nhật tài khoản</h3>
-            </div>
-            <!-- /.box-header -->
             <!-- form start -->
             @if(count($errors) > 0)
             <div class="alert alert-danger">
@@ -61,7 +57,7 @@ Admin - Cập nhật tài khoản
                    <label for="exampleInputPassword1">Nhóm người dùng</label>
                  <select class="form-control" name="IsAdmin" style="width: 100%; padding: 0px 5px;">
                        <option  @if($user->is_admin == 0)
-                                {{"selected"}} 
+                                {{"selected"}}
                                 @endif
                                 value="0">Người dùng thông thường</option>
                        <option @if($user->is_admin == 1)
@@ -73,7 +69,7 @@ Admin - Cập nhật tài khoản
                    <label for="exampleInputPassword1">Trạng thái</label>
                  <select class="form-control" name="IsActive" style="width: 100%; padding: 0px 5px;">
                        <option  @if($user->is_active == 0)
-                                {{"selected"}} 
+                                {{"selected"}}
                                 @endif
                                 value="0">Khóa</option>
                        <option @if($user->is_active == 1)
@@ -90,7 +86,7 @@ Admin - Cập nhật tài khoản
           </div>
           <!-- /.box -->
            @if($user->id == Auth::user()->id)
-          
+
           <div class="box box-primary">
             <div class="box-header with-border">
               <h3 class="box-title">Đổi mật khẩu</h3>
@@ -133,7 +129,6 @@ Admin - Cập nhật tài khoản
 <script type="text/javascript">
 $(document).ready(function() {
    $('#treeUser').addClass("active");
-   document.getElementById("tabUserList").classList.add("active");
 });
 
 </script>

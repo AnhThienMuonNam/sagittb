@@ -1,7 +1,7 @@
 @extends('admin.layout.header')
 
 @section('headerTitle')
-Admin - Danh sách Danh mục
+Danh mục sản phẩm
 @endsection
 
 @section('content')
@@ -11,7 +11,7 @@ Admin - Danh sách Danh mục
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Danh mục
+        Danh mục sản phẩm
       </h1>
     </section>
 
@@ -21,17 +21,14 @@ Admin - Danh sách Danh mục
       <div class="row">
         <div class="col-xs-12">
           <div class="box">
-            <div class="box-header">
-              <h3 class="box-title">Danh sách Danh mục</h3>
-            
             <!-- /.box-header -->
             <div class="box-body table-responsive no-padding">
               <table class="table table-hover">
                 <thead>
                   <tr>
-                    <th>Mã</th>
+                    <th>ID</th>
                     <th>Tên danh mục</th>
-                    <th>Đang hoạt động</th>
+                    <th>Trạng thái</th>
                     <th></th>
                   </tr>
                 </thead>
@@ -41,8 +38,8 @@ Admin - Danh sách Danh mục
                         <td data-bind="text: name"></td>
                         <td data-bind="text: is_active ? 'Yes' : 'No'"></td>
                         <td>
-                            <a data-bind="attr: { href: 'category/edit/' + id }"  title="Sửa" class="text-yellow"><i class="fa fa-pencil" style="font-size: 20px;"></i></a>&nbsp;
-                            <a href="#" data-bind="click: $root.removeCategory"  title="Xóa" class="text-danger"><i class="fa fa-trash-o" style="font-size: 20px;"></i></a>
+                            <a data-bind="attr: { href: 'category/edit/' + id }"  title="Sửa" class="text-yellow"><i class="fa fa-pencil fa-2x"></i></a>&nbsp;
+                            <a href="#" data-bind="click: $root.removeCategory"  title="Xóa" class="text-danger"><i class="fa fa-trash-o fa-2x"></i></a>
                         </td>
                     </tr>
                 </tbody>
@@ -61,7 +58,7 @@ Admin - Danh sách Danh mục
 @endsection
 
 @section('script')
-<script src="{{asset('admin_asset/admin-category-index.js')}}"></script>
+<script src="{{asset('admin_asset/category/index.js')}}"></script>
 
 <script type="text/javascript">
 $(document).ready(function() {

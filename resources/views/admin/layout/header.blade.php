@@ -31,13 +31,11 @@
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 
-
-
 <div class="wrapper">
 
   <header class="main-header">
     <!-- Logo -->
-    <a href="index2.html" class="logo">
+    <a href="#" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini">SB</span>
       <!-- logo for regular state and mobile devices -->
@@ -50,31 +48,16 @@
       <div class="navbar-custom-menu">
         <ul class="nav navbar-nav">
           @if(Auth::check())
-          <li class="dropdown user user-menu">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+          <li class="user user-menu">
+            <a href="{{url('admin/user/edit/'.Auth::user()->id)}}">
               <strong>
               <span class="hidden-xs">{{Auth::user()->name}}</span></strong>
             </a>
-            <ul class="dropdown-menu">
-              <!-- User image -->
-              <li class="user-header">
-                <p>
-                  {{Auth::user()->name}}
-                  <small>Id: {{Auth::user()->id}}</small>
-                  <small>Email: {{Auth::user()->email}}</small>
-                </p>
-              </li>
-              <!-- Menu Body -->
-              <!-- Menu Footer-->
-              <li class="user-footer">
-                <div class="pull-left">
-                  <a href="{{url('admin/user/edit/'.Auth::user()->id)}}" class="btn btn-default btn-flat">Thông tin</a>
-                </div>
-                <div class="pull-right">
-                  <a href="{{url('admin/logout')}}" class="btn btn-default btn-flat">Đăng xuất</a>
-                </div>
-              </li>
-            </ul>
+          </li>
+          <li class="user user-menu">
+            <a href="{{url('admin/logout')}}">
+              <span class="hidden-xs">Đăng xuất</span>
+            </a>
           </li>
           @endif
         </ul>
@@ -96,7 +79,7 @@
           </a>
           <ul class="treeview-menu">
             <li id="tabCategoryList"><a href="{{url('admin/category')}}"><i class="fa fa-circle"></i> Danh sách Danh mục</a></li>
-            <li id="tabCategoryCreate"><a href="{{url('admin/category/create')}}"><i class="fa fa-circle"></i> Tạo Danh mục</a></li>
+            <li id="tabCategoryCreate"><a href="{{url('admin/category/create')}}"><i class="fa fa-circle"></i> Thêm Danh mục</a></li>
           </ul>
         </li>
         <li id="treeProduct" class="treeview ">
@@ -108,32 +91,19 @@
           </a>
           <ul class="treeview-menu">
             <li id="tabProductList"><a href="{{url('admin/product')}}"><i class="fa fa-circle"></i> Danh sách Sản phẩm</a></li>
-            <li id="tabProductCreate"><a href="{{url('admin/product/create')}}"><i class="fa fa-circle"></i> Tạo Sản phẩm</a></li>
+            <li id="tabProductCreate"><a href="{{url('admin/product/create')}}"><i class="fa fa-circle"></i> Thêm Sản phẩm</a></li>
           </ul>
         </li>
-        <li id="treeOrder" class="treeview ">
-          <a href="#">
-            <i class="fa fa-tasks"></i> <span>Đơn hàng</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li id="tabOrderList"><a href="{{url('admin/order')}}"><i class="fa fa-circle"></i> Danh sách Đơn hàng</a></li>
-          </ul>
-        </li>
-        <li id="treeUser" class="treeview">
-          <a href="#">
-            <i class="fa fa-id-card"></i> <span>Tài khoản</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li id="tabUserList"><a href="{{url('admin/user')}}"><i class="fa fa-circle"></i> Danh sách Tài khoản</a></li>
-          </ul>
-        </li>
-
+        <li id="treeOrder">
+         <a href="{{url('admin/order')}}">
+           <i class="fa fa-circle"></i> <span>Đơn hàng</span>
+         </a>
+       </li>
+       <li id="treeUser">
+        <a href="{{url('admin/user')}}">
+          <i class="fa fa-id-card"></i> <span>Tài khoản</span>
+        </a>
+      </li>
         <li id="treeBlog" class="treeview">
           <a href="#">
             <i class="fa fa-id-card"></i> <span>Blog</span>
@@ -142,8 +112,8 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li id="tabBlogList"><a href="{{url('admin/blog')}}"><i class="fa fa-circle"></i> Danh sách Blog</a></li>
-            <li id="tabBlogCreate"><a href="{{url('admin/blog/create')}}"><i class="fa fa-circle"></i> Tạo Blog</a></li>
+            <li id="tabBlogList"><a href="{{url('admin/blog')}}"><i class="fa fa-circle"></i> Danh sách Bài viết</a></li>
+            <li id="tabBlogCreate"><a href="{{url('admin/blog/create')}}"><i class="fa fa-circle"></i> Thêm Bài viết</a></li>
           </ul>
         </li>
         <li id="treeSetting" class="treeview">
@@ -154,9 +124,11 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li id="tabSettingPiece"><a href="{{url('admin/piece')}}"><i class="fa fa-circle"></i>Hạt</a></li>
+            <li id="tabSettingPiece"><a href="{{url('admin/piece')}}"><i class="fa fa-circle"></i>Các loại đá</a></li>
+            <li id="tabSettingCharm"><a href="{{url('admin/charm')}}"><i class="fa fa-circle"></i>Charm</a></li>
             <li id="tabSettingTopic"><a href="{{url('admin/topic')}}"><i class="fa fa-circle"></i>Topic</a></li>
             <li id="tabSettingAdvisory"><a href="{{url('admin/advisory')}}"><i class="fa fa-circle"></i>Tư vấn</a></li>
+            <li id="tabSettingCleanup"><a href="{{url('admin/cleanup')}}"><i class="fa fa-circle"></i>Cleanup</a></li>
           </ul>
         </li>
       </ul>

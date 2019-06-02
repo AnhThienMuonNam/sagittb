@@ -1,7 +1,7 @@
 @extends('admin.layout.header')
 
 @section('headerTitle')
-Admin - Danh sách Bài viết
+Danh sách Bài viết
 @endsection
 
 @section('content')
@@ -11,7 +11,7 @@ Admin - Danh sách Bài viết
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Bài viết
+      Danh sách Bài viết
       </h1>
     </section>
 
@@ -21,9 +21,6 @@ Admin - Danh sách Bài viết
       <div class="row">
         <div class="col-xs-12">
           <div class="box">
-            <div class="box-header">
-              <h3 class="box-title">Danh sách Bài viết</h3>
-
             <!-- /.box-header -->
             <div class="box-body table-responsive no-padding">
               <table class="table table-hover">
@@ -31,7 +28,6 @@ Admin - Danh sách Bài viết
                   <tr>
                     <th>Mã</th>
                     <th>Tên bài viết</th>
-                    <th>Mô tả</th>
                     <th>Ngày đăng</th>
                     <th>Đang hiển thị</th>
                     <th></th>
@@ -41,12 +37,11 @@ Admin - Danh sách Bài viết
                     <tr>
                       <td data-bind="text: id"></td>
                         <td data-bind="text: name"></td>
-                        <td data-bind="text: description"></td>
                         <td data-bind="text: created_at"></td>
                         <td data-bind="text: is_active ? 'Yes' : 'No'"></td>
                         <td>
-                            <a data-bind="attr: { href: 'blog/edit/' + id }"  title="Sửa" class="text-yellow"><i class="fa fa-pencil" style="font-size: 20px;"></i></a>&nbsp;
-                            <a href="#" data-bind="click: $root.removeBlog"  title="Xóa" class="text-danger"><i class="fa fa-trash-o" style="font-size: 20px;"></i></a>
+                            <a data-bind="attr: { href: 'blog/edit/' + id }"  title="Sửa" class="text-yellow"><i class="fa fa-pencil fa-2x"></i></a>&nbsp;
+                            <a href="#" data-bind="click: $root.removeBlog"  title="Xóa" class="text-danger"><i class="fa fa-trash-o fa-2x"></i></a>
                         </td>
                     </tr>
                 </tbody>
@@ -65,7 +60,7 @@ Admin - Danh sách Bài viết
 @endsection
 
 @section('script')
-<script src="{{asset('admin_asset/admin-blog-index.js')}}"></script>
+<script src="{{asset('admin_asset/blog/index.js')}}"></script>
 
 <script type="text/javascript">
 $(document).ready(function() {

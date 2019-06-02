@@ -1,6 +1,6 @@
 @extends('admin.layout.header')
 @section('headerTitle')
-Admin - Thêm Sản phẩm
+Thêm Sản phẩm
 @endsection
 
 @section('css')
@@ -22,7 +22,7 @@ Admin - Thêm Sản phẩm
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-       Sản phẩm
+      Thêm Sản phẩm
       </h1>
     </section>
 
@@ -33,10 +33,6 @@ Admin - Thêm Sản phẩm
         <div class="col-md-12">
           <!-- general form elements -->
           <div class="box box-primary">
-            <div class="box-header with-border">
-              <h3 class="box-title">Thêm Sản phẩm</h3>
-            </div>
-            <!-- /.box-header -->
             <!-- form start -->
               <!-- ko if: NotifyErrors -->
               <div class="alert alert-danger">
@@ -134,7 +130,7 @@ Admin - Thêm Sản phẩm
 @section('script')
 <script src="{{asset('js/bootstrap3-wysihtml5.all.min.js')}}"></script>
 <script src="{{asset('js/select2.full.min.js')}}"></script>
-<script src="{{asset('admin_asset/admin-product-create.js')}}"></script>
+<script src="{{asset('admin_asset/product/create.js')}}"></script>
 <script type="text/javascript">
   $(document).ready(function() {
      $('.textarea').wysihtml5();
@@ -145,10 +141,10 @@ Admin - Thêm Sản phẩm
 
     data.Categories = <?php echo json_encode($Categories); ?>;
     data.Pieces = <?php echo json_encode($Pieces); ?>;
-    
+
     options.ImagePath = <?php echo json_encode(asset('/images')); ?>;
-    options.UploadImage = <?php echo json_encode(url('/admin/product/uploadImage')); ?>;
-    options.DeleteImage = <?php echo json_encode(url('/admin/product/deleteImage')); ?>;
+    options.UploadImage = <?php echo json_encode(url('/admin/uploadImage')); ?>;
+    options.DeleteImage = <?php echo json_encode(url('/admin/deleteImage')); ?>;
     options.CreateProduct = <?php echo json_encode(url('/admin/product/createPost')); ?>;
 
     data.API_URLs = options;
