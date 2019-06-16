@@ -50,7 +50,7 @@ class HomeController extends Controller
         return view('page2.index',['Topics'=>$Topics, 'BestProducts'=>$BestProducts ]);
     }
 
-    public function getHotProducts(Request $request){
+    public function getProductsIndex(Request $request){
         $HotProducts = Product::select('id','name','alias','price','images')
                                 ->where('is_hot',1)
                                 ->where('is_deleted',0)
@@ -66,13 +66,15 @@ class HomeController extends Controller
                       ->skip(0)->take(2)
                       ->get();
 
+      return response()->json(['HotProducts'=>$HotProducts,
+                              'NewestBlogs'=>$NewestBlogs ]);
+    }
+
+    public function getInstagram(Request $request){
         $jsonIns = file_get_contents('https://api.instagram.com/v1/users/self/media/recent/?access_token=2096254071.1febbc9.6ec04b1bc6394da5a549d46265600d62&count=8');
         $objIns = json_decode($jsonIns);
 
-      return response()->json(['HotProducts'=>$HotProducts,
-                              
-                              'ObjIns'=>$objIns->data,
-                              'NewestBlogs'=>$NewestBlogs ]);
+        return response()->json([ 'ObjIns'=>$objIns->data ]);
     }
 
     public function categoryView($Alias, $Id)

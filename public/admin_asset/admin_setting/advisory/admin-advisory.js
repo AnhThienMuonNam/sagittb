@@ -13,6 +13,7 @@ function FormViewModel(data) {
 
     self.tatAch = ko.observable('(Trống)');
     self.sucKhoe = ko.observable('(Trống)');
+    self.thanVuong_dungThan = ko.observable('(Thân vượng & Dụng thần)');
 
     self.search = function(obj) {
       $.ajaxSetup({
@@ -38,13 +39,9 @@ function FormViewModel(data) {
           },
           success: function(response){
             var data = response;
-
-            var tatAch = data.tatAch.replace(/cung tật ách quý/gi, "<br />- Cung Tật Ách Quý");
-            tatAch = tatAch.replace(/cung tật ách của quý/gi, "<br />- Cung Tật Ách của Quý");
-            tatAch = tatAch.replace(/tam hợp cung tật ách/gi, "<br />- Tam hợp cung Tật Ách");
-
-            self.tatAch(tatAch);
+            self.tatAch(data.tatAch);
             self.sucKhoe(data.sucKhoe);
+            self.thanVuong_dungThan(data.thanVuong_dungThan);
           },
           error: function(xhr, error){
           },

@@ -20,20 +20,34 @@ class SettingController extends Controller
       $url = "http://phongthuy.xemtuong.net/";
       $tatAchUrl = $url."an_sao_tu_vi/index.php?".$this->fillParameters($request);
       $tatAchHtml = file_get_html($tatAchUrl);
-      $tatAchResult = strstr($tatAchHtml->plaintext, 'nhận thấy điểm huyền khí ở cung Tật ách');
-      $tatAchResult = strstr($tatAchResult, 'XemTuong.net nhận thấy điểm huyền khí ở cung Thiên di', true);
-      $tatAchResult = strstr($tatAchResult, 'THIÊN DI', true);
+      $tatAchFilterResult = strstr($tatAchHtml->outertext, "<a name='tat_ach'>");
+      $tatAchFilterResult = strstr($tatAchFilterResult, "<a name='thien_di'>", true);
+      $tatAchFilterResultHtml = str_get_html($tatAchFilterResult);
+      $tatAchFinalResult = '';
+      foreach($tatAchFilterResultHtml->find('.y_nghia') as $element)
+             $tatAchFinalResult = $tatAchFinalResult.'- '.$element->plaintext.'<br>';
 
       $sucKhoeUrl = $url."KHHB/tu_binh_bat_tu_tru/index.php?".$this->fillParameters($request);
       $sucKhoeHtml = file_get_html($sucKhoeUrl);
-      $sucKhoeResult = strstr($sucKhoeHtml->plaintext, 'Sức Khẻo');
-      $sucKhoeResult = strstr($sucKhoeResult, 'Hướng Dẫn Xem', true);
-      $sucKhoeResult = str_replace('Sức Khẻo & Bệnh Tật', '', $sucKhoeResult);
+      $sucKhoeFilterResult = strstr($sucKhoeHtml->outertext, 'Sức Khẻo');
+      $sucKhoeFilterResult = strstr($sucKhoeFilterResult, 'Hướng Dẫn Xem', true);
 
-      return response()->json(['tatAch' => $tatAchResult,
-                              'sucKhoe' => $sucKhoeResult,
+      $sucKhoeFilterResultHtml = str_get_html($sucKhoeFilterResult);
+      $sucKhoeFinalResult = '';
+      foreach($sucKhoeFilterResultHtml->find('.tuvi_title_nho') as $element)
+             $sucKhoeFinalResult = $sucKhoeFinalResult.'- '.$element->plaintext.'<br>';
+
+      //DUNGTHAN
+      $thanvuong_dungthan = '';
+      foreach($sucKhoeHtml->find('.laso_title') as $element)
+             $thanvuong_dungthan = $element->plaintext;
+
+     $thanvuong_dungthan = strstr($thanvuong_dungthan, 'Thân Vượng:');
+
+      return response()->json(['tatAch' => $tatAchFinalResult,
+                              'sucKhoe' => $sucKhoeFinalResult,
                               'tatAchUrl' => $tatAchUrl,
-                              'sucKhoeUrl' => $sucKhoeUrl
+                              'thanVuong_dungThan' => $thanvuong_dungthan
                             ]);
   }
 

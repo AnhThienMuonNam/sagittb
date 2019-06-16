@@ -227,15 +227,18 @@ Admin - Tư vấn
          <form class="form-horizontal">
            <div class="box-body">
              <div class="form-group">
-               <label for="inputEmail3" class="col-sm-2 control-label">Tật ách</label>
+               <label class="col-sm-offset-2 col-sm-10 control-label" data-bind="text: thanVuong_dungThan" style="text-align: left;"></label>
+             </div>
+             <div class="form-group">
+               <label class="col-sm-2 control-label">Tật ách</label>
                <div class="col-sm-10">
                 <span data-bind="html: tatAch"></span>
                </div>
              </div>
              <div class="form-group">
-               <label for="inputEmail3" class="col-sm-2 control-label">Sức khoẻ & bệnh tật</label>
+               <label class="col-sm-2 control-label">Sức khoẻ & bệnh tật</label>
                <div class="col-sm-10">
-                <span data-bind="text: sucKhoe"></span>
+                <span data-bind="html: sucKhoe"></span>
                </div>
              </div>
            </div>

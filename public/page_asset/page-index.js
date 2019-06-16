@@ -1,9 +1,10 @@
 var IndexViewModel = function(data) {
     self.HotProducts = ko.observableArray([]);
-    self.BestProducts = ko.observableArray([]);
     self.ObjIns = ko.observableArray([]);
     self.NewestBlogs = ko.observableArray([]);
     self.IsShowLoading = ko.observable(true);
+    self.IsShowInstagramLoading = ko.observable(true);
+
     self.ImagePath = ko.observable(data.API_URLs.ImagePath || null);
     self.PublicPath = ko.observable(data.API_URLs.PublicPath || null);
 
@@ -22,19 +23,18 @@ var IndexViewModel = function(data) {
         }
         return result ? result : stringPath;
     };
-    self.getHotProducts = function(){
+
+    function getProductsIndex(){
         $.ajaxSetup({
             headers: {'X-CSRF-Token': $('#_token').val()}
         });
         $.ajax({
-            url: data.API_URLs.GetHotProducts,
+            url: data.API_URLs.GetProductsIndex,
             type: "POST",
             data: { },
             success: function(response){
                 self.IsShowLoading(false);
                 self.HotProducts(response.HotProducts);
-                self.BestProducts(response.BestProducts);
-                self.ObjIns(response.ObjIns);
                 self.NewestBlogs(response.NewestBlogs);
             },
             error: function(xhr, error){
@@ -42,8 +42,28 @@ var IndexViewModel = function(data) {
             }
         });
     };
+
+    function getInstagram(){
+        $.ajaxSetup({
+            headers: {'X-CSRF-Token': $('#_token').val()}
+        });
+        $.ajax({
+            url: data.API_URLs.GetInstagram,
+            type: "POST",
+            data: { },
+            success: function(response){
+                self.IsShowInstagramLoading(false);
+                self.ObjIns(response.ObjIns);
+            },
+            error: function(xhr, error){
+
+            }
+        });
+    };
+
     function init(){
-      self.getHotProducts();
+      getProductsIndex();
+      getInstagram();
     }
 
     init();

@@ -178,4 +178,5 @@ Route::get('blog', 'HomeController@blogView');
 Route::get('blog/{Alias}/{Id}', 'HomeController@blogDetailView');
 
 //Index page
-Route::post('getHotProducts', 'HomeController@getHotProducts');
+Route::post('getProductsIndex', 'HomeController@getProductsIndex');
+Route::post('getInstagram', 'HomeController@getInstagram');

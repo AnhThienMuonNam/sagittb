@@ -207,7 +207,7 @@
   <!--latest jewellery collection-->
   <section class="bg-2 content-section" style="background: #f4f4f4;">
     <h2 class="text-center  wow fadeInDown">INSTAGRAM <a href="https://www.instagram.com/sagittb_com/" target="_blank" style="font-size:12px; font-style: italic;">(Xem thêm)</a></h2>
-    <!-- ko if: IsShowLoading() == true -->
+    <!-- ko if: IsShowInstagramLoading() == true -->
   <div style="text-align: center;"> <img src="{{asset('images/default/loading.gif')}}" > </div>
   <!-- /ko -->
     <div class="clearfix"></div>
@@ -249,7 +249,8 @@
 
     options.ImagePath = <?php echo json_encode(asset('/images')); ?>;
     options.PublicPath = <?php echo json_encode(url('')); ?>;
-    options.GetHotProducts = <?php echo json_encode(url('getHotProducts')); ?>;
+    options.GetProductsIndex = <?php echo json_encode(url('getProductsIndex')); ?>;
+    options.GetInstagram = <?php echo json_encode(url('getInstagram')); ?>;
 
     data.API_URLs = options;
     ko.applyBindings(IndexViewModel(data), document.getElementById("page-single"));
