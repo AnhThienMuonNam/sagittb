@@ -75,7 +75,7 @@ Danh sách Tài khoản
                         <td class="col-xs-3" data-bind="text: email"></td>
                         <td class="col-xs-2" data-bind="text: phone"></td>
                         <td class="col-xs-2" data-bind="text: city ? city.name : ''"></td>
-                        <td class="col-xs-2" data-bind="text: is_admin == 1 ? 'Admin' : 'Normal'"></td>
+                        <td class="col-xs-2" data-bind="text: is_admin == 1 ? 'Admin' : 'User'"></td>
                         <td class="col-xs-0">
                             <a data-bind="attr: { href: 'user/edit/' + id }"  title="Sửa" class="text-yellow"><i class="fa fa-pencil fa-2x"></i></a>
                         </td>

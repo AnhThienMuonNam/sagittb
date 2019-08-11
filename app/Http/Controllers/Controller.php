@@ -11,10 +11,10 @@ use App\Category;
 
 class Controller extends BaseController
 {
-    use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
-    function __construct()
+	use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+	function __construct()
 	{
-		$MenuCategories = Category::select('id','name','alias','image')->where('is_active',1)->where('is_deleted',0)->get();
-		view()->share(['MenuCategories'=>$MenuCategories]);
+		$MenuCategories = Category::select('id', 'name', 'alias', 'image')->where('is_active', 1)->where('is_deleted', 0)->get();
+		view()->share(['MenuCategories' => $MenuCategories]);
 	}
 }

@@ -28,23 +28,20 @@ class User extends Authenticatable
     ];
 
     public function District()
-    {
-    }
+    { }
 
     public function lichsu_tracuus()
     {
-        return $this->hasMany('App\Lichsu_Tracuu','user_id', 'id');
+        return $this->hasMany('App\Lichsu_Tracuu', 'user_id', 'id');
     }
 
     public function wish_lists()
     {
-        return $this->hasMany('App\Wish_List','user_id', 'id');
+        return $this->hasMany('App\Wish_List', 'user_id', 'id');
     }
 
     public function city()
     {
-        return $this->belongsTo('App\City','city_id', 'id');
+        return $this->belongsTo('App\City', 'city_id', 'id');
     }
-
-
 }

@@ -7,9 +7,9 @@ function FormViewModel(data) {
     self.PopularPosts = ko.observableArray(data.PopularPosts || [])
 
     self.showContent = function (text) {
-       if (text) {
-           return unescape(text);
-       }
-       return '';
-   }
+        if (text) {
+            return unescape(text);
+        }
+        return '';
+    }
 }

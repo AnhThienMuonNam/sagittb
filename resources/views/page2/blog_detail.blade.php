@@ -11,7 +11,7 @@
   </div>
 </section>
 <!--page heading-->
- <div id="page-blog" class="blog-bg">
+<div id="page-blog" class="blog-bg">
   <div class="container">
     <div class="shop-in">
       <!--breadcrumbs -->
@@ -33,7 +33,7 @@
             <div class="wow fadeIn">
               <h1 data-bind="text: Blog().name"></h1>
               <ul class="comm-date">
-                   <li><i class="fa fa-calendar" aria-hidden="true"></i>&nbsp;&nbsp;<span data-bind="text: Blog().created_at"></span> </li>
+                <li><i class="fa fa-calendar" aria-hidden="true"></i>&nbsp;&nbsp;<span data-bind="text: Blog().created_at"></span> </li>
               </ul>
               <div><img src="images/blog1.jpg" alt="" title="" class="img-responsive"></div>
             </div>
@@ -42,14 +42,14 @@
 
 
 
-<p data-bind="html: showContent(Blog().content)"></p>
+              <p data-bind="html: showContent(Blog().content)"></p>
 
 
 
 
-<hr class="pro-hr">
+              <hr class="pro-hr">
 
-<div class="clearfix"></div>
+              <div class="clearfix"></div>
 
 
             </div>
@@ -68,7 +68,7 @@
                 <h1>Đọc nhiều nhất</h1>
                 <div class="clearfix"></div>
                 <div class="row">
-                    <!-- ko foreach: PopularPosts -->
+                  <!-- ko foreach: PopularPosts -->
                   <div class="col-md-4 col-sm-5 col-xs-3"> <img data-bind="attr: { src: ImagePath() + '/' + image }" alt="" title="" class="img-responsive"> </div>
                   <div class="col-md-8 col-sm-7 col-xs-9">
                     <h4><a data-bind="attr:{href: PublicPath()+'/blog/'+ $data.alias+'/'+$data.id},text: name"></a></h4>
@@ -120,20 +120,19 @@
 @section('script')
 <script src="{{asset('page_asset/page-blog-detail.js')}}"></script>
 <script type="text/javascript">
- $(document).ready(function() {
-  var data = {};
-  var options = {};
-  data.Blog = <?php echo json_encode($blog); ?>;
-  data.PopularPosts = <?php echo json_encode($popularPosts); ?>;
+  $(document).ready(function() {
+    var data = {};
+    var options = {};
+    data.Blog = <?php echo json_encode($blog); ?>;
+    data.PopularPosts = <?php echo json_encode($popularPosts); ?>;
 
 
-  options.ImagePath = <?php echo json_encode(asset('/images')); ?>;
-  options.PublicPath = <?php echo json_encode(url('')); ?>;
+    options.ImagePath = <?php echo json_encode(asset('/images')); ?>;
+    options.PublicPath = <?php echo json_encode(url('')); ?>;
 
-  data.API_URLs = options;
+    data.API_URLs = options;
 
-  ko.applyBindings(FormViewModel(data), document.getElementById("page-blog"));
-});
-
+    ko.applyBindings(FormViewModel(data), document.getElementById("page-blog"));
+  });
 </script>
 @endsection

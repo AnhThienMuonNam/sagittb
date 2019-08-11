@@ -439,29 +439,24 @@
             </div>
           </div>
 
-          <div class="form-group">
-            <div class="col-md-6 col-xs-12">
-                <a data-bind="attr:{href: FilterProduct_master()+'/'+LunarYearTag_master()}" target="_blank" class="btn btn-default button-1 col-xs-12" style="font-weight: bold; border-radius: 6px; color: #fff; ">Xem s/p liên quan</a>
-            </div>
-              <!-- ko if: IsShowLogin_master() == false && IsShowRegister_master() == false-->
-            <div class="col-md-6 col-xs-12">
-                <a href="#" data-bind="click: TuVanButton" class="btn btn-default button-1 col-xs-12" style="font-weight: bold; border-radius: 6px; color: #fff;">Tư vấn miễn phí</a>
-            </div>
-              <!-- /ko -->
-
+          <div class="box-footer">
+            <!-- ko if: IsShowLogin_master() == false && IsShowRegister_master() == false-->
+            <a data-bind="click: SaveKQTraCuu" target="_blank" class="btn btn-default button-1" style="font-weight: bold; border-radius: 6px; color: #fff; ">Nhận KQ tư vấn</a>
+            <a href="#" data-bind="click: TuVanButton" class="btn btn-default button-1  pull-right" style="font-weight: bold; border-radius: 6px; color: #fff;">Tư vấn miễn phí</a>
+            <!-- /ko -->
           </div>
-
             <!-- ko if: IsShowRegister_master() == true -->
+          <br>
           <form class="form-horizontal">
-           <!-- ko if: NotifyCreateUserErrors_master().length > 0 -->
-           <div class="alert alert-danger">
+              <!-- ko if: NotifyCreateUserErrors_master().length > 0 -->
+              <div class="alert alert-danger">
                 <!-- ko foreach: NotifyCreateUserErrors_master -->
                 <span data-bind="text: $data"></span>
                 <!-- /ko -->
               </div>
-            <!-- /ko -->
+              <!-- /ko -->
              <!-- ko if: NotifyCreateUserSuccess_master -->
-           <div class="alert alert-success">
+             <div class="alert alert-success">
                 <span data-bind="text: NotifyCreateUserSuccess_master"></span>
                 <hr/>
                 <a href="https://www.facebook.com/messages/t/SagittB" target="_blank" style="font-weight: bold;">*Ghi chú: Bấm vào đây nếu hệ thống không chuyển tới trang tư vấn.</a>
@@ -501,7 +496,7 @@
   <!-- /ko -->
 
   <!-- ko if: IsShowLogin_master() == true -->
-
+        <br>
         <form class="form-horizontal">
           <!-- ko if: NotifyErrors_master().length > 0 -->
             <div class="alert alert-danger">
@@ -618,97 +613,6 @@
 <div id="wrapper">
 
   @yield('content')
-  <!--footer-->
-
-  <!-- <div class="main-section" style="z-index: 99999;">
-    <div class="row border-chat">
-      <div class="col-md-12 col-sm-12 col-xs-12 first-section">
-        <div class="row">
-          <div class="col-md-8 col-sm-6 col-xs-6 left-first-section">
-            <p>Chat</p>
-          </div>
-          <div class="col-md-4 col-sm-6 col-xs-6 right-first-section">
-            <a href="#"><i class="fa fa-minus" aria-hidden="true"></i></a>
-            <a href="#"><i class="fa fa-clone" aria-hidden="true"></i></a>
-            <a href="#"><i class="fa fa-times" aria-hidden="true"></i></a>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="row border-chat">
-      <div class="col-md-12 col-sm-12 col-xs-12 second-section">
-        <div class="chat-section">
-          <ul>
-            <li>
-              <div class="left-chat">
-                <img src="/demo/man01.png">
-                <p>Lorem ipsum dolor sit ameeserunt.
-                </p>
-                <span>2 min</span>
-              </div>
-            </li>
-            <li>
-              <div class="right-chat">
-                <img src="/demo/man02.png">
-                <p>Lorem ipsum dolor sit ameeserunt.</p>
-                <span>2 min</span>
-              </div>
-            </li>
-            <li>
-              <div class="left-chat">
-                <img src="/demo/man01.png">
-                <p>Lorem ipsum dolor sit ameeserunt.</p>
-                <span>2 min</span>
-              </div>
-            </li>
-            <li>
-              <div class="right-chat">
-                <img src="/demo/man02.png">
-                <p>Lorem ipsum dolor sit ameeserunt.</p>
-                <span>2 min</span>
-              </div>
-            </li>
-            <li>
-              <div class="left-chat">
-                <img src="/demo/man01.png">
-                <p>Lorem ipsum dolor sit ameeserunt.</p>
-                <span>2 min</span>
-              </div>
-            </li>
-            <li>
-              <div class="right-chat">
-                <img src="/demo/man02.png">
-                <p>Lorem ipsum dolor sit ameeserunt.</p>
-                <span>2 min</span>
-              </div>
-            </li>
-            <li>
-              <div class="left-chat">
-                <img src="/demo/man01.png">
-                <p>Lorem ipsum dolor sit ameeserunt.</p>
-                <span>2 min</span>
-              </div>
-            </li>
-            <li>
-              <div class="right-chat">
-                <img src="/demo/man02.png">
-                <p>Lorem ipsum dolor sit ameeserunt.</p>
-                <span>2 min</span>
-              </div>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-    <div class="row border-chat">
-      <div class="col-md-12 col-sm-12 col-xs-12 third-section" style="background: white;">
-        <div class="text-bar">
-          <input type="text" placeholder="Write messege"><a href="#"><i class="fa fa-arrow-right" aria-hidden="true"></i></a>
-        </div>
-      </div>
-    </div>
-  </div> -->
-
 
 <div class="footer-css">
   <div class="newsletter wow fadeIn">
@@ -797,27 +701,7 @@
     </div>
   </div>
 </div>
-<p data-toggle="modal" class="no-margin" data-target="#myModal" id="model2"></p>
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog"  aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <!-- Modal Header -->
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span> <span class="sr-only">Close</span> </button>
-        <h4 class="modal-title"></h4>
-      </div>
-      <!-- Modal Body -->
-      <div class="modal-body">
-        <h1 class="modal-title text-center">Thank You</h1>
-        <form class="form-horizontal">
-          <h4 class="text-center">We will get back to you as soon as possible.</h4>
-        </form>
-      </div>
-      <!-- Modal Footer -->
-    </div>
-  </div>
-</div>
-<!--themes js-->
+
 <script src="{{asset('js/ajax.js')}}"></script>
 <script src="{{asset('js/formValidation.js')}}"></script>
 <script src="{{asset('js/bootstrap.min.js')}}"></script>

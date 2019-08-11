@@ -4,12 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-
-
 class IntroController extends Controller
 {
-  
-    //shop trang suc
+
     public function aboutUs()
     {
         return view('page2.intro.about_us');
@@ -25,10 +22,8 @@ class IntroController extends Controller
         return view('page2.intro.guarantee_policy');
     }
 
-     public function jewelleryCare()
+    public function jewelleryCare()
     {
         return view('page2.intro.jewellery_care');
     }
-
-
 }

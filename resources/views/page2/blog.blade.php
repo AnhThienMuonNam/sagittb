@@ -11,7 +11,7 @@
   </div>
 </section>
 <!--page heading-->
- <div id="page-blog" class="blog-bg">
+<div id="page-blog" class="blog-bg">
   <div class="container">
     <div class="shop-in">
       <!--breadcrumbs -->
@@ -35,14 +35,14 @@
               <ul class="comm-date">
                 <li><i class="fa fa-calendar" aria-hidden="true"></i>&nbsp;&nbsp;<span data-bind="text: created_at"></span></li>
               </ul>
-              <div><img data-bind="attr: { src: ImagePath() + '/' + image }"  alt="" title="" class="img-responsive"></div>
+              <div><img data-bind="attr: { src: ImagePath() + '/' + image }" alt="" title="" class="img-responsive"></div>
               <div class="blog-text">
                 <p data-bind="text: description"></p>
               </div>
               <div class="pull-left">
                 <div class="share2">
 
-                  <a href="#" class="icoFacebook" title="Facebook"><i class="fa fa-facebook"></i></a>  <a href="#" class="icoGoogle" title="Google +"><i class="fa fa-google-plus"></i></a> </div>
+                  <a href="#" class="icoFacebook" title="Facebook"><i class="fa fa-facebook"></i></a> <a href="#" class="icoGoogle" title="Google +"><i class="fa fa-google-plus"></i></a> </div>
               </div>
               <div class="pull-right"><a data-bind="attr:{href: PublicPath()+'/blog/'+ $data.alias+'/'+$data.id}" class="link-txt">Xem chi tiết <i class="fa fa-long-arrow-right" aria-hidden="true"></i></a> </div>
             </div>
@@ -57,7 +57,7 @@
             <h1>Bài viết cũ hơn</h1>
             <div class="carousel slide">
               <!-- Carousel items -->
-              <div class="posts-arrow"> <a class="" href="#" >‹</a> <a class="" href="#" >›</a> </div>
+              <div class="posts-arrow"> <a class="" href="#">‹</a> <a class="" href="#">›</a> </div>
               <div class="carousel-inner">
                 <div class="item active">
                   <div class="row">
@@ -85,7 +85,7 @@
                 <h1>Đọc nhiều nhất</h1>
                 <div class="clearfix"></div>
                 <div class="row">
-                    <!-- ko foreach: PopularPosts -->
+                  <!-- ko foreach: PopularPosts -->
                   <div class="col-md-4 col-sm-5 col-xs-3"> <img data-bind="attr: { src: ImagePath() + '/' + image }" alt="" title="" class="img-responsive"> </div>
                   <div class="col-md-8 col-sm-7 col-xs-9">
                     <h4><a data-bind="attr:{href: PublicPath()+'/blog/'+ $data.alias+'/'+$data.id},text: name"></a></h4>
@@ -140,20 +140,19 @@
 @section('script')
 <script src="{{asset('page_asset/page-blog.js')}}"></script>
 <script type="text/javascript">
- $(document).ready(function() {
-  var data = {};
-  var options = {};
-  data.Blogs = <?php echo json_encode($blogs); ?>;
-  data.OldBlogs = <?php echo json_encode($oldBlogs); ?>;
-  data.PopularPosts = <?php echo json_encode($popularPosts); ?>;
+  $(document).ready(function() {
+    var data = {};
+    var options = {};
+    data.Blogs = <?php echo json_encode($blogs); ?>;
+    data.OldBlogs = <?php echo json_encode($oldBlogs); ?>;
+    data.PopularPosts = <?php echo json_encode($popularPosts); ?>;
 
-  options.ImagePath = <?php echo json_encode(asset('/images')); ?>;
-  options.PublicPath = <?php echo json_encode(url('')); ?>;
+    options.ImagePath = <?php echo json_encode(asset('/images')); ?>;
+    options.PublicPath = <?php echo json_encode(url('')); ?>;
 
-  data.API_URLs = options;
+    data.API_URLs = options;
 
-  ko.applyBindings(FormViewModel(data), document.getElementById("page-blog"));
-});
-
+    ko.applyBindings(FormViewModel(data), document.getElementById("page-blog"));
+  });
 </script>
 @endsection

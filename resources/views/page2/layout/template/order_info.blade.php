@@ -1,6 +1,7 @@
 <html>
+
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Thông tin Đơn hàng</title>
 </head>
 
@@ -12,10 +13,10 @@
             <div style="clear:both"></div>
         </div>
         <div>
-            <img src="host}/resources/images/thongtin-donhang_01.jpg" alt=""/>
+            <img src="host}/resources/images/thongtin-donhang_01.jpg" alt="" />
             <table width="100%" border="0" cellspacing="0" cellpadding="0" style="margin-top: 10px;">
                 <tr>
-                    <td><img alt="" src="host}/resources/images/thongtin-donhang_10.jpg" width="23" height="15"/></td>
+                    <td><img alt="" src="host}/resources/images/thongtin-donhang_10.jpg" width="23" height="15" /></td>
                     <td style="font-style:italic; font-size: 15px; color: red;">Lưu ý: Đây là email tự động, xin vui lòng không trả lời email này.</td>
                 </tr>
             </table>
@@ -26,13 +27,13 @@
 
             <div style="border-bottom: dashed 1px #CCC;line-height:20px; padding-bottom:10px;"><span style=" color:#0d7caa; font-weight:bold;text-decoration:underline;"> Thông Tin Sản phẩm:</span> <br />
                 <table width="100%">
-                  	@foreach($contentEmail['cart'] as $item)
+                    @foreach($contentEmail['cart'] as $item)
                     <tr>
                         <td width="150px">
-                            Sản phẩm  x  Số.lg:
+                            Sản phẩm x Số.lg:
                         </td>
                         <td>
-                          {{$item['name']}}  x  {{$item['quanlity']}}
+                            {{$item['name']}} x {{$item['quanlity']}}
                         </td>
                     </tr>
                     <tr>
@@ -48,11 +49,11 @@
                             Thành tiền:
                         </td>
                         <td>
-                        {{number_format($item['price'], 0, ',', '.').'(đ)'}}
+                            {{number_format($item['price'], 0, ',', '.').'(đ)'}}
                         </td>
                     </tr>
                     <hr>
-                     @endforeach
+                    @endforeach
                 </table>
             </div>
             <div style="border-bottom: dashed 1px #CCC;line-height:20px; padding-bottom:10px; padding-top: 10px"><span style=" color:#0d7caa; font-weight:bold;text-decoration:underline;"> Thông Tin Giao Nhận:</span> <br />
@@ -62,7 +63,7 @@
                             Địa chỉ :
                         </td>
                         <td>
-                      {{$contentEmail['order']->customer_address}}, Quận/Huyện: {{$contentEmail['order']->customer_district}}, Tỉnh/Thành phố: {{$contentEmail['order']->customer_city}}
+                            {{$contentEmail['order']->customer_address}}, Quận/Huyện: {{$contentEmail['order']->customer_district}}, Tỉnh/Thành phố: {{$contentEmail['order']->customer_city}}
                         </td>
                     </tr>
                     <tr>
@@ -70,7 +71,7 @@
                             Tên người nhận :
                         </td>
                         <td>
-                      {{$contentEmail['order']->customer_name}}
+                            {{$contentEmail['order']->customer_name}}
                         </td>
                     </tr>
                     <tr>
@@ -78,7 +79,7 @@
                             Số điện thoại:
                         </td>
                         <td>
-                      {{$contentEmail['order']->customer_phone}}
+                            {{$contentEmail['order']->customer_phone}}
                         </td>
                     </tr>
 
@@ -87,7 +88,7 @@
                             Tình trạng thanh toán:
                         </td>
                         <td>
-                        Chưa thanh toán
+                            Chưa thanh toán
                         </td>
                     </tr>
                     <tr>
@@ -95,80 +96,80 @@
                             <a href="{{url('order/'.$contentEmail['order']->random_code)}}">Xem chi tiết >>></a>
                         </td>
                         <td>
-                      &nbsp;
+                            &nbsp;
                         </td>
                     </tr>
                 </table>
             </div>
             <div style="border-bottom: dashed 1px #CCC;line-height:20px; padding-bottom:10px; padding-top: 10px"><span style=" color:#0d7caa; font-weight:bold;text-decoration:underline;"> Thông Tin tài khoản Ngân Hàng:</span> <br />
-               <table width="100%">
-                   <tr>
-                       <td width="150px">
-                          Ngân hàng :
-                       </td>
-                       <td>
-                          Ngân hàng thương mại cổ phần Ngoại thương Việt Nam - VietcomBank
-                       </td>
-                   </tr>
-                   <tr>
-                       <td>
-                           Chủ tài khoản :
-                       </td>
-                       <td>
-                          TRẦN THỊ THÙY NGÂN
-                       </td>
-                   </tr>
-                   <tr>
-                       <td>
-                           Số tài khoản:
-                       </td>
-                       <td>
-                           0531002475329
-                       </td>
-                   </tr>
-                   <tr style = "color: red;">
-                       <td>
+                <table width="100%">
+                    <tr>
+                        <td width="150px">
+                            Ngân hàng :
+                        </td>
+                        <td>
+                            Ngân hàng thương mại cổ phần Ngoại thương Việt Nam - VietcomBank
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Chủ tài khoản :
+                        </td>
+                        <td>
+                            TRẦN THỊ THÙY NGÂN
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Số tài khoản:
+                        </td>
+                        <td>
+                            0531002475329
+                        </td>
+                    </tr>
+                    <tr style="color: red;">
+                        <td>
                             <div style="  border-bottom: dashed 1px #CCC; padding-bottom:10px;"></div>
-                       </td>
-                          <td>
+                        </td>
+                        <td>
                             <div style="  border-bottom: dashed 1px #CCC; padding-bottom:10px;"></div>
-                       </td>
-                   </tr>
-                   <tr>
-                       <td>
-                           Ngân hàng :
-                       </td>
-                       <td>
-                          Ngân hàng thương mại cổ phần Á Châu ACB
-                       </td>
-                   </tr>
-                   <tr>
-                       <td>
-                           Chủ tài khoản :
-                       </td>
-                       <td>
-                          TRẦN THỊ THÙY NGÂN
-                       </td>
-                   </tr>
-                   <tr>
-                       <td>
-                           Số tài khoản
-                       </td>
-                       <td>
-                           548197
-                       </td>
-                   </tr>
-               </table>
-           </div>
-           <div style=" padding-bottom:10px; padding-top: 10px"><span style=" color:#0d7caa; font-weight:bold;text-decoration:underline;"> Hướng dẫn thanh toán đơn hàng:</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Ngân hàng :
+                        </td>
+                        <td>
+                            Ngân hàng thương mại cổ phần Á Châu ACB
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Chủ tài khoản :
+                        </td>
+                        <td>
+                            TRẦN THỊ THÙY NGÂN
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Số tài khoản
+                        </td>
+                        <td>
+                            548197
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div style=" padding-bottom:10px; padding-top: 10px"><span style=" color:#0d7caa; font-weight:bold;text-decoration:underline;"> Hướng dẫn thanh toán đơn hàng:</span>
 
-           </div>
-             <div style="margin-bottom:20px;"><u>Thanh toán theo nội dung</u>  : SagittB don hang {orderId} - Tên - SĐT
+            </div>
+            <div style="margin-bottom:20px;"><u>Thanh toán theo nội dung</u> : SagittB don hang {orderId} - Tên - SĐT
 
-           </div>
-           <div style = "color: red;">
-              <i>Chú ý </i> : Quý khách thanh toán chậm nhất là ngày <b>{date}</b> , qua thời gian này hệ thống sẽ tự động hủy đơn hàng của bạn
-           </div>
+            </div>
+            <div style="color: red;">
+                <i>Chú ý </i> : Quý khách thanh toán chậm nhất là ngày <b>{date}</b> , qua thời gian này hệ thống sẽ tự động hủy đơn hàng của bạn
+            </div>
             <div style="  border-bottom: dashed 1px #CCC; padding-bottom:10px;"></div>
             <div style="margin-bottom:20px;">Nếu có bất kỳ khó khăn nào trong quá trình sử dụng và quản lý dịch vụ, bộ phận hỗ trợ kĩ thuật của SagittB
                 luôn sẵn sàng phục vụ bạn.</div>
@@ -196,13 +197,13 @@
                             <div style="background-color:#cfe5ee; line-height:25px; width:290px;"><a style="text-decoration:none; color:#000;" target="_blank" href="websiteUrl}">website.com</a></div>
                         </div>
                     </td>
-                    <td width="-1%"><img src="host}/resources/images/thongtin-donhang_14.jpg" width="1" height="69"/></td>
+                    <td width="-1%"><img src="host}/resources/images/thongtin-donhang_14.jpg" width="1" height="69" /></td>
                     <td width="44%">
                         <table width="80%" border="0" cellspacing="0" cellpadding="0" style="margin:0 auto; font-size: 12px">
                             <tr>
                                 <td>Theo dõi SagittB tại:</td>
-                                <td width="15%"><a href="facebookUrl" target="_blank"><img src="host}/resources/images/thongtin-donhang_17.jpg" width="41" height="38"/></a></td>
-                                <td width="15%"><a href="googlePlusUrl" target="_blank"><img src="host}/resources/images/thongtin-donhang_18.jpg" width="40" height="38"/></a></td>
+                                <td width="15%"><a href="facebookUrl" target="_blank"><img src="host}/resources/images/thongtin-donhang_17.jpg" width="41" height="38" /></a></td>
+                                <td width="15%"><a href="googlePlusUrl" target="_blank"><img src="host}/resources/images/thongtin-donhang_18.jpg" width="40" height="38" /></a></td>
                             </tr>
                         </table>
                     </td>
@@ -211,4 +212,5 @@
         </div>
     </div>
 </body>
+
 </html>

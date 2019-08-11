@@ -76,56 +76,6 @@ var FormViewModel = function(data) {
 
     self.SuccessNotifyForPopup = ko.observable(null);
 
-    self.openPopupGetOTPForUpdateInfo = function(){
-        self.WhichAction(1);
-        $("#modalGetOTPCodePageProfile").modal()
-    };
-
-    self.openPopupGetOTPForChangePassword = function(){
-        self.WhichAction(2);
-        $("#modalGetOTPCodePageProfile").modal()
-    };
-
-    self.OTPCode = ko.observable(null);
-
-    self.UpdateUserCommon = function(){
-      if(self.WhichAction() == 1){
-        self.updateUser();
-      } else if(self.WhichAction() == 2) {
-        self.changePassword();
-      }
-    };
-
-    self.GetOTP = function() {
-       $.ajaxSetup({
-            headers: {'X-CSRF-Token': $('#_token').val()}
-        });
-        $.ajax({
-            url: data.API_URLs.GetOTP,
-            type: "POST",
-            data: {
-                    Email : self.Email()
-                    },
-            success: function(response){
-
-              self.SuccessNotifyForPopup('');
-                if(response.IsSuccess == true){
-                  self.SuccessNotifyForPopup('Mã xác thực đã được gửi vào email của bạn');
-                }
-            },
-            error: function(xhr, error){
-                console.log(xhr.responseText);
-                // alert("Something went wrong :(")
-            },
-        });
-    };
-
-
-
-
-
-
-
     self.updateUser = function(){
         self.NotifyErrors('');
         if(!self.Name() || !self.Phone()){
@@ -156,10 +106,8 @@ var FormViewModel = function(data) {
             },
             success: function(response){
                 if(response.IsSuccess == true){
-                  $('#modalGetOTPCodePageProfile').modal('toggle');
                     alertify.success('<i class="fa fa-bell" aria-hidden="true"></i><strong> Cập nhật thành công </strong>');
                 }
-                // self.notifySuccess.push(response.message);
             },
             error: function(xhr, error){
                 for(item in xhr.responseJSON){
@@ -197,7 +145,6 @@ var FormViewModel = function(data) {
                     },
             success: function(response){
                 if(response.IsSuccess == true){
-                    $('#modalGetOTPCodePageProfile').modal('toggle');
                     alertify.success('<i class="fa fa-bell" aria-hidden="true"></i><strong> Đổi mật khẩu thành công </strong>');
                 }
                 if(response.IsSuccess == false){

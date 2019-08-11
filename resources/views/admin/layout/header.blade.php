@@ -128,7 +128,6 @@
             <li id="tabSettingCharm"><a href="{{url('admin/charm')}}"><i class="fa fa-circle"></i>Charm</a></li>
             <li id="tabSettingTopic"><a href="{{url('admin/topic')}}"><i class="fa fa-circle"></i>Topic</a></li>
             <li id="tabSettingAdvisory"><a href="{{url('admin/advisory')}}"><i class="fa fa-circle"></i>Tư vấn</a></li>
-            <li id="tabSettingCleanup"><a href="{{url('admin/cleanup')}}"><i class="fa fa-circle"></i>Cleanup</a></li>
           </ul>
         </li>
       </ul>

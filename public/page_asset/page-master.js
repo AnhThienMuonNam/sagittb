@@ -812,6 +812,10 @@ var MasterViewModel = function(data) {
   self.CungphiNu_master = ko.observable();
 
   self.IsShowMoreButton = ko.observable(false);
+  self.IsSaveKQTraCuu_master = ko.observable(false);
+
+  var tra_cuu_master = '';
+  var ket_qua_master = '';
 
   self.calculateCanchi = function() {
     if(!self.Date_master()) return;
@@ -844,9 +848,14 @@ var MasterViewModel = function(data) {
 
       self.IsShowMoreButton(true);
       getLunarYearTag();
-      var tra_cuu = 'Giờ: ' + hoursRange[self.Hour_master()].value + ', Ngày ' + selectedDate.getDate()+' - Tháng '+selectedDate.getMonth() + ' - Năm '+selectedDate.getFullYear();
-      var ket_qua = 'Giờ: ' + self.HourCanchi_master()+', Ngày '+self.DayCanchi_master()+ ' - Tháng '+self.MonthCanchi_master()+' - Năm '+self.YearCanchi_master()+'. Cung phi đối với nam: '+self.CungphiNam_master()+', Cung phi đối với nữ: '+self.CungphiNu_master();
-      saveLichSuTraCuu(tra_cuu,ket_qua);
+
+      tra_cuu_master = 'Giờ: ' + hoursRange[self.Hour_master()].value + ', Ngày ' + selectedDate.getDate()+' - Tháng '+selectedDate.getMonth() + ' - Năm '+selectedDate.getFullYear();
+      ket_qua_master = 'Giờ: ' + self.HourCanchi_master()+', Ngày '+self.DayCanchi_master()+ ' - Tháng '+self.MonthCanchi_master()+' - Năm '+self.YearCanchi_master()+'. Cung phi đối với nam: '+self.CungphiNam_master()+', Cung phi đối với nữ: '+self.CungphiNu_master();
+      //saveLichSuTraCuu(tra_cuu,ket_qua);
+
+      self.IsShowRegister_master(false);
+      self.IsShowLogin_master(false);
+      self.IsSaveKQTraCuu_master(false);
     }
   };
 
@@ -865,7 +874,7 @@ var MasterViewModel = function(data) {
           ket_qua: ket_qua,
         },
         success: function(response) {
-
+            alertify.success('<i class="fa fa-bell" aria-hidden="true"></i><strong> Đã lưu thông tin tư vấn</strong>');
         },
         error: function(xhr, error) {
 
@@ -885,9 +894,20 @@ var MasterViewModel = function(data) {
   self.IsShowLogin_master = ko.observable(false);
 
   self.TuVanButton = function() {
+    self.IsSaveKQTraCuu_master(false);
     if (data.CurrentUser) {
       var win = window.open("https://www.facebook.com/messages/t/SagittB", '_blank');
       win.focus();
+    } else {
+      self.IsShowRegister_master(true);
+      self.IsShowLogin_master(false);
+    }
+  }
+
+  self.SaveKQTraCuu = function() {
+    self.IsSaveKQTraCuu_master(true);
+    if (data.CurrentUser) {
+      saveLichSuTraCuu(tra_cuu_master, ket_qua_master);
     } else {
       self.IsShowRegister_master(true);
       self.IsShowLogin_master(false);
@@ -906,12 +926,16 @@ var MasterViewModel = function(data) {
 
   self.createUser_master_tuvan = function() {
     self.createUser_master();
-    setTimeout(function() {
-      if (self.NotifyCreateUserSuccess_master()) {
-        var win = window.open("https://www.facebook.com/messages/t/SagittB", '_blank');
-        win.focus();
-      }
-    }, 3000)
+    if(self.IsSaveKQTraCuu_master()==false){
+      setTimeout(function() {
+        if (self.NotifyCreateUserSuccess_master()) {
+          var win = window.open("https://www.facebook.com/messages/t/SagittB", '_blank');
+          win.focus();
+        }
+      }, 3000)
+    }else{
+      saveLichSuTraCuu(tra_cuu_master, ket_qua_master)
+    }
   }
 
   self.login_master_tuvan = function() {
@@ -941,11 +965,18 @@ var MasterViewModel = function(data) {
       },
       success: function(response) {
         if (response.IsSuccess == true) {
-          setTimeout(function() {
-            location.reload();
-            var win = window.open("https://www.facebook.com/messages/t/SagittB", '_blank');
-            win.focus();
-          }, 3000)
+            if(self.IsSaveKQTraCuu_master()==false){
+              setTimeout(function() {
+                location.reload();
+                var win = window.open("https://www.facebook.com/messages/t/SagittB", '_blank');
+                win.focus();
+              }, 3000)
+            }else {
+              saveLichSuTraCuu(tra_cuu_master, ket_qua_master);
+              setTimeout(function() {
+                location.reload();
+              }, 3000)
+            }
         } else if (response.IsSuccess == false) {
           self.NotifyErrors_master.push('Email hoặc mật khẩu không chính xác');
         }

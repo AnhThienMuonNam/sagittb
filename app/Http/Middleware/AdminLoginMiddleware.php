@@ -16,18 +16,14 @@ class AdminLoginMiddleware
      */
     public function handle($request, Closure $next)
     {
-        if(Auth::check())
-        {
-            if(Auth::user()->is_admin == true && Auth::user()->is_get_otp == true)
+        if (Auth::check()) {
+            if (Auth::user()->is_admin == true && Auth::user()->is_get_otp == true)
                 return $next($request);
-            else
-            {
+            else {
                 Auth::logout();
                 return redirect('admin/login');
             }
-        }
-        else
-        {
+        } else {
             return redirect('admin/login');
         }
     }

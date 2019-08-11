@@ -73,7 +73,7 @@
                         <div class="col-sm-1">
                           <select class="form-control" data-bind="options: Hours, value: HourOb">
                           </select>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </div>
+                        </div>
                         <div class="col-sm-1">
                           <select class="form-control" data-bind="options: Minutes, value: MinuteOb">
                           </select>
@@ -105,12 +105,11 @@
                         <div class="col-sm-10">
                             <select class="form-control" data-bind="options: Cities, optionsText: 'name', optionsValue: 'id', value: CityId, optionsCaption: 'Tỉnh/Thành phố'">
                             </select>
-                            <!-- <input type="text" class="form-control" placeholder="Số nhà, tên đường, quận/huyện"  data-bind="value: CityId"> -->
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-10">
-                            <button type="button" class="btn btn-default" style="color: black; border-radius: 8px;" data-bind="click: openPopupGetOTPForUpdateInfo">Cập Nhật</button>
+                            <button type="button" class="btn btn-default" style="color: black; border-radius: 8px;" data-bind="click: updateUser">Cập Nhật</button>
                         </div>
                     </div>
               </div>
@@ -145,7 +144,7 @@
 
                         <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-10">
-                                <button type="button" class="btn btn-default" style="color: black; border-radius: 8px;"  data-bind="click: openPopupGetOTPForChangePassword">Đổi mật khẩu</button>
+                                <button type="button" class="btn btn-default" style="color: black; border-radius: 8px;"  data-bind="click: changePassword">Đổi mật khẩu</button>
                             </div>
                         </div>
 
@@ -155,24 +154,25 @@
           <div class="clearfix"></div>
           <div class="panel panel-default">
             <div class="panel-heading panel-bg" role="tab" id="headingThree" style="border-radius: 10px">
-              <h4 class="panel-title"> <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">Lịch sử tra cứu tư vấn</a> </h4>
+              <h4 class="panel-title"> <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">Lịch sử tư vấn</a> </h4>
             </div>
             <div id="collapseThree" style="width: 100%;" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
               <div class="panel-body form-horizontal" style="border-radius: 10px">
                 <div class="table-responsive table-none wow fadeIn">
                   <table class="table checkout-table">
                     <tr class="table-h">
-                      <td>Thời gian</td>
-                      <td>Thời gian sinh</td>
+                      <td style="min-width: 150px;">Tra cứu</td>
                       <td>Kết quả</td>
+                      <td>Tư vấn</td>
                     </tr>
                     <!-- ko foreach: Lichsu_TraCuus -->
                     <tr>
-                      <td class="product-name"><span data-bind="text: created_at">
+                      <td style="min-width: 150px;">
+                        <span data-bind="text: tra_cuu">
                       </span></td>
-                      <td class="product-name"><span data-bind="text: tra_cuu">
+                      <td><span data-bind="text: ket_qua">
                       </span></td>
-                      <td class="product-name"><span data-bind="text: ket_qua">
+                      <td><span data-bind="text: admin_result">
                       </span></td>
                     </tr>
                     <!-- /ko -->
@@ -192,48 +192,6 @@
   </div>
   <div class="clearfix"></div>
 
-
-  <div class="modal fade" id="modalGetOTPCodePageProfile" tabindex="-1" role="dialog"  aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content" style="height: auto;">
-        <!-- Modal Header -->
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-          <h4 class="modal-title">Xác nhận thay đổi thông tin</h4>
-        </div>
-        <!-- Modal Body -->
-        <div class="modal-body">
-          <form class="form-horizontal">
-              <!-- ko if: SuccessNotifyForPopup -->
-              <div class="alert alert-success" data-bind="text: SuccessNotifyForPopup">
-              </div>
-              <!-- /ko -->
-              <div class="form-group">
-                <div class="col-sm-12">
-                  <p><a href="#" data-bind="click: GetOTP" >Click để lấy mã xác thực</a></p>
-                </div>
-              </div>
-            <div class="form-group">
-              <div class="col-sm-12">
-                <input type="text" class="form-control" placeholder="Mã xác thực" data-bind="value: OTPCode"/>
-              </div>
-            </div>
-
-            <div class="form-group">
-              <div class="col-sm-12">
-                <button type="button" class="btn btn-default button-1" data-bind="click: UpdateUserCommon">Thay đổi</button>
-              </div>
-            </div>
-
-          </form>
-        </div>
-        <!-- Modal Footer -->
-      </div>
-    </div>
-  </div>
-
-
-
 </div>
 <!--container-->
 <div class="clearfix"></div>
@@ -244,19 +202,15 @@
 <script src="{{asset('page_asset/page-user-profile.js')}}"></script>
  <script type="text/javascript">
      $(document).ready(function() {
-
-
       var data = {};
       var options = {};
       data.User = <?php echo json_encode($User); ?>;
       data.Cities = <?php echo json_encode($Cities); ?>;
 
-
       options.ImagePath = <?php echo json_encode(asset('/images')); ?>;
       options.PublicPath = <?php echo json_encode(url('')); ?>;
       options.UpdateUser = <?php echo json_encode(url('user/updateUser')); ?>;
       options.ChangePassWord = <?php echo json_encode(url('user/changePassWord')); ?>;
-      options.GetOTP = <?php echo json_encode(url('admin/getotp')); ?>;
       data.API_URLs = options;
 
       ko.applyBindings(FormViewModel(data), document.getElementById("page-user-profile"));

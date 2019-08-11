@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -15,6 +16,7 @@
   <!-- iCheck -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
+
 <body class="hold-transition login-page">
   <div class="login-box">
     <div class="login-logo">
@@ -41,7 +43,7 @@
           <input type="email" name="Email" class="form-control" placeholder="Email">
           <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
         </div>
-        
+
         <div class="row">
           <div class="col-xs-12">
             <button type="submit" class="btn btn-primary btn-block btn-flat">Gửi email khôi phục</button>
@@ -56,4 +58,5 @@
   <script src="{{asset('js/jquery.min.js')}}"></script>
   <script src="{{asset('js/bootstrap.min.js')}}"></script>
 </body>
+
 </html>

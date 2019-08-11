@@ -108,7 +108,6 @@ Route::group([ 'prefix' => 'admin', 'middleware'=>'adminLogin' ] , function() {
 			Route::post('editPost', 'SettingController@editCharm');
 			Route::post('delete', 'SettingController@deleteCharm');
 		});
-		Route::get('cleanup', 'SettingController@getCleanup');
 });
 Route::get('/', 'HomeController@page02');
 Route::get('danh-muc/{Alias}/{Id}', 'HomeController@categoryView');

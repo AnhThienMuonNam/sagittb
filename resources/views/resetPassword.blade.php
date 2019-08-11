@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,54 +10,56 @@
   <!-- Bootstrap 3.3.7 -->
   <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}">
   <!-- Font Awesome -->
-    <link rel="stylesheet" href="{{asset('css/font-awesome.min.css')}}">
+  <link rel="stylesheet" href="{{asset('css/font-awesome.min.css')}}">
 
- <link rel="stylesheet" href="{{asset('css/AdminLTE.min.css')}}">
+  <link rel="stylesheet" href="{{asset('css/AdminLTE.min.css')}}">
   <!-- iCheck -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
+
 <body class="hold-transition login-page">
-<div class="login-box">
-  <div class="login-logo">
-    <a href="#">hoamelinh</a>
-  </div>
-  <!-- /.login-logo -->
-  <div class="login-box-body">
-    <p class="login-box-msg">Khôi phục mật khẩu</p>
-    @if(count($errors) > 0)
-    <div class="alert alert-danger">
-      @foreach($errors->all() as $error)
+  <div class="login-box">
+    <div class="login-logo">
+      <a href="#">hoamelinh</a>
+    </div>
+    <!-- /.login-logo -->
+    <div class="login-box-body">
+      <p class="login-box-msg">Khôi phục mật khẩu</p>
+      @if(count($errors) > 0)
+      <div class="alert alert-danger">
+        @foreach($errors->all() as $error)
         {{$error}}<br>
-      @endforeach
-    </div>
-    @endif
+        @endforeach
+      </div>
+      @endif
       @if(session('message'))
-    <div class="alert alert-success">
+      <div class="alert alert-success">
         {{session('message')}}
-    </div>
-    @endif
-    <form role="form" action="{{url('forgot-password/reset/'.$token)}}" method="post">
-       <input type="hidden" id="_token" name="_token" value="{{csrf_token()}}" />
-      <div class="form-group has-feedback">
-        <input type="password" name="Password" class="form-control" placeholder="Mật khẩu mới">
-        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
       </div>
-      <div class="form-group has-feedback">
-        <input type="password" name="Password_confirmation" class="form-control" placeholder="Nhập lại mật khẩu mới">
-        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-      </div>
-      <div class="row">
-        <div class="col-xs-12">
-          <button type="submit" class="btn btn-primary btn-block btn-flat">Thay đổi mật khẩu</button>
+      @endif
+      <form role="form" action="{{url('forgot-password/reset/'.$token)}}" method="post">
+        <input type="hidden" id="_token" name="_token" value="{{csrf_token()}}" />
+        <div class="form-group has-feedback">
+          <input type="password" name="Password" class="form-control" placeholder="Mật khẩu mới">
+          <span class="glyphicon glyphicon-lock form-control-feedback"></span>
         </div>
-      </div>
-    </form>
+        <div class="form-group has-feedback">
+          <input type="password" name="Password_confirmation" class="form-control" placeholder="Nhập lại mật khẩu mới">
+          <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+        </div>
+        <div class="row">
+          <div class="col-xs-12">
+            <button type="submit" class="btn btn-primary btn-block btn-flat">Thay đổi mật khẩu</button>
+          </div>
+        </div>
+      </form>
+    </div>
+    <!-- /.login-box-body -->
   </div>
-  <!-- /.login-box-body -->
-</div>
-<!-- /.login-box -->
-<!-- jQuery 3 -->
-<script src="{{asset('js/jquery.min.js')}}"></script>
-<script src="{{asset('js/bootstrap.min.js')}}"></script>
+  <!-- /.login-box -->
+  <!-- jQuery 3 -->
+  <script src="{{asset('js/jquery.min.js')}}"></script>
+  <script src="{{asset('js/bootstrap.min.js')}}"></script>
 </body>
+
 </html>
