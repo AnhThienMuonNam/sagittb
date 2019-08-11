@@ -85,7 +85,8 @@ Cập nhật tài khoản
                 <i>Trống</i>
                 @endif
                 @foreach($user->lichsu_tracuus as $item)
-                <span>{{$loop->index + 1}}. {{$item->tra_cuu}}</span>
+                <span>{{$loop->index + 1}}. <label>Tra cứu:</label> {{$item->tra_cuu}}</span>
+                <p><label>Kết quả: </label> {{$item->ket_qua}}</p>
                 <textarea class="hidden" name="lichsu_tracuus[{{$loop->index}}][id]">{{$item->id}}</textarea>
                 <textarea class="form-control" name="lichsu_tracuus[{{$loop->index}}][admin_result]" rows="5">{{$item->admin_result}}</textarea>
                 <br />
