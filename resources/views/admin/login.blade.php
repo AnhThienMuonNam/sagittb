@@ -48,13 +48,15 @@
           <input type="password" name="password" class="form-control" placeholder="Mật khẩu" data-bind="value: Password">
           <span class="glyphicon glyphicon-lock form-control-feedback"></span>
         </div>
-        <hr>
+        
+         <!-- <hr>
         <a href="#" data-bind="click: getOTP">Lấy mã xác thực</a>
 
         <div class="form-group has-feedback">
           <input type="text" name="otp" class="form-control" placeholder="Mã xác thực" data-bind="value: OTPCode">
           <span class="glyphicon glyphicons-shield form-control-feedback"></span>
-        </div>
+        </div>   -->
+       
         <div class="row">
           <div class="col-xs-12">
             <button type="button" class="btn btn-primary btn-block btn-flat" data-bind="click: Login">Đăng nhập</button>
@@ -84,8 +86,8 @@
       // data.Users =
       // data.Cities =
       //
-      options.Login = <?php echo json_encode(url('admin/login')); ?>;
-      options.GetOTP = <?php echo json_encode(url('admin/getotp')); ?>;
+      options.Login = <?php echo json_encode(url(config('constants.ADMIN_PREFIX').'/login')); ?>;
+      options.GetOTP = <?php echo json_encode(url(config('constants.ADMIN_PREFIX').'/getotp')); ?>;
 
       data.API_URLs = options;
       ko.applyBindings(new FormViewModel(data));

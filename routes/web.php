@@ -11,104 +11,123 @@
 |
 */
 
-//shop trang suc
-Route::get('admin', 'AdminController@loginView');
-Route::get('admin/login', 'AdminController@loginView');
-Route::post('admin/login','AdminController@login');
-Route::get('admin/logout','AdminController@logout');
+Route::get(config('constants.ADMIN_PREFIX'), 'AdminController@loginView');
+Route::get(config('constants.ADMIN_PREFIX') . '/login', 'AdminController@loginView');
+Route::post(config('constants.ADMIN_PREFIX') . '/login', 'AdminController@login');
+Route::get(config('constants.ADMIN_PREFIX') . '/logout', 'AdminController@logout');
 
-Route::post('admin/getotp','AdminController@getotp');
+Route::post('sa/getotp', 'AdminController@getotp');
 
-Route::group([ 'prefix' => 'admin', 'middleware'=>'adminLogin' ] , function() {
+Route::group(['prefix' => 'sa', 'middleware' => ['adminLogin']], function () {
 	Route::post('uploadImage', 'SettingController@uploadSingleImage');
 	Route::post('deleteImage', 'SettingController@deleteSingleImage');
 
-	Route::get('category', 'AdminController@getAllCategories');
-	Route::group([ 'prefix' => 'category' ] , function() {
-		Route::get('create', 'AdminController@createCategoryView');
-		Route::post('createPost', 'AdminController@createCategory');
+	Route::get('advisory', 'SettingController@getAdvisoryView');
+	Route::post('advisory', 'SettingController@getAdvisoryPost');
 
-		Route::get('edit/{Id}', 'AdminController@editCategoryView');
-		Route::post('editPost', 'AdminController@editCategory');
+	Route::group(['prefix' => 'category'], function () {
+		Route::get('', 'Admin_CategoryController@getAllCategories');
 
-		Route::post('delete', 'AdminController@deleteCategory');
+		Route::get('create', 'Admin_CategoryController@createCategoryView');
+		Route::post('createPost', 'Admin_CategoryController@createCategory');
+
+		Route::get('/{Id}', 'Admin_CategoryController@editCategoryView');
+		Route::post('editPost', 'Admin_CategoryController@editCategory');
+
+		Route::post('delete', 'Admin_CategoryController@deleteCategory');
 	});
 
+	Route::group(['prefix' => 'product'], function () {
+		Route::get('', 'Admin_ProductController@getAllProducts');
 
-	Route::get('product', 'AdminController@getAllProducts');
-	Route::group([ 'prefix' => 'product' ] , function() {
-		Route::get('create', 'AdminController@createProductView');
-		Route::post('createPost', 'AdminController@createProduct');
+		Route::get('create', 'Admin_ProductController@createProductView');
+		Route::post('createPost', 'Admin_ProductController@createProduct');
 
-		Route::get('edit/{Id}', 'AdminController@editProductView');
-		Route::post('editPost', 'AdminController@editProduct');
+		Route::get('/{Id}', 'Admin_ProductController@editProductView');
+		Route::post('editPost', 'Admin_ProductController@editProduct');
 
-		Route::post('delete', 'AdminController@deleteProduct');
-		Route::post('search', 'AdminController@searchProduct');
+		Route::post('delete', 'Admin_ProductController@deleteProduct');
+		Route::post('search', 'Admin_ProductController@searchProduct');
 	});
 
-	Route::get('order', 'AdminController@getAllOrders');
-	Route::group([ 'prefix' => 'order' ] , function() {
-		Route::post('search', 'AdminController@searchOrder');
-		Route::get('detail/{Id}', 'AdminController@orderDetailView');
-		Route::post('edit', 'AdminController@editOrder');
+	Route::group(['prefix' => 'order'], function () {
+		Route::get('', 'Admin_OrderController@getAllOrders');
 
-		Route::post('viewRemindOrder', 'AdminController@viewRemindOrder');
-		Route::post('sendEmailRemindOrder', 'AdminController@sendEmailRemindOrder');
-		Route::post('viewExpiredOrder', 'AdminController@viewExpiredOrder');
+		Route::get('create', 'Admin_OrderController@createOrderView');
+		Route::post('createPost', 'Admin_OrderController@createOrder');
 
-		Route::post('exportOrder', 'AdminController@exportOrder');
+		Route::post('search', 'Admin_OrderController@searchOrder');
+		Route::get('/{Id}', 'Admin_OrderController@orderDetailView');
+		Route::post('edit', 'Admin_OrderController@editOrder');
+
+		Route::post('viewRemindOrder', 'Admin_OrderController@viewRemindOrder');
+		Route::post('sendEmailRemindOrder', 'Admin_OrderController@sendEmailRemindOrder');
+		Route::post('viewExpiredOrder', 'Admin_OrderController@viewExpiredOrder');
+
+		Route::post('exportOrder', 'Admin_OrderController@exportOrder');
 	});
 
-	Route::get('user', 'AdminController@getAllUsers');
-	Route::group([ 'prefix' => 'user' ] , function() {
-		Route::get('edit/{Id}', 'AdminController@editUserView');
-		Route::post('editPost/{Id}', 'AdminController@editUserPost');
+	Route::group(['prefix' => 'account'], function () {
+		Route::get('', 'Admin_AccountController@getAllUsers');
 
-		Route::post('changePasswordPost/{Id}', 'AdminController@changePasswordPost');
-		Route::post('search', 'AdminController@searchUser');
+		Route::get('create', 'Admin_AccountController@createUserView');
+		Route::post('createPost', 'Admin_AccountController@createUser');
+
+		Route::get('/{Id}', 'Admin_AccountController@editUserView');
+		Route::post('editPost', 'Admin_AccountController@editUserPost');
+
+		Route::post('changePasswordPost/{Id}', 'Admin_AccountController@changePasswordPost');
+		Route::post('search', 'Admin_AccountController@searchUser');
 	});
 
-	Route::get('blog', 'AdminController@getAllBlogs');
-	Route::group([ 'prefix' => 'blog' ] , function() {
-		Route::get('create', 'AdminController@createBlogView');
-		Route::post('createPost', 'AdminController@createBlog');
-
-		Route::get('edit/{Id}', 'AdminController@editBlogView');
-		Route::post('editPost', 'AdminController@editBlog');
-
-		Route::post('delete', 'AdminController@deleteBlog');
-
-		Route::post('search', 'AdminController@searchBlog');
+	Route::group(['prefix' => 'permissions'], function () {
+		Route::get('', 'Admin_AccountController@getAllPermissions');
+		Route::post('editPost', 'Admin_AccountController@editPermissionsPost');
 	});
 
-	Route::get('topic', 'AdminController@getAllTopics');
-	Route::group([ 'prefix' => 'topic' ] , function() {
-		Route::get('create', 'AdminController@createTopicView');
-		Route::post('createPost', 'AdminController@createTopic');
+	Route::group(['prefix' => 'blog'], function () {
+		Route::get('', 'Admin_BlogController@getAllBlogs');
 
-		Route::get('edit/{Id}', 'AdminController@editTopicView');
-		Route::post('editPost', 'AdminController@editTopic');
+		Route::get('create', 'Admin_BlogController@createBlogView');
+		Route::post('createPost', 'Admin_BlogController@createBlog');
 
-		Route::post('delete', 'AdminController@deleteTopic');
+		Route::get('/{Id}', 'Admin_BlogController@editBlogView');
+		Route::post('editPost', 'Admin_BlogController@editBlog');
+
+		Route::post('delete', 'Admin_BlogController@deleteBlog');
+
+		Route::post('search', 'Admin_BlogController@searchBlog');
 	});
 
-		Route::get('advisory', 'SettingController@getAdvisoryView');
-		Route::post('advisory', 'SettingController@getAdvisoryPost');
+	Route::group(['prefix' => 'topic'], function () {
+		Route::get('', 'Admin_TopicController@getAllTopics');
 
-		Route::get('piece', 'SettingController@getAllPieces');
-		Route::group([ 'prefix' => 'piece' ] , function() {
-			Route::post('createPost', 'SettingController@createPiece');
-			Route::post('editPost', 'SettingController@editPiece');
-			Route::post('delete', 'SettingController@deletePiece');
-		});
-		Route::get('charm', 'SettingController@getAllCharms');
-		Route::group([ 'prefix' => 'charm' ] , function() {
-			Route::post('createPost', 'SettingController@createCharm');
-			Route::post('editPost', 'SettingController@editCharm');
-			Route::post('delete', 'SettingController@deleteCharm');
-		});
+		Route::get('create', 'Admin_TopicController@createTopicView');
+		Route::post('createPost', 'Admin_TopicController@createTopic');
+
+		Route::get('edit/{Id}', 'Admin_TopicController@editTopicView');
+		Route::post('editPost', 'Admin_TopicController@editTopic');
+
+		Route::post('delete', 'Admin_TopicController@deleteTopic');
+	});
+
+	Route::group(['prefix' => 'piece'], function () {
+		Route::get('', 'SettingController@getAllPieces');
+
+		Route::post('createPost', 'SettingController@createPiece');
+		Route::post('editPost', 'SettingController@editPiece');
+		Route::post('delete', 'SettingController@deletePiece');
+	});
+
+	Route::group(['prefix' => 'charm'], function () {
+		Route::get('', 'SettingController@getAllCharms');
+
+		Route::post('createPost', 'SettingController@createCharm');
+		Route::post('editPost', 'SettingController@editCharm');
+		Route::post('delete', 'SettingController@deleteCharm');
+	});
 });
+
 Route::get('/', 'HomeController@page02');
 Route::get('danh-muc/{Alias}/{Id}', 'HomeController@categoryView');
 
@@ -128,18 +147,18 @@ Route::post('removeItem', 'HomeController@removeItem');
 Route::post('login', 'HomeController@loginPage');
 Route::post('logout', 'HomeController@logoutPage');
 Route::post('createUser', 'UserController@createUser');
-Route::post('sendEmailResetPassword','UserController@sendEmailResetPassword');
-Route::post('saveLichSuTraCuu','UserController@saveLichSuTraCuu');
+Route::post('sendEmailResetPassword', 'UserController@sendEmailResetPassword');
+Route::post('saveLichSuTraCuu', 'UserController@saveLichSuTraCuu');
 
-Route::get('reset-password/{token}','UserController@resetPasswordPageGet');
-Route::post('resetPasswordPagePost','UserController@resetPasswordPagePost');
+Route::get('reset-password/{token}', 'UserController@resetPasswordPageGet');
+Route::post('resetPasswordPagePost', 'UserController@resetPasswordPagePost');
 
 Route::post('addToWishList', 'HomeController@addToWishList');
 
 Route::post('getPhongThuy', 'HomeController@getPhongThuy');
 
 Route::get('user', 'UserController@getAll');
-Route::group([ 'prefix' => 'user' ] , function() {
+Route::group(['prefix' => 'user'], function () {
 	Route::get('orders', 'UserController@ordersView');
 	Route::post('getOrders', 'UserController@getOrders');
 	Route::get('order-detail/{orderId}', 'UserController@getOrderDetail');
@@ -149,23 +168,12 @@ Route::group([ 'prefix' => 'user' ] , function() {
 	Route::get('profile', 'UserController@getProfile');
 	Route::post('updateUser', 'UserController@updateUser');
 	Route::post('changePassWord', 'UserController@changePassWord');
-
-
-
-	// Route::post('create', 'UserController@create');
-
-	// Route::get('edit/{Id}', 'UserController@editView');
-	// Route::post('edit/{Id}', 'UserController@edit');
-
-	// Route::post('changePassWordAdmin/{Id}', 'UserController@changePassWordAdmin');
-	// Route::post('search', 'UserController@searchUser');
-
 });
 
-Route::get('about-us','IntroController@aboutUs');
-Route::get('shipping-policy','IntroController@shippingPolicy');
-Route::get('guarantee-policy','IntroController@guaranteePolicy');
-Route::get('jewellery-care','IntroController@jewelleryCare');
+Route::get('about-us', 'IntroController@aboutUs');
+Route::get('shipping-policy', 'IntroController@shippingPolicy');
+Route::get('guarantee-policy', 'IntroController@guaranteePolicy');
+Route::get('jewellery-care', 'IntroController@jewelleryCare');
 
 Route::get('order/{orderCode}', 'UserController@getOrderDetailByCode');
 

@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Support\Facades\Auth;
 
-class AdminLoginMiddleware
+class OwnerMiddleware
 {
     /**
      * Handle an incoming request.
@@ -17,7 +17,7 @@ class AdminLoginMiddleware
     public function handle($request, Closure $next)
     {
         if (Auth::check()) {
-            if (Auth::user()->is_admin == true || Auth::user()->is_owner == true)
+            if (Auth::user()->is_owner == true)
                 return $next($request);
             else {
                 Auth::logout();

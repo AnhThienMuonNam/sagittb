@@ -53,11 +53,14 @@ var IndexViewModel = function (data) {
             data: {},
             success: function (response) {
                 self.IsShowInstagramLoading(false);
-                self.ObjIns(response.ObjIns);
+                if (response.ObjIns && response.ObjIns.length > 0) {
+                    let result = response.ObjIns.slice(0, 8);
+                    self.ObjIns(result);
+                }
             },
             error: function (xhr, error) {
-
-            }
+                self.IsShowInstagramLoading(false);
+            },
         });
     };
 

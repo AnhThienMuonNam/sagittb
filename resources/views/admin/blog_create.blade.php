@@ -1,23 +1,28 @@
 @extends('admin.layout.header')
 @section('headerTitle')
-Topic
+Bài viết
 @endsection
 
 @section('css')
-
+<link rel="stylesheet" href="{{asset('css/select2.min.css')}}">
+<style type="text/css">
+  .select2-container--default .select2-selection--multiple .select2-selection__choice {
+    background-color: #3c8dbc;
+    border-color: #367fa9;
+    padding: 1px 10px;
+    color: #fff;
+  }
+</style>
 @endsection
 
 @section('content')
+
 <div class="content-wrapper">
-  <section class="content-header">
-    <h1>
-      Topic
-    </h1>
-  </section>
-  <section class="content" data-bind="with: topicModel">
+  <section class="content" data-bind="with: blogModel">
     <div class="row">
       <div class="col-md-12">
         <div class="box box-primary">
+
           <!-- ko if: $root.NotifyErrors -->
           <div class="alert alert-danger">
             <span data-bind="text: $root.NotifyErrors"></span>
@@ -27,20 +32,12 @@ Topic
           <input type="hidden" id="_token" name="_token" value="{{csrf_token()}}" />
           <div class="box-body">
             <div class="form-group">
-              <label for="exampleInputEmail1">Dòng 1</label>
-              <input type="text" class="form-control" data-bind="value: Line1" placeholder="Dòng 1">
+              <label for="exampleInputEmail1">Tên bài viết</label>
+              <input type="text" class="form-control" data-bind="value: Name" placeholder="Tên bài viết">
             </div>
             <div class="form-group">
-              <label for="exampleInputEmail1">Dòng 2</label>
-              <input type="text" class="form-control" data-bind="value: Line2" placeholder="Dòng 2">
-            </div>
-            <div class="form-group">
-              <label for="exampleInputEmail1">Dòng 3</label>
-              <input type="text" class="form-control" data-bind="value: Line3" placeholder="Dòng 3">
-            </div>
-            <div class="form-group">
-              <label for="exampleInputEmail1">Url</label>
-              <input type="text" class="form-control" data-bind="value: Url" placeholder="Url">
+              <label>Mô tả</label>
+              <input type="text" class="form-control" name="Description" placeholder="Mô tả" data-bind="value: Description">
             </div>
 
             <div class="form-group">
@@ -58,6 +55,18 @@ Topic
               <!-- /ko -->
             </div>
 
+            <div class="form-group">
+              <label>Nội dung</label>
+              <textarea id="editor1" name="editor1" rows="10" cols="150"></textarea>
+            </div>
+
+            <div class="form-group">
+              <label>Tags</label>
+              <select id="flowerTags" data-bind="event: { change: changeTag }" class="form-control select2" multiple="multiple" data-placeholder="Thêm Tags cho bài viết" style="width: 100%;">
+              </select>
+              <input type="hidden" name="Tags" data-bind="value: Tags">
+            </div>
+
             <div class="checkbox">
               <label>
                 <input type="checkbox" data-bind="checked: IsActive"> Active
@@ -66,8 +75,8 @@ Topic
 
           </div>
           <div class="box-footer">
-            @if(\AppHelper::instance()->hasPermission('TOPIC_EDIT'))
-            <button type="button" class="btn btn-primary pull-right" data-bind="click: $root.saveTopic">Save</button>
+            @if(\AppHelper::instance()->hasPermission('BLOG_ADD'))
+            <button type="button" class="btn btn-primary pull-right" data-bind="click: $root.saveBlog">Add</button>
             @endif
           </div>
         </div>
@@ -75,25 +84,36 @@ Topic
     </div>
   </section>
 </div>
+
 @endsection
 
 @section('script')
-<script src="{{asset('admin_asset/admin_setting/topic/edit.js')}}"></script>
+<script src="{{asset('js/select2.full.min.js')}}"></script>
+<script src="{{asset('js/ckeditor/ckeditor.js')}}"></script>
+<script src="{{asset('js/ckfinder/ckfinder.js')}}"></script>
+<script src="{{asset('admin_asset/blog_create.js')}}"></script>
 
 <script type="text/javascript">
   $(document).ready(function() {
-    $('#treeTopic').addClass("active");
-
+    $('#treeBlog').addClass("active");
+    document.getElementById("tabBlogCreate").classList.add("active");
+    CKEDITOR.replace('editor1')
+    //Initialize Select2 Elements
     var data = {};
     var options = {};
-    data.Topic = <?php echo json_encode($Topic); ?>;
 
     options.ImagePath = <?php echo json_encode(asset('/images')); ?>;
     options.UploadImage = <?php echo json_encode(url(config('constants.ADMIN_PREFIX') . '/uploadImage')); ?>;
-    options.EditTopic = <?php echo json_encode(url(config('constants.ADMIN_PREFIX') . '/topic/editPost')); ?>;
+    options.CreateBlog = <?php echo json_encode(url(config('constants.ADMIN_PREFIX') . '/blog/createPost')); ?>;
     data.API_URLs = options;
     ko.applyBindings(new FormViewModel(data));
 
+    //Initialize Select2 Elements
+    $('.select2').select2({
+      tags: true,
+      selectOnBlur: true,
+      multiple: true
+    });
   });
 </script>
 

@@ -222,10 +222,10 @@
              <!-- ko foreach: ObjIns -->
              <li class="wow fadeIn">
                <div class="grid">
-                 <figure class="effect-apollo"> <img alt="" style="max-height:280px;" data-bind="attr: { src: $data.images.standard_resolution.url }" />
+                 <figure class="effect-apollo"> <img alt="" style="max-height:280px;" data-bind="attr: { src: $data.media_type ==='IMAGE' ? $data.media_url: $data.thumbnail_url }" />
                    <figcaption>
-                     <p data-bind="text: $data.caption.text"></p>
-                     <a data-bind="attr: { href: $data.link }">View more</a>
+                     <p data-bind="text: $data.caption"></p>
+                     <a data-bind="attr: { href: $data.permalink }">View more</a>
                    </figcaption>
                  </figure>
                </div>

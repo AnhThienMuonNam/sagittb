@@ -33,7 +33,6 @@ class HomeController extends Controller
 {
   private $pageSize = 15;
 
-  //shop trang suc
   public function page02()
   {
     $Topics = Topic::select('line1', 'line2', 'line3', 'image', 'url')
@@ -73,9 +72,9 @@ class HomeController extends Controller
     ]);
   }
 
-  public function getInstagram(Request $request)
+  public function getInstagram()
   {
-    $jsonIns = file_get_contents('https://api.instagram.com/v1/users/self/media/recent/?access_token=2096254071.1febbc9.6ec04b1bc6394da5a549d46265600d62&count=8');
+    $jsonIns = file_get_contents(config('constants.INSTAGRAM_API'));
     $objIns = json_decode($jsonIns);
 
     return response()->json(['ObjIns' => $objIns->data]);
@@ -95,7 +94,6 @@ class HomeController extends Controller
 
     return view('page2.category', ['Category' => $Category, 'Products' => $Products]);
   }
-
 
   public function filterProducts(Request $request)
   {
@@ -144,7 +142,6 @@ class HomeController extends Controller
 
     return response()->json(['MoreProducts' => $MoreProducts]);
   }
-
 
   public function product_detail($Alias, $Id)
   {
@@ -208,7 +205,6 @@ class HomeController extends Controller
 
     return $newCart;
   }
-
 
   function addItem($oldCart, $newItem)
   {
@@ -318,7 +314,6 @@ class HomeController extends Controller
     }
     return 0;
   }
-
 
   function compareSizeHat($oldItem, $newItem)
   {
@@ -602,7 +597,6 @@ class HomeController extends Controller
 
     return view('page2.blog', ['blogs' => $blogs, 'oldBlogs' => $oldBlogs, 'popularPosts' => $popularPosts]);
   }
-
 
   public function blogDetailView($Alias, $Id)
   {

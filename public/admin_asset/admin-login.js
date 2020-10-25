@@ -43,8 +43,8 @@ function FormViewModel(data) {
             type: "POST",
             data: {
                     Email : self.Email(),
-                    Password : self.Password(),
-                    OTPCode : self.OTPCode()
+                    Password : self.Password()
+                   // OTPCode : self.OTPCode()
                     },
             success: function(response){
               self.ErrorNotify('');
